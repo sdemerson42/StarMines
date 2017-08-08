@@ -166,11 +166,13 @@ namespace Concur
 		{
 			ReleaseSRWLockShared(&m_lock);
 		}
+		// Returns a LockWrapper that will release exclusive lock on destruction.
 		LockWrapper<SlimLock> get()
 		{
 			enter();
 			return LockWrapper<SlimLock>{*this, &SlimLock::exit};
 		}
+		// Returns a LockWrapper that will release shared lock on destruction.
 		LockWrapper<SlimLock> getShared()
 		{
 			enterShared();
