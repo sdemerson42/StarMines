@@ -158,6 +158,8 @@
     <ClInclude Include="AutoList.h" />
     <ClInclude Include="Concur.h" />
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="IComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
