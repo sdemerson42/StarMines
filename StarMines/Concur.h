@@ -28,10 +28,7 @@ namespace Concur
 		{}
 		Handle &operator=(Handle &&other) noexcept
 		{
-			if (this != &other)
-			{
-				reset(other.release());
-			}
+			reset(other.release());	
 			return *this;
 		}
 
@@ -81,17 +78,7 @@ namespace Concur
 		};
 	}
 
-	// packHandles - Function that fills a dynamic array of HANDLEs.
-	// Used by waitMultiple and should not be called directly.
-	template<typename ...Args>
-	void packHandles(HANDLE *left, const Handle &right, const Args &...args)
-	{
-		*left = right.get();
-		packHandles(++left, args...);
-	}
-
-	void packHandles(HANDLE *)
-	{}
+	
 
 	// waitMultiple - Helper function that halts execution on the current
 	// thread until argument threads have exited. Takes any number of
@@ -100,8 +87,7 @@ namespace Concur
 	void waitMultiple(const Args &...args)
 	{
 		constexpr unsigned sz = sizeof...(Args);
-		HANDLE p[sz];
-		packHandles(p, args...);
+		HANDLE p[sz]{ args.get()... };
 		WaitForMultipleObjects(sz, p, true, INFINITE);
 	}
 
@@ -127,12 +113,7 @@ namespace Concur
 		{
 			other.m_action = nullptr;
 		}
-		LockWrapper &operator=(LockWrapper &&other) noexcept
-		{
-			m_lock = other.m_lock;
-			m_action = other.m_action;
-			other.m_action = nullptr;
-		}
+		LockWrapper &operator=(LockWrapper &&other) = delete;
 	private:
 		T &m_lock;
 		Action m_action;
