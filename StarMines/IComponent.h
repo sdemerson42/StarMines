@@ -2,8 +2,9 @@
 
 #include <vector>
 #include <string>
+#include "Serializable.h"
 
-class IComponent
+class IComponent : public Serializable
 {
 public:
 	virtual ~IComponent()

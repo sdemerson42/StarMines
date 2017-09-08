@@ -8,15 +8,7 @@
 
 #include "IComponent.h"
 
-struct Position
-{
-	Position() {}
-	Position(float _x, float _y) noexcept :
-	x{ _x }, y{ _y }
-	{}
-	float x{};
-	float y{};
-};
+
 
 // Entity - Main game object class. Contains position state and
 // a vector of components that define behavoir.
@@ -25,6 +17,16 @@ class Entity
 public:
 	Entity() = default;
 	~Entity() = default;
+
+	struct Position
+	{
+		Position() {}
+		Position(float _x, float _y) noexcept :
+		x{ _x }, y{ _y }
+		{}
+		float x{};
+		float y{};
+	};
 
 	template<typename C>
 	void addComponent()
