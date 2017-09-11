@@ -4,10 +4,8 @@
 #include <memory>
 #include <algorithm>
 #include <typeindex>
-#include "SFML\Graphics.hpp"
-
 #include "IComponent.h"
-
+#include "Vector2.h"
 
 
 // Entity - Main game object class. Contains position state and
@@ -17,16 +15,6 @@ class Entity
 public:
 	Entity() = default;
 	~Entity() = default;
-
-	struct Position
-	{
-		Position() {}
-		Position(float _x, float _y) noexcept :
-		x{ _x }, y{ _y }
-		{}
-		float x{};
-		float y{};
-	};
 
 	template<typename C>
 	void addComponent()
@@ -63,12 +51,12 @@ public:
 		m_position.x += x;
 		m_position.y += y;
 	}
-	const Position &getPosition() const
+	const Vector2 &getPosition() const
 	{
 		return m_position;
 	}
 private:
 	std::vector<std::shared_ptr<IComponent>> m_component;
-	Position m_position;
+	Vector2 m_position;
 };
 
