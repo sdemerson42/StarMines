@@ -152,6 +152,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IComponent.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="_Main.cpp" />
   </ItemGroup>

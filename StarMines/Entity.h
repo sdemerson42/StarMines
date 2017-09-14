@@ -9,7 +9,7 @@
 
 
 // Entity - Main game object class. Contains position state and
-// a vector of components that define behavoir.
+// a vector of components that define behavior.
 class Entity
 {
 public:
@@ -22,12 +22,11 @@ public:
 		m_component.emplace_back(std::make_shared<C>());
 	}
 
-	template<typename C>
-	void addComponent(const std::vector<std::string> &args)
+	template<typename C, typename ...CArgs>
+	C *addComponent(CArgs ...cArgs)
 	{
-		m_component.emplace_back(std::make_shared<C>());
-		auto p = end(m_component) - 1;
-		p->get()->initialize(args);
+		m_component.emplace_back(std::make_shared<C>(cArgs...));
+		return static_cast<C *>(m_component[m_component.size() - 1].get());
 	}
 	template<typename C>
 	C* getComponent()
@@ -51,7 +50,7 @@ public:
 		m_position.x += x;
 		m_position.y += y;
 	}
-	const Vector2 &getPosition() const
+	const Vector2 &position() const
 	{
 		return m_position;
 	}

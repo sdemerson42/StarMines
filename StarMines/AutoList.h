@@ -30,7 +30,7 @@ public:
 	}
 	static unsigned size()
 	{
-		return m_ref.size();
+		return m_refs.size();
 	}
 private:
 	static vector<T*> m_refs;
