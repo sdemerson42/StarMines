@@ -11,10 +11,18 @@ class RenderComponent : public IComponent, public AutoList<RenderComponent>
 public:
 	RenderComponent(Entity *parent) :
 		IComponent{ parent }
-	{}
+	{
+		initSerial(&m_textureName, Serializable::Type::STRING,
+			&m_position.x, Serializable::Type::FLOAT,
+			&m_position.y, Serializable::Type::FLOAT,
+			&m_size.x, Serializable::Type::FLOAT,
+			&m_size.y, Serializable::Type::FLOAT);
+	}
 	void initialize(const std::vector<std::string> &input) override
 	{
-
+		readSerial(input);
+		setWinLayer(WindowLayer::MAIN);
+		setSceneLayer(SceneLayer::ACTOR);
 	}
 	enum class WindowLayer
 	{
@@ -29,10 +37,19 @@ public:
 	{
 		return m_winLayer;
 	}
+	void setWinLayer(WindowLayer layer)
+	{
+		m_winLayer = layer;
+	}
 	SceneLayer sceneLayer() const
 	{
 		return m_sceneLayer;
 	}
+	void setSceneLayer(SceneLayer layer)
+	{
+		m_sceneLayer = layer;
+	}
+	
 	std::string texName() const
 	{
 		return m_textureName;
@@ -45,7 +62,7 @@ public:
 	{
 		return m_size;
 	}
-//private:
+private:
 	WindowLayer m_winLayer;
 	SceneLayer m_sceneLayer;
 	std::string m_textureName;

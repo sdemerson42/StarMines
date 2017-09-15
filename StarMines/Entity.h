@@ -16,11 +16,11 @@ public:
 	Entity() = default;
 	~Entity() = default;
 
-	template<typename C>
+	/*template<typename C>
 	void addComponent()
 	{
 		m_component.emplace_back(std::make_shared<C>());
-	}
+	}*/
 
 	template<typename C, typename ...CArgs>
 	C *addComponent(CArgs ...cArgs)
@@ -29,7 +29,7 @@ public:
 		return static_cast<C *>(m_component[m_component.size() - 1].get());
 	}
 	template<typename C>
-	C* getComponent()
+	C *getComponent()
 	{
 		auto p = std::find_if(begin(m_component), end(m_component), [] (auto &sp)
 		{
@@ -38,6 +38,10 @@ public:
 		});
 		if (p == end(m_component)) return nullptr;
 		return static_cast<C*>(p->get());
+	}
+	void initComponent(IComponent *c, const std::vector<std::string> &args)
+	{
+		c->initialize(args);
 	}
 
 	void setPosition(float x, float y)
