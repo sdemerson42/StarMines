@@ -1,48 +1,24 @@
 #pragma once
 
 #include <vector>
-#include <memory>
-#include <algorithm>
-#include <typeindex>
 #include "IComponent.h"
 #include "Vector2.h"
 
+class ComponentManager;
 
 // Entity - Main game object class. Contains position state and
 // a vector of components that define behavior.
 class Entity
 {
+	friend class ComponentManager;
 public:
 	Entity() = default;
 	~Entity() = default;
 
-	/*template<typename C>
-	void addComponent()
-	{
-		m_component.emplace_back(std::make_shared<C>());
-	}*/
+	// Component Reference interface
 
-	template<typename C, typename ...CArgs>
-	C *addComponent(CArgs ...cArgs)
-	{
-		m_component.emplace_back(std::make_shared<C>(cArgs...));
-		return static_cast<C *>(m_component[m_component.size() - 1].get());
-	}
-	template<typename C>
-	C *getComponent()
-	{
-		auto p = std::find_if(begin(m_component), end(m_component), [] (auto &sp)
-		{
-			auto ti = std::type_index(typeid(*sp.get()));
-			return ti == std::type_index(typeid(C));
-		});
-		if (p == end(m_component)) return nullptr;
-		return static_cast<C*>(p->get());
-	}
-	void initComponent(IComponent *c, const std::vector<std::string> &args)
-	{
-		c->initialize(args);
-	}
+
+	// Position interface
 
 	void setPosition(float x, float y)
 	{
@@ -59,7 +35,7 @@ public:
 		return m_position;
 	}
 private:
-	std::vector<std::shared_ptr<IComponent>> m_component;
+	std::vector<IComponent *> m_compRef;
 	Vector2 m_position;
 };
 

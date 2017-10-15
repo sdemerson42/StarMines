@@ -9,10 +9,14 @@ class Entity;
 class IComponent : public Serializable
 {
 public:
+	IComponent() : m_parent{ nullptr }
+	{}
 	IComponent(Entity *parent);
 	virtual ~IComponent()
 	{}
 	virtual void initialize(const std::vector<std::string> &input)
+	{}
+	virtual void writeOut(std::vector<std::string> &output)
 	{}
 
 	bool active() const
@@ -22,6 +26,10 @@ public:
 	void setActive(bool b)
 	{
 		m_active = b;
+	}
+	void setParent(Entity *parent)
+	{
+		m_parent = parent;
 	}
 	Entity *parent();
 private:

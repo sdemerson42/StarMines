@@ -9,20 +9,28 @@
 class RenderComponent : public IComponent, public AutoList<RenderComponent>
 {
 public:
-	RenderComponent(Entity *parent) :
-		IComponent{ parent }
+	RenderComponent()
+	{
+	}
+	void initialize(const std::vector<std::string> &input) override
 	{
 		initSerial(&m_textureName, Serializable::Type::STRING,
 			&m_position.x, Serializable::Type::FLOAT,
 			&m_position.y, Serializable::Type::FLOAT,
 			&m_size.x, Serializable::Type::FLOAT,
 			&m_size.y, Serializable::Type::FLOAT);
-	}
-	void initialize(const std::vector<std::string> &input) override
-	{
 		readSerial(input);
 		setWinLayer(WindowLayer::MAIN);
 		setSceneLayer(SceneLayer::ACTOR);
+	}
+	void writeOut(std::vector<std::string> &output) override
+	{
+		initSerial(&m_textureName, Serializable::Type::STRING,
+			&m_position.x, Serializable::Type::FLOAT,
+			&m_position.y, Serializable::Type::FLOAT,
+			&m_size.x, Serializable::Type::FLOAT,
+			&m_size.y, Serializable::Type::FLOAT);
+		writeSerial(output);
 	}
 	enum class WindowLayer
 	{

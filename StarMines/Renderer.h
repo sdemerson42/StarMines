@@ -1,21 +1,23 @@
 #pragma once
 
+#include "ISystem.h"
+
 #include "SFML/Graphics.hpp"
 #include <vector>
 #include <map>
 
 class RenderComponent;
 
-class Renderer
+class Renderer : ISystem
 {
 public:
-	Renderer(sf::RenderWindow &rw) :
-		m_window{ rw }
+	Renderer(ComponentManager *cm, sf::RenderWindow &rw) :
+		ISystem{ cm }, m_window { rw }
 	{}
 	void update();
 private:
 	void fillDrawLayer();
-	void addQuad(RenderComponent *rc);
+	void addQuad(RenderComponent &rc);
 	void render();
 	struct DrawLayer
 	{

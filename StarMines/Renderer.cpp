@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
 #include "Entity.h"
+#include "ComponentManager.h"
 
 void Renderer::update()
 {
@@ -12,35 +13,28 @@ void Renderer::fillDrawLayer()
 {
 	m_drawLayer.clear();
 	m_drawLayer.resize(int(RenderComponent::SceneLayer::_SIZE) * int(RenderComponent::WindowLayer::_SIZE));
-	auto sz = AutoList<RenderComponent>::size();
-	for (unsigned i = 0; i < sz; ++i)
-	{
-		auto rcp = AutoList<RenderComponent>::get(i);
-		addQuad(rcp);
-	}
+	for (int i = 0; i < m_compManager->m_renderSz; ++i)
+		addQuad(m_compManager->m_render[i]);
 }
 
-void Renderer::addQuad(RenderComponent *rc)
+void Renderer::addQuad(RenderComponent &rc)
 {
-	if (!rc->active())
-		return;
-
-	int index = int(rc->winLayer()) * int(RenderComponent::SceneLayer::_SIZE) + int(rc->sceneLayer());
+	int index = int(rc.winLayer()) * int(RenderComponent::SceneLayer::_SIZE) + int(rc.sceneLayer());
 	auto &map = m_drawLayer[index].vaMap;
-	auto va = map.find(rc->texName());
+	auto va = map.find(rc.texName());
 	if (va == end(map))
 	{
-		map[rc->texName()] = sf::VertexArray{};
-		va = map.find(rc->texName());
+		map[rc.texName()] = sf::VertexArray{};
+		va = map.find(rc.texName());
 		va->second.setPrimitiveType(sf::Quads);
 	}
 
-	float tx = rc->position().x;
-	float ty = rc->position().y;
-	float w = rc->size().x;
-	float h = rc->size().y;
-	float x = rc->parent()->position().x;
-	float y = rc->parent()->position().y;
+	float tx = rc.position().x;
+	float ty = rc.position().y;
+	float w = rc.size().x;
+	float h = rc.size().y;
+	float x = rc.parent()->position().x;
+	float y = rc.parent()->position().y;
 
 	va->second.append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
 	va->second.append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));

@@ -17,14 +17,20 @@ protected:
 		INT, FLOAT, BOOL, STRING
 	};
 	template<typename ...Args>
-	void initSerial(void *member, Type type, Args ...args)
+	void initSerial(void *member, Args ...args)
+	{
+		m_memberTable.clear();
+		addMembers(member, args...);
+	}
+private:
+	template<typename ...Args>
+	void addMembers(void *member, Type type, Args ...args)
 	{
 		m_memberTable.emplace_back(std::make_pair<void *, Type>(move(member), move(type)));
-		initSerial(args...);
+		addMembers(args...);
 	}
-	void initSerial()
+	void addMembers()
 	{}
-private:
 	std::vector<std::pair<void *, Type>> m_memberTable;
 	bool stob(const std::string &s);
 };

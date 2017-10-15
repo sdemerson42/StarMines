@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Serializable.cpp" />
@@ -159,10 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoList.h" />
+    <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Concur.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="IComponent.h" />
+    <ClInclude Include="ISystem.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
