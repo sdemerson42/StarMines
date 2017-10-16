@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <typeindex>
+#include <algorithm>
 #include "IComponent.h"
 #include "Vector2.h"
 
@@ -17,6 +19,18 @@ public:
 
 	// Component Reference interface
 
+	template<typename T>
+	T *getComponent()
+	{
+		std::type_index ti{ typeid(T) };
+		auto p = std::find_if(begin(m_compRef), end(m_compRef), [&](auto cp)
+		{
+			return std::type_index{ typeid(*cp) } == ti;
+		});
+		if (p != end(m_compRef))
+			return static_cast<T*>(*p);
+		return nullptr;
+	}
 
 	// Position interface
 
