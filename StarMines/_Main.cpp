@@ -16,7 +16,6 @@ int main()
 			if (evnt.type == sf::Event::Closed)
 				window.close();
 		}
-	
 	}
 
 	_getch();

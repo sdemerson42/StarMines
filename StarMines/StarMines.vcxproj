@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="IComponent.cpp" />
+    <ClCompile Include="ReadData.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="_Main.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="ISystem.h" />
+    <ClInclude Include="ReadData.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
