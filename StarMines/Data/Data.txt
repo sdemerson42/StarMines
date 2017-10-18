@@ -1,1 +1,1 @@
-sprites\robot.gif 0 0 30 30
+sprites\player.png 0 0 32 32
