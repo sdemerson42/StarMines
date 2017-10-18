@@ -1,2 +1,1 @@
-sprites\moonscape.gif 0 0 800 600 *
 sprites\robot.gif 0 0 30 30

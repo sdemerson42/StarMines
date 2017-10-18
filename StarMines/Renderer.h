@@ -8,13 +8,13 @@
 
 class RenderComponent;
 
-class Renderer : ISystem
+class Renderer : public ISystem
 {
 public:
 	Renderer(ComponentManager *cm, sf::RenderWindow &rw) :
 		ISystem{ cm }, m_window { rw }
 	{}
-	void update();
+	void update() override;
 private:
 	void fillDrawLayer();
 	void addQuad(RenderComponent &rc);

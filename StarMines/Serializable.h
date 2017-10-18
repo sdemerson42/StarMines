@@ -26,7 +26,7 @@ private:
 	template<typename ...Args>
 	void addMembers(void *member, Type type, Args ...args)
 	{
-		m_memberTable.emplace_back(std::make_pair<void *, Type>(move(member), move(type)));
+		m_memberTable.emplace_back(std::make_pair<void *, Type>(std::move(member), std::move(type)));
 		addMembers(args...);
 	}
 	void addMembers()

@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="ReadData.cpp" />
@@ -160,6 +161,8 @@
     <ClCompile Include="_Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="AutoList.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Concur.h" />

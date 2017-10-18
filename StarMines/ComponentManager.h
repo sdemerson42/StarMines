@@ -5,21 +5,26 @@
 #include <algorithm>
 #include <typeindex>
 #include "RenderComponent.h"
+#include "AnimationComponent.h"
 
 #include "Entity.h"
 
 class ComponentManager
 {
 	friend class Renderer;
+	friend class Animator;
 public:
 	void addComponent(Entity *e, const std::string &tag, const std::vector<std::string> &initArgs);
-	void deactivateComponent(Entity *e, const::string &tag);
-	void activateComponent(Entity *e, const::string &tag);
-	void removeComponent(Entity *e, const::string &tag);
+	void deactivateComponent(Entity *e, const std::string &tag);
+	void activateComponent(Entity *e, const std::string &tag);
+	void removeComponent(Entity *e, const std::string &tag);
 private:	
 	static constexpr int MAX_COMPONENTS = 5000;
+	
 	std::vector<RenderComponent> m_render{ MAX_COMPONENTS };
 	int m_renderSz{ 0 };
+	std::vector<AnimationComponent> m_anim{ MAX_COMPONENTS };
+	int m_animSz{ 0 };
 
 	template<typename T>
 	void genAddComponent(Entity *e, const std::vector<std::string> &initArgs, std::vector<T> &v, int &sz);
@@ -49,7 +54,7 @@ void ComponentManager::genDeactivateComponent(Entity *e, std::vector<T> &v, int 
 	std::type_index ti{ typeid(T) };
 	auto ecp = std::find_if(begin(e->m_compRef), end(e->m_compRef), [&](IComponent *p)
 	{
-		return type_index{ typeid(*p) } == ti;
+		return std::type_index{ typeid(*p) } == ti;
 	});
 
 	if (ecp != end(e->m_compRef))
@@ -78,7 +83,7 @@ void ComponentManager::genActivateComponent(Entity *e, std::vector<T> &v, int &s
 	std::type_index ti{ typeid(T) };
 	auto ecp = std::find_if(begin(e->m_compRef), end(e->m_compRef), [&](IComponent *p)
 	{
-		return type_index{ typeid(*p) } == ti;
+		return std::type_index{ typeid(*p) } == ti;
 	});
 
 	if (ecp != end(e->m_compRef))
@@ -111,7 +116,7 @@ void ComponentManager::genRemoveComponent(Entity *e, std::vector<T> &v, int &sz)
 	std::type_index ti{ typeid(T) };
 	auto ecp = std::find_if(begin(e->m_compRef), end(e->m_compRef), [&](IComponent *p)
 	{
-		return type_index{ typeid(*p) } == ti;
+		return std::type_index{ typeid(*p) } == ti;
 	});
 
 	if (ecp != end(e->m_compRef))

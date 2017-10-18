@@ -1,13 +1,13 @@
 #pragma once
 
 #include "IComponent.h"
-#include "AutoList.h"
 #include <string>
 #include "Vector2.h"
 #include "Entity.h"
 
-class RenderComponent : public IComponent, public AutoList<RenderComponent>
+class RenderComponent : public IComponent
 {
+	friend class Animator;
 public:
 	RenderComponent()
 	{
