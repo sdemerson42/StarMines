@@ -4,10 +4,11 @@
 #include "SFML\Graphics.hpp"
 
 
-
 int main()
 {
 	sf::RenderWindow window{ sf::VideoMode{800, 600}, "Window" };
+
+	sf::Clock clock;
 
 	while (window.isOpen())
 	{
@@ -16,6 +17,10 @@ int main()
 		{
 			if (evnt.type == sf::Event::Closed)
 				window.close();
+		}
+		if (clock.getElapsedTime().asMilliseconds() > 100 / 6)
+		{
+			
 		}
 	}
 

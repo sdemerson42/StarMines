@@ -6,6 +6,7 @@
 #include <typeindex>
 #include "RenderComponent.h"
 #include "AnimationComponent.h"
+#include "PhysicsComponent.h"
 
 #include "Entity.h"
 
@@ -13,6 +14,7 @@ class ComponentManager
 {
 	friend class Renderer;
 	friend class Animator;
+	friend class Physics;
 public:
 	void addComponent(Entity *e, const std::string &tag, const std::vector<std::string> &initArgs);
 	void deactivateComponent(Entity *e, const std::string &tag);
@@ -25,6 +27,10 @@ private:
 	int m_renderSz{ 0 };
 	std::vector<AnimationComponent> m_anim{ MAX_COMPONENTS };
 	int m_animSz{ 0 };
+	std::vector<PhysicsComponent> m_physics{ MAX_COMPONENTS };
+	int m_physicsSz{ 0 };
+
+
 
 	template<typename T>
 	void genAddComponent(Entity *e, const std::vector<std::string> &initArgs, std::vector<T> &v, int &sz);
