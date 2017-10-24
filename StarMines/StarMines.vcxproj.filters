@@ -42,6 +42,15 @@
     <ClCompile Include="Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RuffParse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RuffVM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Concur.h">
@@ -95,5 +104,23 @@
     <ClInclude Include="Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RuffCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RuffParse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RuffVM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ruff.vcxproj" />
   </ItemGroup>
 </Project>

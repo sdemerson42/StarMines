@@ -1,0 +1,11 @@
+let n 1;
+def loop;
+log n;
+pause;
+inc n 1;
+ifEquals n 101 ^reset;
+jump >loop;
+
+def reset;
+let n 1;
+retsub;

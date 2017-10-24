@@ -15,6 +15,10 @@ void ComponentManager::addComponent(Entity *e, const std::string &tag, const std
 	{
 		genAddComponent<PhysicsComponent>(e, initArgs, m_physics, m_physicsSz);
 	}
+	if (tag == "behavior")
+	{
+		genAddComponent<BehaviorComponent>(e, initArgs, m_behavior, m_behaviorSz);
+	}
 }
 
 void ComponentManager::deactivateComponent(Entity *e, const std::string &tag)
@@ -30,6 +34,10 @@ void ComponentManager::deactivateComponent(Entity *e, const std::string &tag)
 	if (tag == "physics")
 	{
 		genDeactivateComponent<PhysicsComponent>(e, m_physics, m_physicsSz);
+	}
+	if (tag == "behavior")
+	{
+		genDeactivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
 	}
 }
 
@@ -47,6 +55,10 @@ void ComponentManager::activateComponent(Entity *e, const std::string &tag)
 	{
 		genActivateComponent<PhysicsComponent>(e, m_physics, m_physicsSz);
 	}
+	if (tag == "behavior")
+	{
+		genActivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
+	}
 }
 
 void ComponentManager::removeComponent(Entity *e, const std::string &tag)
@@ -62,5 +74,9 @@ void ComponentManager::removeComponent(Entity *e, const std::string &tag)
 	if (tag == "physics")
 	{
 		genRemoveComponent<PhysicsComponent>(e, m_physics, m_physicsSz);
+	}
+	if (tag == "behavior")
+	{
+		genRemoveComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
 	}
 }

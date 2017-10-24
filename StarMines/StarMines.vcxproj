@@ -153,12 +153,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="ProxMap.cpp" />
     <ClCompile Include="ReadData.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RuffParse.cpp" />
+    <ClCompile Include="RuffVM.cpp" />
     <ClCompile Include="Serializable.cpp" />
     <ClCompile Include="_Main.cpp" />
   </ItemGroup>
@@ -166,6 +169,8 @@
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="AutoList.h" />
+    <ClInclude Include="Behavior.h" />
+    <ClInclude Include="BehaviorComponent.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Concur.h" />
     <ClInclude Include="Debug.h" />
@@ -176,10 +181,16 @@
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="ProxMap.h" />
     <ClInclude Include="ReadData.h" />
+    <ClInclude Include="RuffCommon.h" />
+    <ClInclude Include="RuffParse.h" />
+    <ClInclude Include="RuffVM.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Serializable.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ruff.vcxproj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
