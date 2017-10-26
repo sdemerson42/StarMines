@@ -1,11 +1,31 @@
-let n 1;
-def loop;
-log n;
-pause;
-inc n 1;
-ifEquals n 101 ^reset;
-jump >loop;
+let cur 1;
 
-def reset;
-let n 1;
-retsub;
+def nextP;
+let n (cur+1);
+ifEquals n 101 >complete;
+pause;
+
+let cur n;
+let f 2;
+let tot 0;
+
+def facLoop;
+ifGreater (n%f) 0 >nextFac;
+let n (n/f);
+inc tot 1;
+ifEquals n 1 >doneFac;
+ifGreater tot 1 >doneFac;
+jump >facLoop;
+
+def nextFac;
+inc f 1;
+jump >facLoop;
+
+def doneFac;
+ifGreater tot 1 >nextP;
+log cur;
+jump >nextP;
+
+def complete;
+pause;
+jump >complete;

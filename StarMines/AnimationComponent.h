@@ -25,7 +25,8 @@ public:
 			int j{ 0 };
 			while (j < a.frameTot)
 			{
-				a.framePos.emplace_back(Vector2{ std::stof(input[i++]), std::stof(input[i++]) });
+				a.framePos.emplace_back(Vector2{ std::stof(input[i]), std::stof(input[i+1]) });
+				i += 2;
 				++j;
 			}
 			a.fDelay = std::stoi(input[i++]);

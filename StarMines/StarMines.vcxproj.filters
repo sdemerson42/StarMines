@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{59da2175-b8fd-4c8f-81ea-1ccf05af7f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{3441dbfc-e610-4b98-8874-7d40c1dbe838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ruff">
+      <UniqueIdentifier>{a2bd28e4-4fa1-43f2-a4ac-d06878fa931b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{0414d2cb-afaf-4323-afcd-69a2027260be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ruff">
+      <UniqueIdentifier>{d4a3cf1e-6388-4b0b-ab32-e424f78aff75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{daa83fc5-f81d-45ab-8131-745e69207020}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Main.cpp">
@@ -21,35 +39,35 @@
     <ClCompile Include="Serializable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ReadData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProxMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Physics.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="IComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="RuffParse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RuffVM.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="Behavior.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="RuffParse.cpp">
+      <Filter>Source Files\Ruff</Filter>
+    </ClCompile>
+    <ClCompile Include="RuffVM.cpp">
+      <Filter>Source Files\Ruff</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,16 +83,7 @@
     <ClInclude Include="Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Serializable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
@@ -83,41 +92,50 @@
     <ClInclude Include="ComponentManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ISystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ReadData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProxMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsComponent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Physics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RuffCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RuffParse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RuffVM.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BehaviorComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Behavior.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BehaviorComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RuffCommon.h">
+      <Filter>Header Files\Ruff</Filter>
+    </ClInclude>
+    <ClInclude Include="RuffParse.h">
+      <Filter>Header Files\Ruff</Filter>
+    </ClInclude>
+    <ClInclude Include="RuffVM.h">
+      <Filter>Header Files\Ruff</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystem.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
