@@ -155,6 +155,7 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="ProxMap.cpp" />
@@ -175,6 +176,8 @@
     <ClInclude Include="Concur.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Events.h" />
+    <ClInclude Include="EventSystem.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="Physics.h" />

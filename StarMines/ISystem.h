@@ -1,8 +1,10 @@
 #pragma once
 
+#include "EventSystem.h"
+
 class ComponentManager;
 
-class ISystem
+class ISystem : public EventHandler
 {
 public:
 	ISystem(ComponentManager *cm) :

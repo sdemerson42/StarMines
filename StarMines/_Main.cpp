@@ -12,12 +12,13 @@
 
 #include "ReadData.h"
 
+
 int main()
 {
 	sf::RenderWindow window{ sf::VideoMode{800, 600}, "Window" };
 
 	sf::Clock clock;
-
+	
 	ComponentManager cm;
 
 	std::vector<ISystem *> sys;
@@ -32,6 +33,8 @@ int main()
 	cm.addComponent(&e, "anim", readData::loadStringData("data\\data2.txt"));
 	cm.addComponent(&e, "behavior", readData::loadStringData("data\\data4.txt"));
 	e.getComponent<AnimationComponent>()->play("right");
+
+	
 
 	while (window.isOpen())
 	{

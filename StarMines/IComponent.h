@@ -3,10 +3,11 @@
 #include <vector>
 #include <string>
 #include "Serializable.h"
+#include "EventSystem.h"
 
 class Entity;
 
-class IComponent : public Serializable
+class IComponent : public Serializable, public EventHandler
 {
 public:
 	IComponent() : m_parent{ nullptr }
