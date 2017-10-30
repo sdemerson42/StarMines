@@ -3,6 +3,7 @@
 #include <vector>
 #include <typeindex>
 #include <algorithm>
+#include <string>
 #include "IComponent.h"
 #include "Vector2.h"
 
@@ -48,8 +49,30 @@ public:
 	{
 		return m_position;
 	}
+
+	// Tag interface
+
+	void addTag(const std::string &tag)
+	{
+		if (!findTag(tag))
+			m_tag.emplace_back(tag);
+	}
+	void removeTag(const std::string &tag)
+	{
+		auto p = std::find(begin(m_tag), end(m_tag), tag);
+		if (p != end(m_tag))
+			m_tag.erase(p);
+	}
+	bool findTag(const std::string &tag)
+	{
+		auto p = std::find(begin(m_tag), end(m_tag), tag);
+		if (p != end(m_tag))
+			return true;
+		return false;
+	}
 private:
 	std::vector<IComponent *> m_compRef;
 	Vector2 m_position;
+	std::vector<std::string> m_tag;
 };
 

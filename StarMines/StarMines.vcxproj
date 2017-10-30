@@ -156,6 +156,8 @@
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="ProxMap.cpp" />
@@ -178,6 +180,8 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="EventSystem.h" />
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="Physics.h" />
@@ -187,6 +191,7 @@
     <ClInclude Include="RuffCommon.h" />
     <ClInclude Include="RuffParse.h" />
     <ClInclude Include="RuffVM.h" />
+    <ClInclude Include="Systems.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
