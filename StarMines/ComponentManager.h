@@ -13,6 +13,7 @@
 
 class ComponentManager
 {
+	friend class Factory;
 	friend class Renderer;
 	friend class Animator;
 	friend class Physics;

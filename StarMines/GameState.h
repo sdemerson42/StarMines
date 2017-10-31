@@ -6,9 +6,11 @@
 #include "Entity.h"
 #include "ComponentManager.h"
 #include "SFML\System.hpp"
+#include "Factory.h"
 
 class GameState
 {
+	friend class Factory;
 public:
 	GameState();
 	void exec();
@@ -18,4 +20,5 @@ private:
 	std::vector<std::unique_ptr<ISystem>> m_sys;
 	std::vector<std::unique_ptr<Entity>> m_entity;
 	sf::Clock m_clock;
+	Factory m_factory;
 };

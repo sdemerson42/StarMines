@@ -34,7 +34,9 @@ public:
 			m_anim[name] = a;
 			++c;
 		}
-
+		std::string def{ input[input.size() - 1] };
+		if (def != "none")
+			play(def);
 	}
 	void writeOut(std::vector<std::string> &output) override
 	{

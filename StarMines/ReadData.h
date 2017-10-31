@@ -11,5 +11,4 @@ namespace readData
 
 	std::vector<std::string> loadStringData(const std::string &fName);
 	std::vector<std::vector<std::string>> loadMultipleStringData(const std::string &fName);
-
 }
