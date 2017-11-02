@@ -2,7 +2,6 @@
 #include "ComponentManager.h"
 #include "PhysicsComponent.h"
 
-
 void Physics::update()
 {
 	fillMap();
@@ -42,22 +41,29 @@ void Physics::processMovement()
 			float wb = p->m_colliderSize.x;
 			float hb = p->m_colliderSize.y;
 
+			bool collFlag{ false };
+
 			// x movement
 			if (cp->m_moveVec.x != 0.0f)
 			{
 				xa += cp->m_moveVec.x;
 				if (collide(xa, ya, wa, ha, xb, yb, wb, hb))
 				{
-					if (cp->m_moveVec.x < 0.0f)
+					// Collision: Apply physics changes only if solid.
+					collFlag = true;
+					if (cp->m_solid && p->m_solid)
 					{
-						cp->parent()->setPosition(xb + wb + 1.1f - p->m_colliderPos.x, cp->parent()->position().y);
+						if (cp->m_moveVec.x < 0.0f)
+						{
+							cp->parent()->setPosition(xb + wb + 1.1f - p->m_colliderPos.x, cp->parent()->position().y);
+						}
+						else
+						{
+							cp->parent()->setPosition(xb - wa - 1.1f - p->m_colliderPos.x, cp->parent()->position().y);
+						}
+						xa = cp->parent()->position().x + cp->m_colliderPos.x;
+						cp->m_moveVec.x = 0.0f;
 					}
-					else
-					{
-						cp->parent()->setPosition(xb - wa - 1.1f - p->m_colliderPos.x, cp->parent()->position().y);
-					}
-					xa = cp->parent()->position().x + cp->m_colliderPos.x;
-					cp->m_moveVec.x = 0.0f;
 				}
 			}
 		
@@ -67,16 +73,26 @@ void Physics::processMovement()
 				ya += cp->m_moveVec.y;
 				if (collide(xa, ya, wa, ha, xb, yb, wb, hb))
 				{
-					if (cp->m_moveVec.y < 0.0f)
+					if (cp->m_solid && p->m_solid)
 					{
-						cp->parent()->setPosition(cp->parent()->position().x, yb + hb + 1.1f - p->m_colliderPos.y);
+						collFlag = true;
+						// Collision: Apply physics changes only if solid.
+						if (cp->m_moveVec.y < 0.0f)
+						{
+							cp->parent()->setPosition(cp->parent()->position().x, yb + hb + 1.1f - p->m_colliderPos.y);
+						}
+						else
+						{
+							cp->parent()->setPosition(cp->parent()->position().x, yb - ha - 1.1f - p->m_colliderPos.y);
+						}
+						cp->m_moveVec.y = 0.0f;
 					}
-					else
-					{
-						cp->parent()->setPosition(cp->parent()->position().x, yb - ha - 1.1f - p->m_colliderPos.y);
-					}
-					cp->m_moveVec.y = 0.0f;
 				}
+			}
+			// Events / notifications?
+			if (collFlag)
+			{
+				// Nothing yet.
 			}
 			
 		}

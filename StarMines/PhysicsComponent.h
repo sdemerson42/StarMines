@@ -18,7 +18,8 @@ public:
 			&m_colliderSize.y, Serializable::Type::FLOAT,
 			&m_moveVec.x, Serializable::Type::FLOAT,
 			&m_moveVec.y, Serializable::Type::FLOAT,
-			&m_speed, Serializable::Type::FLOAT);
+			&m_speed, Serializable::Type::FLOAT,
+			&m_solid, Serializable::Type::BOOL);
 		readSerial(input);
 
 		normalize(m_moveVec);
@@ -38,6 +39,7 @@ private:
 	Vector2 m_colliderSize;
 	Vector2 m_moveVec;
 	float m_speed;
+	bool m_solid;
 
 	void normalize(Vector2 &v)
 	{
