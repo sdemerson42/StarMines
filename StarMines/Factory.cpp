@@ -109,7 +109,7 @@ void Factory::createFromBlueprint(const std::string &blueprint, float x, float y
 		std::cerr << "WARNING: Factory failed to create Entity from Blueprint '" << blueprint << "'.\n";
 		return;
 	}
-	m_gameState->m_entity.emplace_back(std::make_unique<Entity>());
+	m_gameState->m_entity.emplace_back(std::make_shared<Entity>());
 	auto e = m_gameState->m_entity[m_gameState->m_entity.size()-1].get();
 	e->setPosition(x, y);
 	for (auto &t : p->tag)

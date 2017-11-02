@@ -18,7 +18,7 @@ private:
 	std::unique_ptr<ComponentManager> m_compManager;
 	sf::RenderWindow m_window;
 	std::vector<std::unique_ptr<ISystem>> m_sys;
-	std::vector<std::unique_ptr<Entity>> m_entity;
+	std::vector<std::shared_ptr<Entity>> m_entity;
 	sf::Clock m_clock;
 	Factory m_factory;
 };

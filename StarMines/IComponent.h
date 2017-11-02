@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "Serializable.h"
 #include "EventSystem.h"
 
@@ -30,10 +31,10 @@ public:
 	}
 	void setParent(Entity *parent)
 	{
-		m_parent = parent;
+		m_parent.reset(parent);
 	}
 	Entity *parent();
 private:
-	Entity *m_parent;
+	std::shared_ptr<Entity> m_parent;
 	bool m_active{ true };
 };

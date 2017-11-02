@@ -7,5 +7,5 @@ IComponent::IComponent(Entity *parent) :
 
 Entity *IComponent::parent()
 {
-	return m_parent;
+	return m_parent.get();
 }
