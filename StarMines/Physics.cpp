@@ -95,7 +95,12 @@ void Physics::processMovement()
 			{
 				auto bc = cp->parent()->getComponent<BehaviorComponent>();
 				if (bc)
-					bc->addCollider(p->parent());
+				{
+					BehaviorComponent::Call call;
+					call.caller = cp->parent();
+					call.label = "collision";
+					bc->addCall(call);
+				}
 			}
 			
 		}

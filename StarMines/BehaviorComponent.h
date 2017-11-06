@@ -12,7 +12,7 @@ class BehaviorComponent : public IComponent
 public:
 	BehaviorComponent() :
 		m_vm{ this },
-		m_curCollider{ nullptr }
+		m_curCaller{ nullptr }
 	{}
 	void initialize(const std::vector<std::string> &input) override
 	{
@@ -23,13 +23,18 @@ public:
 		m_vm.update();
 	}
 
-	void addCollider(Entity *e)
+	struct Call
 	{
-		m_collider.emplace_back(e);
+		Entity *caller;
+		std::string label;
+	};
+	void addCall(Call& c)
+	{
+		m_call.emplace_back(c);
 	}
 
 private:
 	Ruff::RuffVM m_vm;
-	std::vector<Entity *> m_collider;
-	Entity *m_curCollider;
+	std::vector<Call> m_call;
+	Entity *m_curCaller;
 };

@@ -11,18 +11,18 @@ void Ruff::RuffVM::loadScript(const std::string &fName)
 
 void Ruff::RuffVM::update()
 {
-	auto cln = m_code.label.find("collision");
-	if (cln != end(m_code.label))
+	for (auto &c : m_parent->m_call)
 	{
-		int ln = cln->second;
-		while (m_parent->m_collider.size() > 0)
-		{
-			m_parent->m_curCollider = *begin(m_parent->m_collider);
-			exec(ln);
-			m_parent->m_collider.erase(begin(m_parent->m_collider));
-		}
-		m_parent->m_curCollider = nullptr;
+		auto lb = m_code.label.find(c.label);
+		if (lb == end(m_code.label))
+			continue;
+
+		m_parent->m_curCaller = c.caller;
+		exec(lb->second);
 	}
+	m_parent->m_call.clear();
+	m_parent->m_curCaller = nullptr;
+
 	exec();
 }
 
