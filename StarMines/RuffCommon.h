@@ -27,7 +27,10 @@ namespace Ruff
 		semi = 51,
 		var = 52,
 		sublabel = 53,
+		strbegin = 54,
+		strend = 55,
 
-		log = 100
+		log = 100,
+		logstr = 101
 	};
 }

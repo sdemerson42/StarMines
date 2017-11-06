@@ -138,8 +138,22 @@ std::vector<std::string> Ruff::TokenStream::parseSymbols(const std::string &fNam
 		{
 			if (!isalnum(*b))
 			{
-				r.emplace_back(std::string{ *b });
-				++b;
+				if (*b == '"')
+				{
+					r.emplace_back(std::string{ *b });
+					std::string symbol;
+					while (isalpha(*++b))
+					{
+						symbol.insert(begin(symbol), *b);
+					}
+					r.emplace_back(symbol);
+					++b;
+				}
+				else
+				{
+					r.emplace_back(std::string{ *b });
+					++b;
+				}
 			}
 			else
 			{
@@ -157,12 +171,6 @@ std::vector<std::string> Ruff::TokenStream::parseSymbols(const std::string &fNam
 	return r;
 }
 
-void Ruff::TokenStream::postfix()
-{
-	
-
-
-}
 
 Ruff::Token Ruff::TokenStream::get()
 {
@@ -216,6 +224,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "pause", Code::pause });
 
 
+	cmdTable.emplace_back(SigIndex{ "logstr", Code::logstr });
 	cmdTable.emplace_back(SigIndex{ "log", Code::log });
 
 	std::vector<SigIndex> label;
@@ -333,6 +342,21 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 				code.emplace_back(cmd);
 				++i;
 			}
+			break;
+		case '"':
+		{
+			code.emplace_back(Code::strbegin);
+			++i;
+			auto strT = ts.get();
+			for (char &c : strT.val)
+			{
+				code.emplace_back(c);
+				++i;
+			}
+			code.emplace_back(Code::strend);
+			++i;
+		}
+
 			break;
 
 		}

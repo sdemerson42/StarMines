@@ -1,3 +1,4 @@
+logstr "PrimeScript";
 let cur 1;
 
 def nextP;

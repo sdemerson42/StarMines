@@ -29,7 +29,6 @@ namespace Ruff
 	private:
 		std::vector<std::string> parseSymbols(const std::string &fName);
 		void makeTokens(const std::vector<std::string> &ss);
-		void postfix();
 		std::vector<Token> m_stream;
 		bool m_bufferFull;
 		Token m_buffer;

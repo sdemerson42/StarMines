@@ -212,6 +212,27 @@ void Ruff::RuffVM::exec()
 			letVar = -1;
 			break;
 		}
+		case Code::strbegin:
+		{
+			int sz{ 0 };
+			while (m_code[++i] != Code::strend)
+			{
+				push(m_code[i]);
+				++sz;
+			}
+			push(sz);
+			break;
+		}
+		case Code::logstr:
+		{
+			int sz = pop();
+			std::string s;
+			for (int i = 0; i < sz; ++i)
+				s.push_back(pop());
+			std::cout << "Log: " << s << "\n";
+			letVar = -1;
+			break;
+		}
 
 		}
 
