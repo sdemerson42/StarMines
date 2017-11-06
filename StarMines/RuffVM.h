@@ -3,24 +3,26 @@
 #include "RuffCommon.h"
 #include <vector>
 
+class BehaviorComponent;
+
 namespace Ruff
 {
-	using ByteCode = std::vector<int>;
 
 	class RuffVM
 	{
 	public:
-		RuffVM() :
-			m_pauseIndex{ -1 }
+		RuffVM(BehaviorComponent *parent) :
+			m_parent{ parent }, m_pauseIndex {-1 }
 		{
 			m_reg.resize(100);
-			m_code.reserve(500);
 			m_stack.reserve(20);
 			m_frame.reserve(20);
 		}
 		void loadScript(const std::string &fName);
-		void exec();
+		void update();
+		void exec(int line = -1);
 	private:
+		BehaviorComponent *m_parent;
 		int pop();
 		void push(int x);
 		int framePop();

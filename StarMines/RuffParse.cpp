@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <algorithm>
-#include "RuffCommon.h"
 #include <iostream>
 
 Ruff::TokenStream::TokenStream(const std::string &fName)
@@ -245,8 +244,8 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 		{
 		case 'i':
 		{
-			code.emplace_back(Code::prim);
-			code.emplace_back(stoi(t.val));
+			code.code.emplace_back(Code::prim);
+			code.code.emplace_back(stoi(t.val));
 			i += 2;
 			break;
 		}
@@ -267,8 +266,8 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 				// var or label?
 				//label
 				int c{ -1 };
-				if (code.size() > 0)
-					c = code[code.size() - 1];
+				if (code.code.size() > 0)
+					c = code.code[code.code.size() - 1];
 				if (cmd == Code::def || c == Code::label || c == Code::sublabel)
 				{
 					if (cmd == Code::def)
@@ -277,7 +276,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 					}
 					else
 					{
-						code.emplace_back(-1);
+						code.code.emplace_back(-1);
 						temp.emplace_back(SigIndex{ t.val, i });
 						++i;
 					}
@@ -285,7 +284,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 				}
 				else
 				{
-					code.emplace_back(Code::var);
+					code.code.emplace_back(Code::var);
 					std::string s{ t.val };
 					auto p = std::find_if(begin(var), end(var), [&](SigIndex &si)
 					{
@@ -293,12 +292,12 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 					});
 					if (p != end(var))
 					{
-						code.emplace_back(p->val);
+						code.code.emplace_back(p->val);
 					}
 					else
 					{
 						var.emplace_back(SigIndex{ s, curVar });
-						code.emplace_back(curVar);
+						code.code.emplace_back(curVar);
 						++curVar;
 					}
 					i += 2;
@@ -309,51 +308,51 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 		}
 		
 		case '+':
-			code.emplace_back(Code::add);
+			code.code.emplace_back(Code::add);
 			++i;
 			break;
 		case '-':
-			code.emplace_back(Code::sub);
+			code.code.emplace_back(Code::sub);
 			++i;
 			break;
 		case '*':
-			code.emplace_back(Code::mult);
+			code.code.emplace_back(Code::mult);
 			++i;
 			break;
 		case '/':
-			code.emplace_back(Code::div);
+			code.code.emplace_back(Code::div);
 			++i;
 			break;
 		case '%':
-			code.emplace_back(Code::mod);
+			code.code.emplace_back(Code::mod);
 			++i;
 			break;
 		case '>':
-			code.emplace_back(Code::label);
+			code.code.emplace_back(Code::label);
 			++i;
 			break;
 		case '^':
-			code.emplace_back(Code::sublabel);
+			code.code.emplace_back(Code::sublabel);
 			++i;
 			break;
 		case ';':
 			if (cmd != Code::def)
 			{
-				code.emplace_back(cmd);
+				code.code.emplace_back(cmd);
 				++i;
 			}
 			break;
 		case '"':
 		{
-			code.emplace_back(Code::strbegin);
+			code.code.emplace_back(Code::strbegin);
 			++i;
 			auto strT = ts.get();
 			for (char &c : strT.val)
 			{
-				code.emplace_back(c);
+				code.code.emplace_back(c);
 				++i;
 			}
-			code.emplace_back(Code::strend);
+			code.code.emplace_back(Code::strend);
 			++i;
 		}
 
@@ -374,10 +373,19 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 			return si.name == lName;
 		});
 		if (p != end(label))
-			code[index] = p->val;
+		{
+			code.code[index] = p->val;
+		}
 	}
 
-	std::cout << "RuffCode successfully generated. Length: " << code.size() << "\n";
+	// Add metadata
+
+	for (auto &si : label)
+	{
+		code.label[si.name] = si.val;
+	}
+
+	std::cout << "RuffCode successfully generated. Length: " << code.code.size() << "\n";
 
 	return code;
 }

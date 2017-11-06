@@ -1,6 +1,7 @@
 #include "Physics.h"
 #include "ComponentManager.h"
 #include "PhysicsComponent.h"
+#include "BehaviorComponent.h"
 
 void Physics::update()
 {
@@ -92,7 +93,9 @@ void Physics::processMovement()
 			// Events / notifications?
 			if (collFlag)
 			{
-				// Nothing yet.
+				auto bc = cp->parent()->getComponent<BehaviorComponent>();
+				if (bc)
+					bc->addCollider(p->parent());
 			}
 			
 		}

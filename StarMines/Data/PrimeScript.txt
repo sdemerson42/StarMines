@@ -1,3 +1,4 @@
+def begin;
 logstr "PrimeScript";
 let cur 1;
 
@@ -30,3 +31,7 @@ jump >nextP;
 def complete;
 pause;
 jump >complete;
+
+def collision;
+logstr "Ouch";
+jump >begin;

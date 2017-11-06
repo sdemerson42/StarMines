@@ -5,3 +5,9 @@ struct EventBase
 	virtual ~EventBase()
 	{}
 };
+
+
+namespace Events
+{
+	
+};

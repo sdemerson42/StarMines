@@ -1,5 +1,9 @@
 #pragma once
 
+#include <map>
+#include <vector>
+#include <string>
+
 namespace Ruff
 {
 	enum Code
@@ -32,5 +36,11 @@ namespace Ruff
 
 		log = 100,
 		logstr = 101
+	};
+
+	struct ByteCode
+	{
+		std::vector<int> code;
+		std::map<std::string, int> label;
 	};
 }

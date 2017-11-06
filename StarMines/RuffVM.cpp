@@ -1,5 +1,7 @@
 #include "RuffVM.h"
 #include "RuffParse.h"
+#include "BehaviorComponent.h"
+
 #include <iostream>
 
 void Ruff::RuffVM::loadScript(const std::string &fName)
@@ -7,11 +9,33 @@ void Ruff::RuffVM::loadScript(const std::string &fName)
 	m_code = Ruff::parse(fName);
 }
 
-void Ruff::RuffVM::exec()
+void Ruff::RuffVM::update()
 {
+	auto cln = m_code.label.find("collision");
+	if (cln != end(m_code.label))
+	{
+		int ln = cln->second;
+		while (m_parent->m_collider.size() > 0)
+		{
+			m_parent->m_curCollider = *begin(m_parent->m_collider);
+			exec(ln);
+			m_parent->m_collider.erase(begin(m_parent->m_collider));
+		}
+		m_parent->m_curCollider = nullptr;
+	}
+	exec();
+}
+
+void Ruff::RuffVM::exec(int line)
+{
+	
 	int i{ 0 };
 
-	if (m_pauseIndex != -1)
+	if (line != -1)
+	{
+		i = line;
+	}
+	else if (m_pauseIndex != -1)
 	{
 		i = m_pauseIndex;
 		m_pauseIndex = -1;
@@ -23,9 +47,9 @@ void Ruff::RuffVM::exec()
 	bool breakFlag{ false };
 	bool subLabelFlag{ false };
 
-	while(i < m_code.size())
+	while(i < m_code.code.size())
 	{
-		switch (m_code[i])
+		switch (m_code.code[i])
 		{
 		case Code::add:
 		{
@@ -122,12 +146,12 @@ void Ruff::RuffVM::exec()
 		}
 		case Code::label:
 		{
-			push(m_code[++i]);
+			push(m_code.code[++i]);
 			break;
 		}
 		case Code::sublabel:
 		{
-			push(m_code[++i]);
+			push(m_code.code[++i]);
 			subLabelFlag = true;
 			break;
 		}
@@ -166,7 +190,7 @@ void Ruff::RuffVM::exec()
 		}
 		case Code::prim:
 		{
-			push(m_code[++i]);
+			push(m_code.code[++i]);
 			break;
 		}
 		case Code::sub:
@@ -180,8 +204,8 @@ void Ruff::RuffVM::exec()
 		{
 			++i;
 			if (letVar == -1)
-				letVar = m_code[i];
-			push(m_reg[m_code[i]]);
+				letVar = m_code.code[i];
+			push(m_reg[m_code.code[i]]);
 			break;
 		}
 		case Code::halt:
@@ -215,9 +239,9 @@ void Ruff::RuffVM::exec()
 		case Code::strbegin:
 		{
 			int sz{ 0 };
-			while (m_code[++i] != Code::strend)
+			while (m_code.code[++i] != Code::strend)
 			{
-				push(m_code[i]);
+				push(m_code.code[i]);
 				++sz;
 			}
 			push(sz);

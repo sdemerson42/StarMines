@@ -2,10 +2,10 @@
 
 #include <string>
 #include <vector>
+#include "RuffCommon.h"
 
 namespace Ruff
 {
-	using ByteCode = std::vector<int>;
 
 	ByteCode parse(const std::string &fname);
 
