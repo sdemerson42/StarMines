@@ -24,7 +24,7 @@ namespace Ruff
 		rand = 13,
 		jump = 14,
 		def = 15,
-		retsub = 17,
+		retSub = 17,
 		pause = 18,
 		sleep = 19,
 
@@ -36,9 +36,10 @@ namespace Ruff
 		strend = 55,
 
 		log = 100,
-		logstr = 101,
+		logStr = 101,
 		sendCall = 102,
-		setDir = 103
+		setDir = 103,
+		playAnim = 104
 	};
 
 	struct ByteCode

@@ -1,15 +1,25 @@
-let x 0;
 sleep;
 
 def collision;
-logstr "Ouch";
-sendCall "drop";
-inc x 1;
-log x;
-ifEquals x 2 >news;
+logStr "Ouch";
+setDir 0 0;
+sendCall "move";
+playAnim "idleR";
+
+let c 0;
+def loop;
+ifEquals c 100 ^posture;
+ifEquals c 200 >exit;
+inc c 1;
+pause;
+jump >loop;
+
+def exit;
+logStr "OuttaHere";
+playAnim "left";
+setDir (0-1) 0;
 sleep;
 
-def news;
-setDir 0 (0-1);
-logstr "NewDir";
-sleep;
+def posture;
+playAnim "idleL";
+retSub;

@@ -219,15 +219,16 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "def", Code::def });
 	cmdTable.emplace_back(SigIndex{ "halt", Code::halt });
 	cmdTable.emplace_back(SigIndex{ "rand", Code::rand });
-	cmdTable.emplace_back(SigIndex{ "retsub", Code::retsub });
+	cmdTable.emplace_back(SigIndex{ "retSub", Code::retSub });
 	cmdTable.emplace_back(SigIndex{ "pause", Code::pause });
 
 
-	cmdTable.emplace_back(SigIndex{ "logstr", Code::logstr });
+	cmdTable.emplace_back(SigIndex{ "logStr", Code::logStr });
 	cmdTable.emplace_back(SigIndex{ "log", Code::log });
 	cmdTable.emplace_back(SigIndex{ "sendCall", Code::sendCall });
 	cmdTable.emplace_back(SigIndex{ "setDir", Code::setDir });
 	cmdTable.emplace_back(SigIndex{ "sleep", Code::sleep });
+	cmdTable.emplace_back(SigIndex{ "playAnim", Code::playAnim });
 
 	std::vector<SigIndex> label;
 	std::vector<SigIndex> var;

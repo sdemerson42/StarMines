@@ -70,6 +70,11 @@ public:
 	{
 		return m_size;
 	}
+	void setTexPosition(int x, int y)
+	{
+		m_position.x = x;
+		m_position.y = y;
+	}
 private:
 	WindowLayer m_winLayer;
 	SceneLayer m_sceneLayer;

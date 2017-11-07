@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "Vector2.h"
+#include "RenderComponent.h"
 
 class AnimationComponent : public IComponent
 {
@@ -50,6 +51,12 @@ public:
 			m_playing = true;
 			m_frame = 0;
 			m_counter = 0;
+			if (parent())
+			{
+				auto rc = parent()->getComponent<RenderComponent>();
+				if (rc)
+					rc->setTexPosition(m_curAnim.framePos[0].x, m_curAnim.framePos[0].y);
+			}
 		}
 	}
 	void stop()

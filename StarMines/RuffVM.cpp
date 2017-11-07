@@ -1,6 +1,8 @@
 #include "RuffVM.h"
 #include "RuffParse.h"
 #include "BehaviorComponent.h"
+#include "Entity.h"
+#include "AnimationComponent.h"
 
 #include <iostream>
 
@@ -230,7 +232,7 @@ void Ruff::RuffVM::exec(int line)
 			letVar = -1;
 			break;
 		}
-		case Code::retsub:
+		case Code::retSub:
 		{
 			i = framePop() - 1;
 			letVar = -1;
@@ -254,7 +256,7 @@ void Ruff::RuffVM::exec(int line)
 			push(sz);
 			break;
 		}
-		case Code::logstr:
+		case Code::logStr:
 		{
 			auto s = strPop();
 			std::cout << "Log: " << s << "\n";
@@ -282,6 +284,16 @@ void Ruff::RuffVM::exec(int line)
 		{
 			m_sleep = true;
 			breakFlag = true;
+			letVar = -1;
+			break;
+		}
+		case Code::playAnim:
+		{
+			auto p = m_parent->parent()->getComponent<AnimationComponent>();
+			if (p)
+			{
+				p->play(strPop());
+			}
 			letVar = -1;
 			break;
 		}

@@ -1,6 +1,11 @@
 sleep;
 
-def drop;
-logstr "Wheee";
-setDir 5 30;
+def move;
+setDir 20 (0-5);
+playAnim "active";
+sleep;
+
+def collision;
+logStr "Oof";
+sendCall "move";
 sleep;
