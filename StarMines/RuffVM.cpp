@@ -249,11 +249,25 @@ void Ruff::RuffVM::exec(int line)
 		}
 		case Code::logstr:
 		{
-			int sz = pop();
-			std::string s;
-			for (int i = 0; i < sz; ++i)
-				s.push_back(pop());
+			auto s = strPop();
 			std::cout << "Log: " << s << "\n";
+			letVar = -1;
+			break;
+		}
+		case Code::sendCall:
+		{
+			BehaviorComponent::Call c;
+			c.caller = m_parent->parent();
+			c.label = strPop();
+			m_parent->sendCall(c);
+			letVar = -1;
+			break;
+		}
+		case Code::setDir:
+		{
+			float y = float(pop()) *0.1f;
+			float x = float(pop()) *0.1f;
+			m_parent->setDir(x, y);
 			letVar = -1;
 			break;
 		}
@@ -288,4 +302,13 @@ int Ruff::RuffVM::framePop()
 void Ruff::RuffVM::framePush(int x)
 {
 	m_frame.emplace_back(x);
+}
+
+std::string Ruff::RuffVM::strPop()
+{
+	int sz = pop();
+	std::string s;
+	for (int i = 0; i < sz; ++i)
+		s.push_back(pop());
+	return s;
 }

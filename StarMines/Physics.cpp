@@ -97,7 +97,7 @@ void Physics::processMovement()
 				if (bc)
 				{
 					BehaviorComponent::Call call;
-					call.caller = cp->parent();
+					call.caller = p->parent();
 					call.label = "collision";
 					bc->addCall(call);
 				}

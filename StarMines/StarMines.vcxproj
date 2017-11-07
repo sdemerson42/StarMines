@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="BehaviorComponent.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="Factory.cpp" />

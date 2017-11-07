@@ -35,7 +35,9 @@ namespace Ruff
 		strend = 55,
 
 		log = 100,
-		logstr = 101
+		logstr = 101,
+		sendCall = 102,
+		setDir = 103
 	};
 
 	struct ByteCode

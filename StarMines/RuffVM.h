@@ -27,6 +27,7 @@ namespace Ruff
 		void push(int x);
 		int framePop();
 		void framePush(int x);
+		std::string strPop();
 		
 		std::vector<int> m_stack;
 		std::vector<int> m_reg;

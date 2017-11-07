@@ -37,4 +37,10 @@ private:
 	Ruff::RuffVM m_vm;
 	std::vector<Call> m_call;
 	Entity *m_curCaller;
+
+	void sendCall(Call &c);
+
+	// Behavior Calls
+
+	void setDir(float x, float y);
 };

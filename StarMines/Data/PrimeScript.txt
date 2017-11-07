@@ -34,4 +34,5 @@ jump >complete;
 
 def collision;
 logstr "Ouch";
-jump >begin;
+sendCall "drop";
+halt;
