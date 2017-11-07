@@ -1,8 +1,6 @@
-let x 5;
-let y 30;
-halt;
+sleep;
 
 def drop;
 logstr "Wheee";
-setDir x y;
-halt;
+setDir 5 30;
+sleep;

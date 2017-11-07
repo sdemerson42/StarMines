@@ -11,6 +11,12 @@ void Ruff::RuffVM::loadScript(const std::string &fName)
 
 void Ruff::RuffVM::update()
 {
+	if (m_parent->m_call.size() > 0)
+		m_sleep = false;
+
+	if (m_sleep)
+		return;
+
 	for (auto &c : m_parent->m_call)
 	{
 		auto lb = m_code.label.find(c.label);
@@ -23,7 +29,8 @@ void Ruff::RuffVM::update()
 	m_parent->m_call.clear();
 	m_parent->m_curCaller = nullptr;
 
-	exec();
+	if (!m_sleep)
+		exec();
 }
 
 void Ruff::RuffVM::exec(int line)
@@ -268,6 +275,13 @@ void Ruff::RuffVM::exec(int line)
 			float y = float(pop()) *0.1f;
 			float x = float(pop()) *0.1f;
 			m_parent->setDir(x, y);
+			letVar = -1;
+			break;
+		}
+		case Code::sleep:
+		{
+			m_sleep = true;
+			breakFlag = true;
 			letVar = -1;
 			break;
 		}

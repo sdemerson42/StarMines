@@ -26,6 +26,7 @@ namespace Ruff
 		def = 15,
 		retsub = 17,
 		pause = 18,
+		sleep = 19,
 
 		label = 50,
 		semi = 51,

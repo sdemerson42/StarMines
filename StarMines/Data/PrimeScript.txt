@@ -1,38 +1,15 @@
-def begin;
-logstr "PrimeScript";
-let cur 1;
-
-def nextP;
-let n (cur+1);
-ifEquals n 101 >complete;
-pause;
-
-let cur n;
-let f 2;
-let tot 0;
-
-def facLoop;
-ifGreater (n%f) 0 >nextFac;
-let n (n/f);
-inc tot 1;
-ifEquals n 1 >doneFac;
-ifGreater tot 1 >doneFac;
-jump >facLoop;
-
-def nextFac;
-inc f 1;
-jump >facLoop;
-
-def doneFac;
-ifGreater tot 1 >nextP;
-log cur;
-jump >nextP;
-
-def complete;
-pause;
-jump >complete;
+let x 0;
+sleep;
 
 def collision;
 logstr "Ouch";
 sendCall "drop";
-halt;
+inc x 1;
+log x;
+ifEquals x 2 >news;
+sleep;
+
+def news;
+setDir 0 (0-1);
+logstr "NewDir";
+sleep;

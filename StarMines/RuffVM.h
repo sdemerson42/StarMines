@@ -12,7 +12,7 @@ namespace Ruff
 	{
 	public:
 		RuffVM(BehaviorComponent *parent) :
-			m_parent{ parent }, m_pauseIndex {-1 }
+			m_parent{ parent }, m_pauseIndex{ -1 }, m_sleep{ false }
 		{
 			m_reg.resize(100);
 			m_stack.reserve(20);
@@ -33,6 +33,7 @@ namespace Ruff
 		std::vector<int> m_reg;
 		std::vector<int> m_frame;
 		int m_pauseIndex;
+		bool m_sleep;
 
 		ByteCode m_code;
 	};
