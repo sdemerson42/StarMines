@@ -229,6 +229,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "setDir", Code::setDir });
 	cmdTable.emplace_back(SigIndex{ "sleep", Code::sleep });
 	cmdTable.emplace_back(SigIndex{ "playAnim", Code::playAnim });
+	cmdTable.emplace_back(SigIndex{ "ifCallerTag", Code::ifCallerTag });
 
 	std::vector<SigIndex> label;
 	std::vector<SigIndex> var;

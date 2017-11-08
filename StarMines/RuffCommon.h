@@ -27,6 +27,7 @@ namespace Ruff
 		retSub = 17,
 		pause = 18,
 		sleep = 19,
+		ifCallerTag = 20,
 
 		label = 50,
 		semi = 51,

@@ -133,6 +133,22 @@ void Ruff::RuffVM::exec(int line)
 			letVar = -1;
 			break;
 		}
+		case Code::ifCallerTag:
+		{
+			int dest = pop();
+			std::string tag{ strPop() };
+			if (m_parent->m_curCaller && m_parent->m_curCaller->findTag(tag))
+			{
+				if (subLabelFlag)
+				{
+					subLabelFlag = false;
+					m_frame.push_back(i + 1);
+				}
+				i = dest - 1;
+			}
+			letVar = -1;
+			break;
+		}
 		case Code::inc:
 		{
 			int val = pop();

@@ -1,11 +1,16 @@
+playAnim "active";
 sleep;
 
 def move;
 setDir 20 (0-5);
-playAnim "active";
+playAnim "idle";
 sleep;
 
 def collision;
-logStr "Oof";
+ifCallerTag "Lump" ^speak;
 sendCall "move";
 sleep;
+
+def speak;
+logStr "Oof";
+retSub;

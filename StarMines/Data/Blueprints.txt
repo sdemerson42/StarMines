@@ -12,7 +12,7 @@ right ]
 [ behavior data\primescript.txt ]
 }
 
-Lump : Default
+Lump : Lump
 {
 [ render sprites\robot.gif 0 0 30 30 ]
 [ physics 2 2 28 28 0 0 3 true ]
