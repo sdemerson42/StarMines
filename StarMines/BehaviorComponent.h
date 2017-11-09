@@ -23,24 +23,20 @@ public:
 		m_vm.update();
 	}
 
-	struct Call
-	{
-		Entity *caller;
-		std::string label;
-	};
-	void addCall(Call& c)
+	void addCall(Ruff::Call& c)
 	{
 		m_call.emplace_back(c);
 	}
 
 private:
 	Ruff::RuffVM m_vm;
-	std::vector<Call> m_call;
+	std::vector<Ruff::Call> m_call;
 	Entity *m_curCaller;
 
-	void sendCall(Call &c);
+	void sendCall(Ruff::Call &c);
 
 	// Behavior Calls
 
 	void setDir(float x, float y);
+	void broadcastCall(Ruff::Call &c, const std::string &tag);
 };

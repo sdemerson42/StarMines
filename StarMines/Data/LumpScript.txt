@@ -8,9 +8,13 @@ sleep;
 
 def collision;
 ifCallerTag "Lump" ^speak;
-sendCall "move";
+sendToCaller "move";
 sleep;
 
 def speak;
 logStr "Oof";
 retSub;
+
+def spk;
+logStr "Heard";
+halt;

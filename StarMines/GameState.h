@@ -7,8 +7,9 @@
 #include "ComponentManager.h"
 #include "SFML\System.hpp"
 #include "Factory.h"
+#include "EventSystem.h"
 
-class GameState
+class GameState : public EventHandler
 {
 	friend class Factory;
 public:
@@ -21,4 +22,6 @@ private:
 	std::vector<std::shared_ptr<Entity>> m_entity;
 	sf::Clock m_clock;
 	Factory m_factory;
+
+	void onRSCall(const Events::RSCallEvent *);
 };

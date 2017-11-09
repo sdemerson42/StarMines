@@ -225,7 +225,8 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 
 	cmdTable.emplace_back(SigIndex{ "logStr", Code::logStr });
 	cmdTable.emplace_back(SigIndex{ "log", Code::log });
-	cmdTable.emplace_back(SigIndex{ "sendCall", Code::sendCall });
+	cmdTable.emplace_back(SigIndex{ "sendToCaller", Code::sendCall });
+	cmdTable.emplace_back(SigIndex{ "sendToTag", Code::sendTag });
 	cmdTable.emplace_back(SigIndex{ "setDir", Code::setDir });
 	cmdTable.emplace_back(SigIndex{ "sleep", Code::sleep });
 	cmdTable.emplace_back(SigIndex{ "playAnim", Code::playAnim });

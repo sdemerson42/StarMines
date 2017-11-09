@@ -1,5 +1,7 @@
 #include "GameState.h"
 #include "ReadData.h"
+#include <algorithm>
+#include "BehaviorComponent.h"
 
 GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
@@ -9,6 +11,10 @@ GameState::GameState() :
 	m_sys.emplace_back(std::make_unique<Behavior>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Physics>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
+
+	// Events
+
+	registerFunc(this, &GameState::onRSCall);
 
 	// Test
 
@@ -35,6 +41,21 @@ void GameState::exec()
 			m_clock.restart();
 			for (auto &p : m_sys)
 				p->update();
+		}
+	}
+}
+
+void GameState::onRSCall(const Events::RSCallEvent *evnt)
+{
+	std::string tag{ evnt->tag };
+	Ruff::Call call = evnt->call;
+	for (auto &spe : m_entity)
+	{
+		if (spe->findTag(tag))
+		{
+			auto c = spe->getComponent<BehaviorComponent>();
+			if (c)
+				c->addCall(call);
 		}
 	}
 }

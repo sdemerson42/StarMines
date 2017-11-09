@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+class Entity;
+
 namespace Ruff
 {
 	enum Code
@@ -40,12 +42,20 @@ namespace Ruff
 		logStr = 101,
 		sendCall = 102,
 		setDir = 103,
-		playAnim = 104
+		playAnim = 104,
+		sendTag = 105
+
 	};
 
 	struct ByteCode
 	{
 		std::vector<int> code;
 		std::map<std::string, int> label;
+	};
+
+	struct Call
+	{
+		Entity *caller;
+		std::string label;
 	};
 }

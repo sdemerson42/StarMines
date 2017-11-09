@@ -2,6 +2,7 @@
 #include "ComponentManager.h"
 #include "PhysicsComponent.h"
 #include "BehaviorComponent.h"
+#include "RuffCommon.h"
 
 void Physics::update()
 {
@@ -96,7 +97,7 @@ void Physics::processMovement()
 				auto bc = cp->parent()->getComponent<BehaviorComponent>();
 				if (bc)
 				{
-					BehaviorComponent::Call call;
+					Ruff::Call call;
 					call.caller = p->parent();
 					call.label = "collision";
 					bc->addCall(call);

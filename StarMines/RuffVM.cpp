@@ -281,10 +281,20 @@ void Ruff::RuffVM::exec(int line)
 		}
 		case Code::sendCall:
 		{
-			BehaviorComponent::Call c;
+			Call c;
 			c.caller = m_parent->parent();
 			c.label = strPop();
 			m_parent->sendCall(c);
+			letVar = -1;
+			break;
+		}
+		case Code::sendTag:
+		{
+			Call c;
+			c.caller = m_parent->parent();
+			c.label = strPop();
+			std::string tag{ strPop() };
+			m_parent->broadcastCall(c, tag);
 			letVar = -1;
 			break;
 		}

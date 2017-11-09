@@ -1,9 +1,10 @@
+sendToTag "Lump" "spk";
 sleep;
 
 def collision;
 logStr "Ouch";
 setDir 0 0;
-sendCall "move";
+sendToCaller "move";
 playAnim "idleR";
 
 let c 0;
