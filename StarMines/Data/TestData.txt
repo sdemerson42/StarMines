@@ -1,0 +1,2 @@
+RedGuy 0 0
+Lump 90 60

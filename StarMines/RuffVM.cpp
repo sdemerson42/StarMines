@@ -1,8 +1,10 @@
 #include "RuffVM.h"
 #include "RuffParse.h"
 #include "BehaviorComponent.h"
-#include "Entity.h"
 #include "AnimationComponent.h"
+#include "PhysicsComponent.h"
+#include "Entity.h"
+
 
 #include <iostream>
 
@@ -19,6 +21,8 @@ void Ruff::RuffVM::update()
 	if (m_sleep)
 		return;
 
+	int oldPause = m_pauseIndex;
+
 	for (auto &c : m_parent->m_call)
 	{
 		auto lb = m_code.label.find(c.label);
@@ -32,7 +36,7 @@ void Ruff::RuffVM::update()
 	m_parent->m_curCaller = nullptr;
 
 	if (!m_sleep)
-		exec();
+		exec(oldPause);
 }
 
 void Ruff::RuffVM::exec(int line)
@@ -284,7 +288,11 @@ void Ruff::RuffVM::exec(int line)
 			Call c;
 			c.caller = m_parent->parent();
 			c.label = strPop();
-			m_parent->sendCall(c);
+			
+			auto p = m_parent->m_curCaller->getComponent<BehaviorComponent>();
+			if (p)
+				p->addCall(c);
+
 			letVar = -1;
 			break;
 		}
@@ -302,7 +310,11 @@ void Ruff::RuffVM::exec(int line)
 		{
 			float y = float(pop()) *0.1f;
 			float x = float(pop()) *0.1f;
-			m_parent->setDir(x, y);
+
+			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
+			if (p)
+				p->setDir(x, y);
+
 			letVar = -1;
 			break;
 		}

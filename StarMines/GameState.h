@@ -24,4 +24,5 @@ private:
 	Factory m_factory;
 
 	void onRSCall(const Events::RSCallEvent *);
+	void loadTestData(const std::string &fName);
 };

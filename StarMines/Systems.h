@@ -4,3 +4,4 @@
 #include "Behavior.h"
 #include "Physics.h"
 #include "Renderer.h"
+#include "Spawner.h"

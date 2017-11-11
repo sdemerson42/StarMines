@@ -33,10 +33,5 @@ private:
 	std::vector<Ruff::Call> m_call;
 	Entity *m_curCaller;
 
-	void sendCall(Ruff::Call &c);
-
-	// Behavior Calls
-
-	void setDir(float x, float y);
 	void broadcastCall(Ruff::Call &c, const std::string &tag);
 };

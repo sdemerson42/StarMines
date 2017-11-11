@@ -11,16 +11,16 @@ GameState::GameState() :
 	m_sys.emplace_back(std::make_unique<Behavior>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Physics>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
+	m_sys.emplace_back(std::make_unique<Spawner>(m_compManager.get(), &m_factory));
 
 	// Events
 
 	registerFunc(this, &GameState::onRSCall);
 
-	// Test
+	// Test Data
 
-	m_factory.createFromBlueprint("RedGuy");
-	m_factory.createFromBlueprint("Lump", 190, 200);
-	m_factory.createFromBlueprint("Lump", 450, 170);
+	loadTestData("Data\\TestData.txt");
+
 };
 
 void GameState::exec()
@@ -57,5 +57,18 @@ void GameState::onRSCall(const Events::RSCallEvent *evnt)
 			if (c)
 				c->addCall(call);
 		}
+	}
+}
+
+void GameState::loadTestData(const std::string &fName)
+{
+	std::ifstream ifs{ fName };
+	std::string b;
+	while (ifs >> b)
+	{
+		float x, y;
+		ifs >> x >> y;
+		Events::SpawnDataEvent evnt{ b, x, y };
+		broadcast(&evnt);
 	}
 }

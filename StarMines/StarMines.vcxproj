@@ -167,6 +167,7 @@
     <ClCompile Include="RuffParse.cpp" />
     <ClCompile Include="RuffVM.cpp" />
     <ClCompile Include="Serializable.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="_Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +193,7 @@
     <ClInclude Include="RuffCommon.h" />
     <ClInclude Include="RuffParse.h" />
     <ClInclude Include="RuffVM.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="Systems.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="RenderComponent.h" />
