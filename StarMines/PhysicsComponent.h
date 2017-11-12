@@ -23,16 +23,24 @@ public:
 		readSerial(input);
 
 		normalize(m_moveVec);
-		m_moveVec.x *= m_speed;
-		m_moveVec.y *= m_speed;
 	};
 	void setDir(float x, float y)
 	{
 		m_moveVec.x = x;
 		m_moveVec.y = y;
 		normalize(m_moveVec);
-		m_moveVec.x *= m_speed;
-		m_moveVec.y *= m_speed;
+	}
+	void setSpeed(float speed)
+	{
+		m_speed = speed;
+	}
+	Vector2 dir() const
+	{
+		return m_moveVec;
+	}
+	float speed() const
+	{
+		return m_speed;
 	}
 private:
 	Vector2 m_colliderPos;

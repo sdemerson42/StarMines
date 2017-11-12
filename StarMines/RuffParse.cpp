@@ -231,6 +231,16 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "sleep", Code::sleep });
 	cmdTable.emplace_back(SigIndex{ "playAnim", Code::playAnim });
 	cmdTable.emplace_back(SigIndex{ "ifCallerTag", Code::ifCallerTag });
+	cmdTable.emplace_back(SigIndex{ "ifCallerTag", Code::ifCallerTag });
+	cmdTable.emplace_back(SigIndex{ "setPos", Code::setPos });
+	cmdTable.emplace_back(SigIndex{ "addPos", Code::addPos });
+	cmdTable.emplace_back(SigIndex{ "spawn", Code::spawn });
+	cmdTable.emplace_back(SigIndex{ "setSpeed", Code::setSpeed });
+	cmdTable.emplace_back(SigIndex{ "letSpeed", Code::letSpeed });
+	cmdTable.emplace_back(SigIndex{ "letDirX", Code::letDirX });
+	cmdTable.emplace_back(SigIndex{ "letDirY", Code::letDirY });
+	cmdTable.emplace_back(SigIndex{ "letPosX", Code::letPosX });
+	cmdTable.emplace_back(SigIndex{ "letPosY", Code::letPosY });
 
 	std::vector<SigIndex> label;
 	std::vector<SigIndex> var;

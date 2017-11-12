@@ -1,26 +1,14 @@
-sendToTag "Lump" "spk";
-sleep;
+let counter 0;
+letSpeed spd;
 
-def collision;
-logStr "Ouch";
-setDir 0 0;
-sendToCaller "move";
-playAnim "idleR";
-
-let c 0;
 def loop;
-ifEquals c 100 ^posture;
-ifEquals c 200 >exit;
-inc c 1;
+inc counter 1;
+ifEquals counter 6 ^incSpeed;
 pause;
 jump >loop;
 
-def exit;
-logStr "OuttaHere";
-playAnim "left";
-setDir (0-1) 0;
-sleep;
-
-def posture;
-playAnim "idleL";
+def incSpeed;
+let counter 0;
+inc spd 3;
+setSpeed spd;
 retSub;

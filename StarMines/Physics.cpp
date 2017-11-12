@@ -37,6 +37,7 @@ void Physics::processMovement()
 			float ya = cp->parent()->position().y + cp->m_colliderPos.y;
 			float wa = cp->m_colliderSize.x;
 			float ha = cp->m_colliderSize.y;
+			float spd = cp->m_speed;
 
 			float xb = p->parent()->position().x + p->m_colliderPos.x;
 			float yb = p->parent()->position().y + p->m_colliderPos.y;
@@ -48,7 +49,7 @@ void Physics::processMovement()
 			// x movement
 			if (cp->m_moveVec.x != 0.0f)
 			{
-				xa += cp->m_moveVec.x;
+				xa += cp->m_moveVec.x * spd;
 				if (collide(xa, ya, wa, ha, xb, yb, wb, hb))
 				{
 					// Collision: Apply physics changes only if solid.
@@ -72,7 +73,7 @@ void Physics::processMovement()
 			// y movement
 			if (cp->m_moveVec.y != 0.0f)
 			{
-				ya += cp->m_moveVec.y;
+				ya += cp->m_moveVec.y * spd;
 				if (collide(xa, ya, wa, ha, xb, yb, wb, hb))
 				{
 					if (cp->m_solid && p->m_solid)
@@ -106,7 +107,7 @@ void Physics::processMovement()
 			
 		}
 		// Add remaining movement
-		cp->parent()->addPosition(cp->m_moveVec.x, cp->m_moveVec.y);
+		cp->parent()->addPosition(cp->m_moveVec.x * cp->m_speed, cp->m_moveVec.y * cp->m_speed);
 	}
 }
 

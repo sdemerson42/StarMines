@@ -15,28 +15,25 @@ void Ruff::RuffVM::loadScript(const std::string &fName)
 
 void Ruff::RuffVM::update()
 {
+	bool callAct{ false };
 	if (m_parent->m_call.size() > 0)
-		m_sleep = false;
-
-	if (m_sleep)
-		return;
-
-	int oldPause = m_pauseIndex;
-
-	for (auto &c : m_parent->m_call)
 	{
-		auto lb = m_code.label.find(c.label);
-		if (lb == end(m_code.label))
-			continue;
-
-		m_parent->m_curCaller = c.caller;
-		exec(lb->second);
+		for (auto &c : m_parent->m_call)
+		{
+			auto lb = m_code.label.find(c.label);
+			if (lb == end(m_code.label))
+				continue;
+			callAct = true;
+			m_parent->m_curCaller = c.caller;
+			exec(lb->second);
+		}
+		m_parent->m_call.clear();
+		m_parent->m_curCaller = nullptr;
 	}
-	m_parent->m_call.clear();
-	m_parent->m_curCaller = nullptr;
 
-	if (!m_sleep)
-		exec(oldPause);
+	if (!m_sleep && !callAct)
+		exec();
+	
 }
 
 void Ruff::RuffVM::exec(int line)
@@ -335,6 +332,90 @@ void Ruff::RuffVM::exec(int line)
 			letVar = -1;
 			break;
 		}
+		case Code::setPos:
+		{
+			float y = float(pop());
+			float x = float(pop());
+			m_parent->parent()->setPosition(x, y);
+			letVar = -1;
+			break;
+		}
+		case Code::addPos:
+		{
+			float y = float(pop());
+			float x = float(pop());
+			m_parent->parent()->addPosition(x, y);
+			letVar = -1;
+			break;
+		}
+		case Code::spawn:
+		{
+			float y = float(pop());
+			float x = float(pop());
+			std::string tag{ strPop() };
+			Events::SpawnDataEvent sde{ tag, x, y };
+			m_parent->broadcast(&sde);
+			letVar = -1;
+			break;
+		}
+		case Code::setSpeed:
+		{
+			float spd = float(pop()) * 0.1f;
+			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
+			if (p)
+				p->setSpeed(spd);
+			letVar = -1;
+			break;
+		}
+		case Code::letSpeed:
+		{
+			pop();
+			float spd{ 0.0f };
+			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
+			if (p)
+				spd = p->speed() * 10.0f;
+			m_reg[letVar] = int(spd);
+			letVar = -1;
+			break;
+		};
+		case Code::letDirX:
+		{
+			pop();
+			float x{ 0.0f };
+			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
+			if (p)
+				x = p->dir().x * 10.0f;
+			m_reg[letVar] = int(x);
+			letVar = -1;
+			break;
+		};
+		case Code::letDirY:
+		{
+			pop();
+			float y{ 0.0f };
+			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
+			if (p)
+				y = p->dir().y * 10.0f;
+			m_reg[letVar] = int(y);
+			letVar = -1;
+			break;
+		};
+		case Code::letPosX:
+		{
+			pop();
+			float x = m_parent->parent()->position().x;
+			m_reg[letVar] = int(x);
+			letVar = -1;
+			break;
+		};
+		case Code::letPosY:
+		{
+			pop();
+			float y = m_parent->parent()->position().y;
+			m_reg[letVar] = int(y);
+			letVar = -1;
+			break;
+		};
 
 		}
 

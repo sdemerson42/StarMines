@@ -1,0 +1,28 @@
+addPos <val> <val>
+dec <var> <val>
+halt
+ifCallerTag <str> <label>
+ifEqual <var> <val> <label>
+ifGreater <var> <val> <label>
+ifLess <var> <val> <label>
+inc <var> <val>
+jump <label>
+let <var> <val>
+letDirX <var>
+letDirY <var>
+letPosX <var>
+letPosY <var>
+letSpeed <var>
+log <val>
+logStr <str>
+pause
+playAnim <animStr>
+rand <var> <min> <max>
+retSub
+sendToCaller <labelStr>
+sendToTag <tagStr> <labelStr>
+setDir <val> <val>
+setPos <val> <val>
+setSpeed <val>
+sleep
+spawn <blueprintStr> <val> <val>

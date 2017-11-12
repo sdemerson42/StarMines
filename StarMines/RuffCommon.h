@@ -43,7 +43,16 @@ namespace Ruff
 		sendCall = 102,
 		setDir = 103,
 		playAnim = 104,
-		sendTag = 105
+		sendTag = 105,
+		setPos = 106,
+		addPos = 107,
+		spawn = 108,
+		setSpeed = 109,
+		letSpeed = 110,
+		letDirX = 111,
+		letDirY = 112,
+		letPosX = 113,
+		letPosY = 114
 
 	};
 
