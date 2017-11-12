@@ -26,7 +26,10 @@ public:
 	{
 		return m_tag;
 	}
-
+	void onMove()
+	{
+		m_vm.setParent(this);
+	}
 	void resetVM();
 
 	void addCall(Ruff::Call& c)

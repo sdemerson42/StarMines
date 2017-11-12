@@ -1,14 +1,18 @@
+logStr "RGHere";
 let counter 0;
-letSpeed spd;
+let moveState 0;
 
-def loop;
+setDir 0 10;
+
+def loopA;
 inc counter 1;
-ifEquals counter 6 ^incSpeed;
+ifEquals counter 100 >phase;
 pause;
-jump >loop;
+jump >loopA;
 
-def incSpeed;
+def phase;
 let counter 0;
-inc spd 3;
-setSpeed spd;
-retSub;
+setDir 1 0;
+sendToTag "Logic" "RG"; 
+despawn;
+halt;

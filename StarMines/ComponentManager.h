@@ -80,6 +80,13 @@ void ComponentManager::genDeactivateComponent(Entity *e, std::vector<T> &v, int 
 				auto vip = v[i].parent();
 				auto vipc = find(begin(vip->m_compRef), end(vip->m_compRef), &v[sz - 1]);
 				*vipc = &v[i];
+
+				if (ti == std::type_index{ typeid(BehaviorComponent) })
+				{
+					static_cast<BehaviorComponent *>(*vipc)->onMove();
+					static_cast<BehaviorComponent *>(*ecp)->onMove();
+				}
+
 				--sz;
 				break;
 			}
@@ -87,6 +94,7 @@ void ComponentManager::genDeactivateComponent(Entity *e, std::vector<T> &v, int 
 		}
 	}
 }
+
 
 template<typename T>
 void ComponentManager::genActivateComponent(Entity *e, std::vector<T> &v, int &sz)
@@ -111,6 +119,11 @@ void ComponentManager::genActivateComponent(Entity *e, std::vector<T> &v, int &s
 				{
 					auto vipc = find(begin(vip->m_compRef), end(vip->m_compRef), &v[sz]);
 					*vipc = &v[i];
+					if (ti == std::type_index{ typeid(BehaviorComponent) })
+					{
+						static_cast<BehaviorComponent *>(*vipc)->onMove();
+						static_cast<BehaviorComponent *>(*ecp)->onMove();
+					}
 				}
 				++sz;
 				break;

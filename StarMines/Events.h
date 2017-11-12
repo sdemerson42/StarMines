@@ -23,10 +23,20 @@ namespace Events
 	{
 		SpawnDataEvent()
 		{}
-		SpawnDataEvent(const std::string &_blueprint, float x, float y) :
+		SpawnDataEvent(const std::string &_blueprint, float x, float y, bool _despawn = false) :
 			blueprint{ _blueprint }, position{ x,y }
 		{}
 		std::string blueprint;
 		Vector2 position;
+	};
+
+	struct DespawnEvent : EventBase
+	{
+		DespawnEvent()
+		{}
+		DespawnEvent(Entity *_entity) :
+			entity{ _entity }
+		{}
+		Entity *entity;
 	};
 };

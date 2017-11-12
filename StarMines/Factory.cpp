@@ -153,3 +153,8 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 		std::cout << "Factory: New Entity constructed.\n";
 	}
 }
+
+void Factory::deactivate(Entity *e)
+{
+	m_gameState->m_compManager->deactivateAll(e);
+}

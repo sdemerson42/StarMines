@@ -4,8 +4,7 @@
 
 void Behavior::update()
 {
-	for (auto &c : m_compManager->m_behavior)
-	{
-		c.update();
-	}
+	int sz = m_compManager->m_behaviorSz;
+	for (int i = 0; i < sz; ++i)
+		m_compManager->m_behavior[i].update();
 }

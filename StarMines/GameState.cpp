@@ -67,15 +67,7 @@ void GameState::loadTestData(const std::string &fName)
 		float x, y;
 		bool cache;
 		ifs >> x >> y >> cache;
-		if (!cache)
-		{
-			Events::SpawnDataEvent evnt{ b, x, y };
-			broadcast(&evnt);
-		}
-		else
-		{
-			m_factory.createFromBlueprint(b, x, y);
-		}
+		m_factory.createFromBlueprint(b, x, y, cache);
 		
 	}
 }

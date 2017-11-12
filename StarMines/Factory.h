@@ -5,6 +5,7 @@
 
 class ComponentManager;
 class GameState;
+class Entity;
 
 class Factory
 {
@@ -12,6 +13,7 @@ public:
 	Factory(GameState *gameState, const std::string &fName);
 	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, bool cache = true);
 	void activateFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f);
+	void deactivate(Entity *e);
 	struct CompData
 	{
 		std::string type;

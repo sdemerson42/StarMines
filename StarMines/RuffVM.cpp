@@ -358,6 +358,13 @@ void Ruff::RuffVM::exec(int line)
 			letVar = -1;
 			break;
 		}
+		case Code::despawn:
+		{
+			Events::DespawnEvent de{ m_parent->parent() };
+			m_parent->broadcast(&de);
+			letVar = -1;
+			break;
+		}
 		case Code::setSpeed:
 		{
 			float spd = float(pop()) * 0.1f;
@@ -423,6 +430,11 @@ void Ruff::RuffVM::exec(int line)
 
 		++i;
 	}
+}
+
+void Ruff::RuffVM::setParent(BehaviorComponent *parent)
+{
+	m_parent = parent;
 }
 
 void Ruff::RuffVM::reset()

@@ -1,5 +1,6 @@
 addPos <val> <val>
 dec <var> <val>
+despawn
 halt
 ifCallerTag <str> <label>
 ifEqual <var> <val> <label>

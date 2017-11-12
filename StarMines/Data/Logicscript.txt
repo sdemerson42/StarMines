@@ -1,0 +1,17 @@
+let counter 0;
+sleep;
+
+def RG;
+spawn "Lump" 300 300;
+spawn "Lump" 400 300;
+sleep;
+
+def L;
+ifEquals counter 1 >bypass;
+spawn "RedGuy" 0 0;
+inc counter 1;
+sleep;
+
+def bypass;
+let counter 0;
+sleep;

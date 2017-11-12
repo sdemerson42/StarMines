@@ -1,20 +1,17 @@
+logStr "LumpHere";
 playAnim "active";
-sleep;
+rand x (0-5) 5;
+rand y (0-5) 5;
+setDir x y;
+let counter 0;
 
-def move;
-setDir 20 (0-5);
-playAnim "idle";
-sleep;
+def loop;
+inc counter 1;
+ifEquals counter 100 >phase;
+pause;
+jump >loop;
 
-def collision;
-ifCallerTag "Lump" ^speak;
-sendToCaller "move";
-sleep;
-
-def speak;
-logStr "Oof";
-retSub;
-
-def spk;
-logStr "Heard";
+def phase;
+sendToTag "Logic" "L";
+despawn;
 halt;
