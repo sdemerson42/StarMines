@@ -18,9 +18,7 @@ GameState::GameState() :
 	registerFunc(this, &GameState::onRSCall);
 
 	// Test Data
-
 	loadTestData("Data\\TestData.txt");
-
 };
 
 void GameState::exec()
@@ -67,8 +65,17 @@ void GameState::loadTestData(const std::string &fName)
 	while (ifs >> b)
 	{
 		float x, y;
-		ifs >> x >> y;
-		Events::SpawnDataEvent evnt{ b, x, y };
-		broadcast(&evnt);
+		bool cache;
+		ifs >> x >> y >> cache;
+		if (!cache)
+		{
+			Events::SpawnDataEvent evnt{ b, x, y };
+			broadcast(&evnt);
+		}
+		else
+		{
+			m_factory.createFromBlueprint(b, x, y);
+		}
+		
 	}
 }

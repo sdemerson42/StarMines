@@ -425,6 +425,14 @@ void Ruff::RuffVM::exec(int line)
 	}
 }
 
+void Ruff::RuffVM::reset()
+{
+	m_stack.clear();
+	m_frame.clear();
+	m_pauseIndex = -1;
+	m_sleep = false;
+}
+
 int Ruff::RuffVM::pop()
 {
 	int r = *(end(m_stack) - 1);

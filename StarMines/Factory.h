@@ -10,7 +10,8 @@ class Factory
 {
 public:
 	Factory(GameState *gameState, const std::string &fName);
-	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f);
+	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, bool cache = true);
+	void activateFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f);
 	struct CompData
 	{
 		std::string type;

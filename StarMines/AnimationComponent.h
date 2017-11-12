@@ -42,6 +42,11 @@ public:
 	void writeOut(std::vector<std::string> &output) override
 	{
 	}
+	std::string &getTag() const override
+	{
+		return m_tag;
+	}
+
 	void play(const std::string &tag)
 	{
 		auto p = m_anim.find(tag);
@@ -64,6 +69,7 @@ public:
 		m_playing = false;
 	}
 private:
+	static std::string m_tag;
 	struct Animation : public Serializable
 	{
 		std::vector<Vector2> framePos;

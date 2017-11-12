@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="BehaviorComponent.cpp" />
@@ -161,8 +162,10 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="IComponent.cpp" />
     <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="ProxMap.cpp" />
     <ClCompile Include="ReadData.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RuffParse.cpp" />
     <ClCompile Include="RuffVM.cpp" />

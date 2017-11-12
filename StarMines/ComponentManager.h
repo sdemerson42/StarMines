@@ -23,6 +23,8 @@ public:
 	void deactivateComponent(Entity *e, const std::string &tag);
 	void activateComponent(Entity *e, const std::string &tag);
 	void removeComponent(Entity *e, const std::string &tag);
+	void activateAll(Entity *e);
+	void deactivateAll(Entity *e);
 private:	
 	static constexpr int MAX_COMPONENTS = 5000;
 	

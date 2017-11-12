@@ -1,6 +1,7 @@
 #include "Factory.h"
 #include "GameState.h"
 #include "ComponentManager.h"
+#include "Entity.h"
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -54,6 +55,8 @@ std::istream &operator >> (std::istream &is, Factory::Blueprint &b)
 		return is;
 
 	b.name = s;
+	b.tag.emplace_back(s);
+
 	char c;
 	if (!(is >> c) || c != ':')
 	{
@@ -98,7 +101,7 @@ std::istream &operator >> (std::istream &is, Factory::Blueprint &b)
 	return is;
 }
 
-void Factory::createFromBlueprint(const std::string &blueprint, float x, float y)
+void Factory::createFromBlueprint(const std::string &blueprint, float x, float y, bool cache)
 {
 	auto p = std::find_if(begin(m_blueprint), end(m_blueprint), [&](const Blueprint &b)
 	{
@@ -118,5 +121,35 @@ void Factory::createFromBlueprint(const std::string &blueprint, float x, float y
 	for (auto &cd : p->compData)
 	{
 		m_gameState->m_compManager->addComponent(e, cd.type, cd.data);
+	}
+	if (cache)
+		m_gameState->m_compManager->deactivateAll(e);
+	else
+		e->setActive(true);
+}
+
+void Factory::activateFromBlueprint(const std::string &blueprint, float x, float y)
+{
+	auto &v = m_gameState->m_entity;
+	auto p = std::find_if(begin(v), end(v), [&](std::shared_ptr<Entity> &sp)
+	{
+		return sp->findTag(blueprint) && !sp->active();
+	});
+
+	if (p != end(v))
+	{
+		m_gameState->m_compManager->activateAll(p->get());
+		
+		auto bc = (*p)->getComponent<BehaviorComponent>();
+		if (bc)
+			bc->resetVM();
+		
+		(*p)->setPosition(x, y);
+		std::cout << "Factory: Existing Entity activated.\n";
+	}
+	else
+	{
+		createFromBlueprint(blueprint, x, y, false);
+		std::cout << "Factory: New Entity constructed.\n";
 	}
 }

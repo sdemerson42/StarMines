@@ -22,6 +22,12 @@ public:
 	{
 		m_vm.update();
 	}
+	std::string &getTag() const override
+	{
+		return m_tag;
+	}
+
+	void resetVM();
 
 	void addCall(Ruff::Call& c)
 	{
@@ -29,6 +35,7 @@ public:
 	}
 
 private:
+	static std::string m_tag;
 	Ruff::RuffVM m_vm;
 	std::vector<Ruff::Call> m_call;
 	Entity *m_curCaller;

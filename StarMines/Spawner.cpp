@@ -12,7 +12,7 @@ void Spawner::update()
 {
 	for (auto p : m_spawnData)
 	{
-		m_factory->createFromBlueprint(p.blueprint, p.position.x, p.position.y);
+		m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y);
 	}
 	m_spawnData.clear();
 }

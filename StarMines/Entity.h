@@ -70,9 +70,22 @@ public:
 			return true;
 		return false;
 	}
+
+	// Active
+
+	void setActive(bool b)
+	{
+		m_active = b;
+	}
+	bool active() const
+	{
+		return m_active;
+	}
+
 private:
 	std::vector<IComponent *> m_compRef;
 	Vector2 m_position;
 	std::vector<std::string> m_tag;
+	bool m_active{ false };
 };
 

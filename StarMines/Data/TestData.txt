@@ -1,1 +1,2 @@
-RedGuy 0 0
+RedGuy 0 0 1
+RedGuy 30 30 1

@@ -21,6 +21,7 @@ namespace Ruff
 		void loadScript(const std::string &fName);
 		void update();
 		void exec(int line = -1);
+		void reset();
 	private:
 		BehaviorComponent *m_parent;
 		int pop();

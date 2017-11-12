@@ -32,6 +32,11 @@ public:
 			&m_size.y, Serializable::Type::FLOAT);
 		writeSerial(output);
 	}
+	std::string &getTag() const override
+	{
+		return m_tag;
+	}
+
 	enum class WindowLayer
 	{
 		MAIN, OVERLAY, _SIZE
@@ -76,6 +81,7 @@ public:
 		m_position.y = y;
 	}
 private:
+	static std::string m_tag;
 	WindowLayer m_winLayer;
 	SceneLayer m_sceneLayer;
 	std::string m_textureName;

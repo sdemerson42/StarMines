@@ -24,6 +24,11 @@ public:
 
 		normalize(m_moveVec);
 	};
+	std::string &getTag() const override
+	{
+		return m_tag;
+	}
+
 	void setDir(float x, float y)
 	{
 		m_moveVec.x = x;
@@ -43,6 +48,7 @@ public:
 		return m_speed;
 	}
 private:
+	static std::string m_tag;
 	Vector2 m_colliderPos;
 	Vector2 m_colliderSize;
 	Vector2 m_moveVec;

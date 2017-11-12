@@ -80,3 +80,17 @@ void ComponentManager::removeComponent(Entity *e, const std::string &tag)
 		genRemoveComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
 	}
 }
+
+void ComponentManager::activateAll(Entity *e)
+{
+	for (auto p : e->m_compRef)
+		activateComponent(e, p->getTag());
+	e->setActive(true);
+}
+
+void ComponentManager::deactivateAll(Entity *e)
+{
+	for (auto p : e->m_compRef)
+		deactivateComponent(e, p->getTag());
+	e->setActive(false);
+}
