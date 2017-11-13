@@ -20,11 +20,13 @@ void Ruff::RuffVM::update()
 	{
 		for (auto &c : m_parent->m_call)
 		{
+			m_sleep = false;
 			auto lb = m_code.label.find(c.label);
 			if (lb == end(m_code.label))
 				continue;
 			callAct = true;
 			m_parent->m_curCaller = c.caller;
+			m_pauseIndex = -1;
 			exec(lb->second);
 		}
 		m_parent->m_call.clear();
@@ -384,7 +386,7 @@ void Ruff::RuffVM::exec(int line)
 			m_reg[letVar] = int(spd);
 			letVar = -1;
 			break;
-		};
+		}
 		case Code::letDirX:
 		{
 			pop();
@@ -395,7 +397,7 @@ void Ruff::RuffVM::exec(int line)
 			m_reg[letVar] = int(x);
 			letVar = -1;
 			break;
-		};
+		}
 		case Code::letDirY:
 		{
 			pop();
@@ -406,7 +408,7 @@ void Ruff::RuffVM::exec(int line)
 			m_reg[letVar] = int(y);
 			letVar = -1;
 			break;
-		};
+		}
 		case Code::letPosX:
 		{
 			pop();
@@ -414,7 +416,7 @@ void Ruff::RuffVM::exec(int line)
 			m_reg[letVar] = int(x);
 			letVar = -1;
 			break;
-		};
+		}
 		case Code::letPosY:
 		{
 			pop();
@@ -422,7 +424,24 @@ void Ruff::RuffVM::exec(int line)
 			m_reg[letVar] = int(y);
 			letVar = -1;
 			break;
-		};
+		}
+		case Code::posBound:
+		{
+			float yr = pop();
+			float yl = pop();
+			float xr = pop();
+			float xl = pop();
+			Vector2 pos = m_parent->parent()->position();
+
+			if (pos.x < xl) pos.x = xl;
+			if (pos.x > xr) pos.x = xr;
+			if (pos.y < yl) pos.y = yl;
+			if (pos.y > yr) pos.y = yr;
+			m_parent->parent()->setPosition(pos.x, pos.y);
+
+			letVar = -1;
+			break;
+		}
 
 		}
 

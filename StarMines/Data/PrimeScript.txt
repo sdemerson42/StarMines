@@ -1,18 +1,32 @@
-logStr "RGHere";
+setPos 400 300;
+
+def switch;
+rand vx (0-5) 5;
+playAnim "right";
+ifLess vx 0 ^left;
+rand vy (0-5) 5;
+setDir vx vy;
+setSpeed 60;
 let counter 0;
-let moveState 0;
+rand limit 30 70;
+let slow (limit/2);
 
-setDir 0 10;
-
-def loopA;
+def loop;
+posBound 0 770 0 570;
 inc counter 1;
-ifEquals counter 100 >phase;
 pause;
-jump >loopA;
+ifEquals counter limit >switch;
+ifEquals counter slow ^brakes;
+jump >loop;
 
-def phase;
-let counter 0;
-setDir 1 0;
-sendToTag "Logic" "RG"; 
-despawn;
-halt;
+def brakes;
+setSpeed 20;
+retSub;
+
+def left;
+playAnim "left";
+retSub;
+
+def collision;
+sendToCaller "encroach";
+jump >switch;

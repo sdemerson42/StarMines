@@ -3,6 +3,7 @@
 #include "PhysicsComponent.h"
 #include "BehaviorComponent.h"
 #include "RuffCommon.h"
+#include <iostream>
 
 void Physics::update()
 {
@@ -22,7 +23,6 @@ void Physics::fillMap()
 
 void Physics::processMovement()
 {
-
 	for (int i{ 0 }; i < m_compManager->m_physicsSz; ++i)
 	{
 		auto cp = &m_compManager->m_physics[i];

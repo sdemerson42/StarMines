@@ -1,17 +1,24 @@
-logStr "LumpHere";
+rand x 0 770;
+rand y 0 570;
+setPos x y;
+setSpeed 10;
+playAnim "idle";
+let flag 0;
+sleep;
+
+def encroach;
+ifEquals flag 1 >move;
+let flag 1;
 playAnim "active";
-rand x (0-5) 5;
-rand y (0-5) 5;
+
+def move;
+letPosX x;
+letPosY y;
+let x (400-x);
+let y (300-y);
 setDir x y;
-let counter 0;
 
 def loop;
-inc counter 1;
-ifEquals counter 100 >phase;
+posBound 0 770 0 570;
 pause;
 jump >loop;
-
-def phase;
-sendToTag "Logic" "L";
-despawn;
-halt;

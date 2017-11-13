@@ -19,6 +19,7 @@ GameState::GameState() :
 
 	// Test Data
 	loadTestData("Data\\TestData.txt");
+	
 };
 
 void GameState::exec()

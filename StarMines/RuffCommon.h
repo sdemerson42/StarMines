@@ -53,7 +53,8 @@ namespace Ruff
 		letDirY = 112,
 		letPosX = 113,
 		letPosY = 114,
-		despawn = 115
+		despawn = 115,
+		posBound = 116
 
 	};
 
