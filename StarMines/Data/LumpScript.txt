@@ -1,27 +1,19 @@
+setSpeed 10;
 rand x 0 770;
 rand y 0 570;
 setPos x y;
-setSpeed 10;
-playAnim "idle";
-let flag 0;
-sleep;
-
-def encroach;
-ifEquals flag 1 >move;
-let flag 1;
 playAnim "active";
 
-def test;
-despawn;
-halt;
-
-def move;
+def find;
+let counter 0;
+setTargetTag "RedGuy" "first";
+letTargetPos tx ty;
 letPos x y;
-let x (400-x);
-let y (300-y);
-setDir x y;
+setDir (tx-x) (ty-y);
 
 def loop;
+inc counter 1;
 posBound 0 770 0 570;
 pause;
+ifEquals counter 20 >find;
 jump >loop;

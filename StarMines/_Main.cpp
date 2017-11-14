@@ -6,6 +6,7 @@
 
 int main()
 {
+	//DEBUG
 	srand(time(0));
 	auto gs = new GameState;
 	gs->exec();

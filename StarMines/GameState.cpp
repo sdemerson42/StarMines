@@ -2,6 +2,7 @@
 #include "ReadData.h"
 #include <algorithm>
 #include "BehaviorComponent.h"
+#include <iostream>
 
 GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },

@@ -1,32 +1,4 @@
 setPos 400 300;
-setSpeed 60;
-setDir 0 0;
-let counter 0;
-
-def pre;
-inc counter 1;
-ifEquals counter 20 >test;
-pause;
-jump >pre;
-
-def test;
-setTargetTag "Lump" "near";
-letTargetPos vx vy;
-letPos x y;
-setDir (vx-x) (vy-y);
-playAnim "right";
-ifLess (vx-x) 0 ^left;
-
-def loop;
-posBound 0 770 0 570;
-pause;
-jump >loop;
-
-def left;
-playAnim "left";
-retSub;
-
-def collision;
-sendToCaller "test";
-jump >test;
-
+setSpeed 5;
+setDir 10 5;
+sleep;
