@@ -20,10 +20,10 @@ void Ruff::RuffVM::update()
 	{
 		for (auto &c : m_parent->m_call)
 		{
-			m_sleep = false;
 			auto lb = m_code.label.find(c.label);
 			if (lb == end(m_code.label))
 				continue;
+			m_sleep = false;
 			callAct = true;
 			m_parent->m_curCaller = c.caller;
 			m_pauseIndex = -1;
