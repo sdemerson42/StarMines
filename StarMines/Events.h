@@ -39,4 +39,17 @@ namespace Events
 		{}
 		Entity *entity;
 	};
+
+	struct QueryEntityByTagEvent : EventBase
+	{
+		QueryEntityByTagEvent()
+		{}
+		QueryEntityByTagEvent(void *_client, const std::string &_tag, const std::string &_method) :
+			client{ _client }, tag{ _tag }, method{ _method }, response{ nullptr }
+		{}
+		void *client;
+		std::string tag;
+		std::string method;
+		Entity *response;
+	};
 };

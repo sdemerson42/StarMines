@@ -30,10 +30,10 @@ namespace Ruff
 		int framePop();
 		void framePush(int x);
 		std::string strPop();
-		
 		std::vector<int> m_stack;
 		std::vector<int> m_reg;
 		std::vector<int> m_frame;
+		std::vector<int> m_letVar;
 		int m_pauseIndex;
 		bool m_sleep;
 

@@ -8,13 +8,13 @@
 
 
 	template<typename T, typename ET>
-	using MFunc = void(T::*)(const ET *);
+	using MFunc = void(T::*)(ET *);
 
 
 	class IFuncWrapper
 	{
 	public:
-		virtual void call(const EventBase *) = 0;
+		virtual void call(EventBase *) = 0;
 	};
 
 	template<typename T, typename ET>
@@ -24,9 +24,9 @@
 		FuncWrapper(T *caller, MFunc<T, ET> func) :
 			m_caller{ caller }, m_func{ func }
 		{}
-		void call(const EventBase *evnt) override
+		void call(EventBase *evnt) override
 		{
-			(m_caller->*m_func)(static_cast<const ET*>(evnt));
+			(m_caller->*m_func)(static_cast<ET*>(evnt));
 		}
 	private:
 		T *m_caller;
@@ -44,8 +44,8 @@
 			m_funcMap[ti] = std::make_shared<FuncWrapper<T, ET>>(caller, func);
 			m_receiverMap[ti].emplace_back(caller);
 		}
-		void handleEvent(const EventBase *evnt);
-		void broadcast(const EventBase *evnt);
+		void handleEvent(EventBase *evnt);
+		void broadcast(EventBase *evnt);
 	private:
 		std::map<std::type_index, std::shared_ptr<IFuncWrapper>> m_funcMap;
 		static std::map<std::type_index, std::vector<EventHandler *>> m_receiverMap;

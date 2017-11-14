@@ -53,7 +53,6 @@ void Ruff::RuffVM::exec(int line)
 		m_pauseIndex = -1;
 	}
 
-	int letVar{ -1 };
 	m_stack.clear();
 
 	bool breakFlag{ false };
@@ -74,8 +73,8 @@ void Ruff::RuffVM::exec(int line)
 		{
 			int val = pop();
 			pop();
-			m_reg[letVar] -= val;
-			letVar = -1;
+			m_reg[m_letVar[0]] -= val;
+			m_letVar.clear();
 			break;
 		}
 		case Code::div:
@@ -99,7 +98,7 @@ void Ruff::RuffVM::exec(int line)
 				}
 				i = dest - 1;
 			}
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::ifGreater:
@@ -116,7 +115,7 @@ void Ruff::RuffVM::exec(int line)
 				}
 				i = dest - 1;
 			}
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::ifLess:
@@ -133,7 +132,7 @@ void Ruff::RuffVM::exec(int line)
 				}
 				i = dest - 1;
 			}
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::ifCallerTag:
@@ -149,15 +148,14 @@ void Ruff::RuffVM::exec(int line)
 				}
 				i = dest - 1;
 			}
-			letVar = -1;
 			break;
 		}
 		case Code::inc:
 		{
 			int val = pop();
 			pop();
-			m_reg[letVar] += val;
-			letVar = -1;
+			m_reg[m_letVar[0]] += val;
+			m_letVar.clear();
 			break;
 		}
 		case Code::jump:
@@ -169,7 +167,6 @@ void Ruff::RuffVM::exec(int line)
 			}
 			int dest = pop();
 			i = dest - 1;
-			letVar = -1;
 			break;
 		}
 		case Code::label:
@@ -187,19 +184,19 @@ void Ruff::RuffVM::exec(int line)
 		{
 			int val = pop();
 			pop();
-			m_reg[letVar] = val;
-			letVar = -1;
+			m_reg[m_letVar[0]] = val;
+			m_letVar.clear();
 			break;
 		}
 		case Code::log:
 		{
 			int l{ 0 };
-			if (letVar == -1)
+			if (m_letVar.size() == 0)
 				l = pop();
 			else
-				l = m_reg[letVar];
+				l = m_reg[m_letVar[0]];
 			std::cout << "Log: " << l << "\n";
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::mod:
@@ -231,15 +228,13 @@ void Ruff::RuffVM::exec(int line)
 		case Code::var:
 		{
 			++i;
-			if (letVar == -1)
-				letVar = m_code.code[i];
+			m_letVar.emplace_back(m_code.code[i]);
 			push(m_reg[m_code.code[i]]);
 			break;
 		}
 		case Code::halt:
 		{
 			breakFlag = true;
-			letVar = -1;
 			break;
 		}
 		case Code::rand:
@@ -247,21 +242,19 @@ void Ruff::RuffVM::exec(int line)
 			int max = pop();
 			int min = pop();
 			pop();
-			m_reg[letVar] = std::rand() % (max - min + 1) + min;
-			letVar = -1;
+			m_reg[m_letVar[0]] = std::rand() % (max - min + 1) + min;
+			m_letVar.clear();
 			break;
 		}
 		case Code::retSub:
 		{
 			i = framePop() - 1;
-			letVar = -1;
 			break;
 		}
 		case Code::pause:
 		{
 			m_pauseIndex = i + 1;
 			breakFlag = true;
-			letVar = -1;
 			break;
 		}
 		case Code::strbegin:
@@ -279,20 +272,21 @@ void Ruff::RuffVM::exec(int line)
 		{
 			auto s = strPop();
 			std::cout << "Log: " << s << "\n";
-			letVar = -1;
 			break;
 		}
 		case Code::sendCall:
 		{
-			Call c;
-			c.caller = m_parent->parent();
-			c.label = strPop();
-			
-			auto p = m_parent->m_curCaller->getComponent<BehaviorComponent>();
-			if (p)
-				p->addCall(c);
-
-			letVar = -1;
+			if (m_parent->m_curCaller)
+			{
+				auto p = m_parent->m_curCaller->getComponent<BehaviorComponent>();
+				if (p)
+				{
+					Call c;
+					c.caller = m_parent->parent();
+					c.label = strPop();
+					p->addCall(c);
+				}
+			}
 			break;
 		}
 		case Code::sendTag:
@@ -302,7 +296,6 @@ void Ruff::RuffVM::exec(int line)
 			c.label = strPop();
 			std::string tag{ strPop() };
 			m_parent->broadcastCall(c, tag);
-			letVar = -1;
 			break;
 		}
 		case Code::setDir:
@@ -314,14 +307,13 @@ void Ruff::RuffVM::exec(int line)
 			if (p)
 				p->setDir(x, y);
 
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::sleep:
 		{
 			m_sleep = true;
 			breakFlag = true;
-			letVar = -1;
 			break;
 		}
 		case Code::playAnim:
@@ -331,7 +323,6 @@ void Ruff::RuffVM::exec(int line)
 			{
 				p->play(strPop());
 			}
-			letVar = -1;
 			break;
 		}
 		case Code::setPos:
@@ -339,7 +330,7 @@ void Ruff::RuffVM::exec(int line)
 			float y = float(pop());
 			float x = float(pop());
 			m_parent->parent()->setPosition(x, y);
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::addPos:
@@ -347,7 +338,7 @@ void Ruff::RuffVM::exec(int line)
 			float y = float(pop());
 			float x = float(pop());
 			m_parent->parent()->addPosition(x, y);
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::spawn:
@@ -357,14 +348,13 @@ void Ruff::RuffVM::exec(int line)
 			std::string tag{ strPop() };
 			Events::SpawnDataEvent sde{ tag, x, y };
 			m_parent->broadcast(&sde);
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::despawn:
 		{
 			Events::DespawnEvent de{ m_parent->parent() };
 			m_parent->broadcast(&de);
-			letVar = -1;
 			break;
 		}
 		case Code::setSpeed:
@@ -373,7 +363,7 @@ void Ruff::RuffVM::exec(int line)
 			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
 			if (p)
 				p->setSpeed(spd);
-			letVar = -1;
+			m_letVar.clear();
 			break;
 		}
 		case Code::letSpeed:
@@ -383,46 +373,34 @@ void Ruff::RuffVM::exec(int line)
 			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
 			if (p)
 				spd = p->speed() * 10.0f;
-			m_reg[letVar] = int(spd);
-			letVar = -1;
+			m_reg[m_letVar[0]] = int(spd);
+			m_letVar.clear();
 			break;
 		}
-		case Code::letDirX:
+		case Code::letPos:
 		{
 			pop();
-			float x{ 0.0f };
-			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
-			if (p)
-				x = p->dir().x * 10.0f;
-			m_reg[letVar] = int(x);
-			letVar = -1;
-			break;
-		}
-		case Code::letDirY:
-		{
-			pop();
-			float y{ 0.0f };
-			auto p = m_parent->parent()->getComponent<PhysicsComponent>();
-			if (p)
-				y = p->dir().y * 10.0f;
-			m_reg[letVar] = int(y);
-			letVar = -1;
-			break;
-		}
-		case Code::letPosX:
-		{
 			pop();
 			float x = m_parent->parent()->position().x;
-			m_reg[letVar] = int(x);
-			letVar = -1;
+			float y = m_parent-> parent()->position().y;
+			m_reg[m_letVar[0]] = int(x);
+			m_reg[m_letVar[1]] = int(y);
+			m_letVar.clear();
 			break;
 		}
-		case Code::letPosY:
+		case Code::letDir:
 		{
 			pop();
-			float y = m_parent->parent()->position().y;
-			m_reg[letVar] = int(y);
-			letVar = -1;
+			pop();
+			auto pc = m_parent->parent()->getComponent<PhysicsComponent>();
+			if (pc)
+			{
+				float x = pc->dir().x * 10.0f;
+				float y = pc->dir().y * 10.0f;
+				m_reg[m_letVar[0]] = int(x);
+				m_reg[m_letVar[1]] = int(y);
+			}
+			m_letVar.clear();
 			break;
 		}
 		case Code::posBound:
@@ -439,7 +417,33 @@ void Ruff::RuffVM::exec(int line)
 			if (pos.y > yr) pos.y = yr;
 			m_parent->parent()->setPosition(pos.x, pos.y);
 
-			letVar = -1;
+			m_letVar.clear();
+			break;
+		}
+		case Code::setTargetCaller:
+		{
+			m_parent->m_target = m_parent->m_curCaller;
+			break;
+		}
+		case Code::letTargetPos:
+		{
+			pop();
+			pop();
+			if (m_parent->m_target)
+			{
+				float x = m_parent->m_target->position().x;
+				float y = m_parent->m_target->position().y;
+				m_reg[m_letVar[0]] = int(x);
+				m_reg[m_letVar[1]] = int(y);
+			}
+			m_letVar.clear();
+			break;
+		}
+		case Code::setTargetTag:
+		{
+			std::string method = strPop();
+			std::string tag = strPop();
+			m_parent->setTargetTag(tag, method);
 			break;
 		}
 

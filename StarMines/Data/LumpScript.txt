@@ -11,9 +11,12 @@ ifEquals flag 1 >move;
 let flag 1;
 playAnim "active";
 
+def test;
+despawn;
+halt;
+
 def move;
-letPosX x;
-letPosY y;
+letPos x y;
 let x (400-x);
 let y (300-y);
 setDir x y;

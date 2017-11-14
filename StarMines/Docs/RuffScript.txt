@@ -9,11 +9,10 @@ ifLess <var> <val> <label>
 inc <var> <val>
 jump <label>
 let <var> <val>
-letDirX <var>
-letDirY <var>
-letPosX <var>
-letPosY <var>
+letDir <var> <var>
+letPos <var> <var>
 letSpeed <var>
+letTargetPos <var> <var>
 log <val>
 logStr <str>
 pause
@@ -26,5 +25,11 @@ sendToTag <tagStr> <labelStr>
 setDir <val> <val>
 setPos <val> <val>
 setSpeed <val>
+
+setTargetTag <strTag> <strMethod>
+** first - find first available with tag
+** near - find nearest by position
+
+setTargetCaller
 sleep
 spawn <blueprintStr> <val> <val>

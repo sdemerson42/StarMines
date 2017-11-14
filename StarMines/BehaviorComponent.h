@@ -2,6 +2,7 @@
 
 #include "IComponent.h"
 #include "RuffVM.h"
+#include "Events.h"
 
 class Entity;
 
@@ -12,8 +13,11 @@ class BehaviorComponent : public IComponent
 public:
 	BehaviorComponent() :
 		m_vm{ this },
-		m_curCaller{ nullptr }
-	{}
+		m_curCaller{ nullptr },
+		m_target{ nullptr }
+	{
+		registerFunc(this, &BehaviorComponent::onQueryEntityByTag);
+	}
 	void initialize(const std::vector<std::string> &input) override
 	{
 		m_vm.loadScript(input[0]);
@@ -42,6 +46,9 @@ private:
 	Ruff::RuffVM m_vm;
 	std::vector<Ruff::Call> m_call;
 	Entity *m_curCaller;
+	Entity *m_target;
 
 	void broadcastCall(Ruff::Call &c, const std::string &tag);
+	void setTargetTag(const std::string &tag, const std::string &method);
+	void onQueryEntityByTag(const Events::QueryEntityByTagEvent *);
 };

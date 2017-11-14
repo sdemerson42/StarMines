@@ -1,32 +1,32 @@
 setPos 400 300;
-
-def switch;
-rand vx (0-5) 5;
-playAnim "right";
-ifLess vx 0 ^left;
-rand vy (0-5) 5;
-setDir vx vy;
 setSpeed 60;
+setDir 0 0;
 let counter 0;
-rand limit 30 70;
-let slow (limit/2);
+
+def pre;
+inc counter 1;
+ifEquals counter 20 >test;
+pause;
+jump >pre;
+
+def test;
+setTargetTag "Lump" "near";
+letTargetPos vx vy;
+letPos x y;
+setDir (vx-x) (vy-y);
+playAnim "right";
+ifLess (vx-x) 0 ^left;
 
 def loop;
 posBound 0 770 0 570;
-inc counter 1;
 pause;
-ifEquals counter limit >switch;
-ifEquals counter slow ^brakes;
 jump >loop;
-
-def brakes;
-setSpeed 20;
-retSub;
 
 def left;
 playAnim "left";
 retSub;
 
 def collision;
-sendToCaller "encroach";
-jump >switch;
+sendToCaller "test";
+jump >test;
+

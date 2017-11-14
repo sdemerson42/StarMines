@@ -17,3 +17,14 @@ void BehaviorComponent::broadcastCall(Ruff::Call &c, const std::string &tag)
 	rsc.tag = tag;
 	broadcast(&rsc);
 }
+
+void BehaviorComponent::setTargetTag(const std::string &tag, const std::string &method)
+{
+	Events::QueryEntityByTagEvent q{ this, tag, method };
+	broadcast(&q);
+}
+void BehaviorComponent::onQueryEntityByTag(const Events::QueryEntityByTagEvent *evnt)
+{
+	if (evnt->client == this)
+		m_target = evnt->response;
+}

@@ -1,0 +1,11 @@
+playAnim "main";
+let counter 0;
+
+def loop;
+inc counter 1;
+ifEquals counter 30 >die;
+pause;
+jump >loop;
+
+def die;
+despawn;

@@ -13,14 +13,14 @@ EventHandler::~EventHandler()
 	}
 }
 
-void EventHandler::handleEvent(const EventBase *evnt)
+void EventHandler::handleEvent(EventBase *evnt)
 {
 	auto p = m_funcMap.find(std::type_index{ typeid(*evnt) });
 	if (p != end(m_funcMap))
 		p->second->call(evnt);
 }
 
-void EventHandler::broadcast(const EventBase *evnt)
+void EventHandler::broadcast(EventBase *evnt)
 {
 	std::type_index ti{ typeid(*evnt) };
 	auto p = m_receiverMap.find(ti);

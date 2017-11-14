@@ -24,5 +24,6 @@ private:
 	Factory m_factory;
 
 	void onRSCall(const Events::RSCallEvent *);
+	void onQueryEntityByTag(Events::QueryEntityByTagEvent *);
 	void loadTestData(const std::string &fName);
 };

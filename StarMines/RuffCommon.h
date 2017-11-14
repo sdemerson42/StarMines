@@ -49,12 +49,13 @@ namespace Ruff
 		spawn = 108,
 		setSpeed = 109,
 		letSpeed = 110,
-		letDirX = 111,
-		letDirY = 112,
-		letPosX = 113,
-		letPosY = 114,
+		letDir = 111,
+		letPos = 112,
 		despawn = 115,
-		posBound = 116
+		posBound = 116,
+		setTargetTag = 113,
+		letTargetPos = 114,
+		setTargetCaller = 117
 
 	};
 

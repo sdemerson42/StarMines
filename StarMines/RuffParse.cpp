@@ -237,12 +237,13 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "spawn", Code::spawn });
 	cmdTable.emplace_back(SigIndex{ "setSpeed", Code::setSpeed });
 	cmdTable.emplace_back(SigIndex{ "letSpeed", Code::letSpeed });
-	cmdTable.emplace_back(SigIndex{ "letDirX", Code::letDirX });
-	cmdTable.emplace_back(SigIndex{ "letDirY", Code::letDirY });
-	cmdTable.emplace_back(SigIndex{ "letPosX", Code::letPosX });
-	cmdTable.emplace_back(SigIndex{ "letPosY", Code::letPosY });
+	cmdTable.emplace_back(SigIndex{ "letDir", Code::letDir });
+	cmdTable.emplace_back(SigIndex{ "letPos", Code::letPos });
 	cmdTable.emplace_back(SigIndex{ "despawn", Code::despawn });
 	cmdTable.emplace_back(SigIndex{ "posBound", Code::posBound });
+	cmdTable.emplace_back(SigIndex{ "setTargetTag", Code::setTargetTag });
+	cmdTable.emplace_back(SigIndex{ "setTargetCaller", Code::setTargetCaller });
+	cmdTable.emplace_back(SigIndex{ "letTargetPos", Code::letTargetPos });
 
 	std::vector<SigIndex> label;
 	std::vector<SigIndex> var;

@@ -28,3 +28,10 @@ Logic : Default
 {
 [ behavior data\logicscript.txt ]
 }
+
+Explosion : Default
+{
+[ render sprites\s.gif 0 0 20 20 ]
+[ anim 1 main 2 20 0 0 0 5 1 ]
+[ behavior data\explosionscript.txt ]
+}
