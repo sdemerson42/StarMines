@@ -18,6 +18,17 @@ public:
 	{
 		registerFunc(this, &BehaviorComponent::onQueryEntityByTag);
 	}
+
+	static void setInput(Events::JoystickEvent *evnt)
+	{
+		float x = evnt->x;
+		float y = evnt->y;
+		if (abs(x) < 20.0f) x = 0.0f;
+		if (abs(y) < 20.0f) y = 0.0f;
+		m_input.x = x;
+		m_input.y = y;
+	}
+
 	void initialize(const std::vector<std::string> &input) override
 	{
 		m_vm.loadScript(input[0]);
@@ -43,6 +54,8 @@ public:
 
 private:
 	static std::string m_tag;
+	static Events::JoystickEvent m_input;
+
 	Ruff::RuffVM m_vm;
 	std::vector<Ruff::Call> m_call;
 	Entity *m_curCaller;

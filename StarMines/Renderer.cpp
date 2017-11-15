@@ -2,6 +2,8 @@
 #include "RenderComponent.h"
 #include "Entity.h"
 #include "ComponentManager.h"
+#include <iostream>
+#include "SFML\System.hpp"
 
 void Renderer::update()
 {
@@ -44,9 +46,10 @@ void Renderer::addQuad(RenderComponent &rc)
 
 void Renderer::render()
 {
-	m_window.clear(sf::Color::Black);
+	m_window.clear();
 	
 	for (auto &dl : m_drawLayer)
+	{
 		for (auto &vaMap : dl.vaMap)
 		{
 			auto tp = m_textureMap.find(vaMap.first);
@@ -58,6 +61,7 @@ void Renderer::render()
 
 			m_window.draw(vaMap.second, sf::RenderStates{ &tp->second });
 		}
+	}
 
 	m_window.display();
 }

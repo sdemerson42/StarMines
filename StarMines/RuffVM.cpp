@@ -446,6 +446,15 @@ void Ruff::RuffVM::exec(int line)
 			m_parent->setTargetTag(tag, method);
 			break;
 		}
+		case Code::letInputAxis:
+		{
+			pop();
+			pop();
+			m_reg[m_letVar[0]] = int(m_parent->m_input.x);
+			m_reg[m_letVar[1]] = int(m_parent->m_input.y);
+			m_letVar.clear();
+			break;
+		}
 
 		}
 

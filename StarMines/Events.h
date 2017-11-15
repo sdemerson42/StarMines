@@ -15,6 +15,11 @@ namespace Events
 {
 	struct RSCallEvent : EventBase
 	{
+		RSCallEvent()
+		{}
+		RSCallEvent(const Ruff::Call &_call, const std::string &_tag) :
+			call{ _call }, tag{ _tag }
+		{}
 		Ruff::Call call;
 		std::string tag;
 	};
@@ -51,5 +56,16 @@ namespace Events
 		std::string tag;
 		std::string method;
 		Entity *response;
+	};
+
+	struct JoystickEvent : public EventBase
+	{
+		JoystickEvent()
+		{}
+		JoystickEvent(float _x, float _y) :
+			x{ _x }, y{ _y }
+		{}
+		float x;
+		float y;
 	};
 };

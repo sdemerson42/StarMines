@@ -1,4 +1,4 @@
-setSpeed 10;
+setSpeed 20;
 rand x 0 770;
 rand y 0 570;
 setPos x y;

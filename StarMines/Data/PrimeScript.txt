@@ -1,4 +1,12 @@
 setPos 400 300;
-setSpeed 5;
-setDir 10 5;
-sleep;
+setSpeed 60;
+setDir 0 0;
+let face 0;
+playAnim "right";
+
+def loop;
+letInputAxis x y;
+setDir x y;
+posBound 0 770 0 570;
+pause;
+jump >loop;

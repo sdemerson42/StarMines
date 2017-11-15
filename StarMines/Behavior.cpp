@@ -8,3 +8,8 @@ void Behavior::update()
 	for (int i = 0; i < sz; ++i)
 		m_compManager->m_behavior[i].update();
 }
+
+void Behavior::onJoystickEvent(Events::JoystickEvent *evnt)
+{
+	BehaviorComponent::setInput(evnt);
+}

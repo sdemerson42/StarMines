@@ -49,6 +49,8 @@ public:
 
 	void play(const std::string &tag)
 	{
+		if (tag == m_curAnimTag) return;
+
 		auto p = m_anim.find(tag);
 		if (p != end(m_anim))
 		{
@@ -62,6 +64,7 @@ public:
 				if (rc)
 					rc->setTexPosition(m_curAnim.framePos[0].x, m_curAnim.framePos[0].y);
 			}
+			m_curAnimTag = tag;
 		}
 	}
 	void stop()
@@ -81,5 +84,6 @@ private:
 	int m_frame;
 	int m_counter;
 	Animation m_curAnim;
+	std::string m_curAnimTag;
 	std::map<std::string, Animation> m_anim;
 };

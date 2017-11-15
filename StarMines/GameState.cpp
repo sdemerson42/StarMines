@@ -8,11 +8,13 @@ GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
 	m_window{ sf::VideoMode{800,600}, "StarMines v0.1" }, m_factory{ this, "data\\blueprints.txt" }
 {
+	//m_window.setVerticalSyncEnabled(true);
+
 	m_sys.emplace_back(std::make_unique<Animator>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Behavior>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Physics>(m_compManager.get()));
-	m_sys.emplace_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
 	m_sys.emplace_back(std::make_unique<Spawner>(m_compManager.get(), &m_factory));
+	m_sys.emplace_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
 
 	// Events
 
@@ -26,6 +28,7 @@ GameState::GameState() :
 
 void GameState::exec()
 {
+	float delta{ 0.0f };
 	while (m_window.isOpen())
 	{
 		sf::Event evnt;
@@ -37,13 +40,31 @@ void GameState::exec()
 				return;
 			}
 		}
-		if (m_clock.getElapsedTime().asMilliseconds() > 100 / 6)
+
+		Vector2 input{ getJoystickInput() };
+
+		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
 		{
+			delta = m_clock.getElapsedTime().asMilliseconds() - m_frameRate;
+			if (delta < 0.0f)
+				delta = 0.0f;
 			m_clock.restart();
+
+			Events::JoystickEvent je{ input.x, input.y };
+			broadcast(&je);
+
 			for (auto &p : m_sys)
 				p->update();
 		}
 	}
+}
+
+Vector2 GameState::getJoystickInput()
+{
+	Vector2 r;
+	r.x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X);
+	r.y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y);
+	return r;
 }
 
 void GameState::onRSCall(const Events::RSCallEvent *evnt)

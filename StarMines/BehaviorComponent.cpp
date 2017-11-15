@@ -4,6 +4,7 @@
 #include "Events.h"
 
 std::string BehaviorComponent::m_tag{ "behavior" };
+Events::JoystickEvent BehaviorComponent::m_input{ 0,0 };
 
 void BehaviorComponent::resetVM()
 {

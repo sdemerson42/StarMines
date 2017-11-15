@@ -55,7 +55,8 @@ namespace Ruff
 		posBound = 116,
 		setTargetTag = 113,
 		letTargetPos = 114,
-		setTargetCaller = 117
+		setTargetCaller = 117,
+		letInputAxis = 118
 
 	};
 
@@ -67,6 +68,11 @@ namespace Ruff
 
 	struct Call
 	{
+		Call()
+		{}
+		Call(const Call &r) :
+			caller{ r.caller }, label{ r.label }
+		{}
 		Entity *caller;
 		std::string label;
 	};
