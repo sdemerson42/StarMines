@@ -14,6 +14,12 @@ class GameState : public EventHandler
 	friend class Factory;
 public:
 	GameState();
+	~GameState()
+	{
+		m_sys.clear();
+		m_entity.clear();
+		m_compManager.release();
+	}
 	void exec();
 private:
 	const float m_frameRate{ 100.0f / 6.0f };

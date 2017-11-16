@@ -49,7 +49,7 @@ void Physics::processMovement()
 			bool collFlag{ false };
 
 			// x movement
-			if (cp->m_moveVec.x != 0.0f)
+			if (vecX != 0.0f)
 			{
 				float oxa = xa;
 				xa += vecX;
@@ -82,7 +82,7 @@ void Physics::processMovement()
 			}
 		
 			// y movement
-			if (cp->m_moveVec.y != 0.0f)
+			if (vecY != 0.0f)
 			{
 				float oya = ya;
 				ya += vecY;
@@ -120,6 +120,14 @@ void Physics::processMovement()
 				{
 					Ruff::Call call;
 					call.caller = p->parent();
+					call.label = "collision";
+					bc->addCall(call);
+				}
+				bc = p->parent()->getComponent<BehaviorComponent>();
+				if (bc)
+				{
+					Ruff::Call call;
+					call.caller = cp->parent();
 					call.label = "collision";
 					bc->addCall(call);
 				}

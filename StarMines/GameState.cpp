@@ -50,11 +50,17 @@ void GameState::exec()
 				delta = 0.0f;
 			m_clock.restart();
 
+			bool close{ sf::Keyboard::isKeyPressed(sf::Keyboard::Q) };
 			Events::JoystickEvent je{ input.x, input.y };
 			broadcast(&je);
 
 			for (auto &p : m_sys)
 				p->update();
+			if (close)
+			{
+				m_window.close();
+				return;
+			}
 		}
 	}
 }
