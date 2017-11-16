@@ -84,12 +84,73 @@ void Ruff::RuffVM::exec(int line)
 			push(l / r);
 			break;
 		}
-		case Code::ifEquals:
+		case Code::_greater:
+		{
+			m_compOperator.push_back('>');
+			break;
+		}
+		case Code::_less:
+		{
+			m_compOperator.push_back('<');
+			break;
+		}
+		case Code::_equal:
+		{
+			m_compOperator.push_back('=');
+			break;
+		}
+		case Code::_notEqual:
+		{
+			m_compOperator.push_back('!');
+			break;
+		}
+		case Code::_and:
+		{
+			m_compCombine.push_back('&');
+			break;
+		}
+		case Code::_or:
+		{
+			m_compCombine.push_back('|');
+			break;
+		}
+		case Code::_if:
 		{
 			int dest = pop();
-			int r = pop();
-			int l = pop();
-			if (l == r)
+			while (m_compOperator.size() > 0)
+			{
+				int r = pop();
+				int l = pop();
+				char comp = opPop();
+				bool b = false;
+				if (comp == '>' && l > r)
+					b = true;
+				else if (comp == '<' && l < r)
+					b = true;
+				else if (comp == '=' && l == r)
+					b = true;
+				else if (comp == '!' && l != r)
+					b = true;
+				m_truth.emplace_back(b);
+			}
+			int j = m_truth.size() - 1;
+			bool b{ m_truth[j] };
+			for (auto &c : m_compCombine)
+			{
+				--j;
+				bool bb{ m_truth[j] };
+				if (c == '&')
+				{
+					if (b && bb) b = true;
+					else b = false;
+				}
+				if (c == '|')
+				{
+					if (b || bb) b = true;
+					else b = false;
+				}
+			}
+			if (b)
 			{
 				if (subLabelFlag)
 				{
@@ -98,43 +159,13 @@ void Ruff::RuffVM::exec(int line)
 				}
 				i = dest - 1;
 			}
+			m_compCombine.clear();
+			m_compOperator.clear();
+			m_truth.clear();
 			m_letVar.clear();
 			break;
 		}
-		case Code::ifGreater:
-		{
-			int dest = pop();
-			int r = pop();
-			int l = pop();
-			if (l > r)
-			{
-				if (subLabelFlag)
-				{
-					subLabelFlag = false;
-					m_frame.push_back(i + 1);
-				}
-				i = dest - 1;
-			}
-			m_letVar.clear();
-			break;
-		}
-		case Code::ifLess:
-		{
-			int dest = pop();
-			int r = pop();
-			int l = pop();
-			if (l < r)
-			{
-				if (subLabelFlag)
-				{
-					subLabelFlag = false;
-					m_frame.push_back(i + 1);
-				}
-				i = dest - 1;
-			}
-			m_letVar.clear();
-			break;
-		}
+		
 		case Code::ifCallerTag:
 		{
 			int dest = pop();
@@ -508,4 +539,18 @@ std::string Ruff::RuffVM::strPop()
 	for (int i = 0; i < sz; ++i)
 		s.push_back(pop());
 	return s;
+}
+
+char Ruff::RuffVM::opPop()
+{
+	char r = *(end(m_compOperator) - 1);
+	m_compOperator.pop_back();
+	return r;
+}
+
+char Ruff::RuffVM::combPop()
+{
+	char r = *(end(m_compCombine) - 1);
+	m_compCombine.pop_back();
+	return r;
 }

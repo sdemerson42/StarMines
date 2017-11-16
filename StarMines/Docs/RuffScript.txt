@@ -3,9 +3,7 @@ dec <var> <val>
 despawn
 halt
 ifCallerTag <str> <label>
-ifEqual <var> <val> <label>
-ifGreater <var> <val> <label>
-ifLess <var> <val> <label>
+if <comparison> <optional and/or comparisons> <label>
 inc <var> <val>
 jump <label>
 let <var> <val>
@@ -33,3 +31,7 @@ setTargetTag <strTag> <strMethod>
 setTargetCaller
 sleep
 spawn <blueprintStr> <val> <val>
+
+RESERVED LABELS
+
+collision

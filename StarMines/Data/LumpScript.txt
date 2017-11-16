@@ -15,5 +15,13 @@ def loop;
 inc counter 1;
 posBound 0 770 0 570;
 pause;
-ifEquals counter 20 >find;
-jump >loop;
+if counter > 20 @find;
+jump @loop;
+
+def collision;
+ifCallerTag "RedGuy" @die;
+jump @loop;
+
+def die;
+despawn;
+halt;

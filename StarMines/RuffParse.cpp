@@ -211,9 +211,6 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	std::vector<SigIndex> cmdTable;
 	cmdTable.emplace_back(SigIndex{ "let", Code::let });
 	cmdTable.emplace_back(SigIndex{ "dec", Code::dec });
-	cmdTable.emplace_back(SigIndex{ "ifEquals", Code::ifEquals });
-	cmdTable.emplace_back(SigIndex{ "ifGreater", Code::ifGreater });
-	cmdTable.emplace_back(SigIndex{ "ifLess", Code::ifLess });
 	cmdTable.emplace_back(SigIndex{ "inc", Code::inc });
 	cmdTable.emplace_back(SigIndex{ "jump", Code::jump });
 	cmdTable.emplace_back(SigIndex{ "def", Code::def });
@@ -221,6 +218,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "rand", Code::rand });
 	cmdTable.emplace_back(SigIndex{ "retSub", Code::retSub });
 	cmdTable.emplace_back(SigIndex{ "pause", Code::pause });
+	cmdTable.emplace_back(SigIndex{ "if", Code::_if });
 
 
 	cmdTable.emplace_back(SigIndex{ "logStr", Code::logStr });
@@ -283,6 +281,20 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 			}
 			else
 			{
+				// logical operators?
+				if (s == "or")
+				{
+					code.code.emplace_back(Code::_or);
+					++i;
+					break;
+				}
+				if (s == "and")
+				{
+					code.code.emplace_back(Code::_and);
+					++i;
+					break;
+				}
+			
 				// var or label?
 				//label
 				int c{ -1 };
@@ -302,6 +314,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 					}
 					
 				}
+				// var
 				else
 				{
 					code.code.emplace_back(Code::var);
@@ -347,7 +360,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 			code.code.emplace_back(Code::mod);
 			++i;
 			break;
-		case '>':
+		case '@':
 			code.code.emplace_back(Code::label);
 			++i;
 			break;
@@ -374,9 +387,41 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 			}
 			code.code.emplace_back(Code::strend);
 			++i;
-		}
-
 			break;
+		}
+		case '>':
+		{
+			code.code.emplace_back(Code::_greater);
+			++i;
+			break;
+		}
+		case '<':
+		{
+			code.code.emplace_back(Code::_less);
+			++i;
+			break;
+		}
+		case '=':
+		{
+			t = ts.get();
+			if (t.type == '=')
+			{
+				code.code.emplace_back(Code::_equal);
+				++i;
+			}
+			break;
+		}
+		case '!':
+		{
+			t = ts.get();
+			if (t.type == '=')
+			{
+				code.code.emplace_back(Code::_notEqual);
+				++i;
+			}
+			break;
+		}
+			
 
 		}
 

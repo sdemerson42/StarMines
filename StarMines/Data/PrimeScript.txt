@@ -7,6 +7,22 @@ playAnim "right";
 def loop;
 letInputAxis x y;
 setDir x y;
+if x < 0 @left;
+playAnim "right";
+
+def move;
 posBound 0 770 0 570;
 pause;
-jump >loop;
+jump @loop;
+
+def left;
+playAnim "left";
+jump @move;
+
+def collision;
+ifCallerTag "Lump" @die;
+jump @loop;
+
+def die;
+despawn;
+halt;
