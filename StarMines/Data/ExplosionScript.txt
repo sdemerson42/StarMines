@@ -1,11 +1,17 @@
-playAnim "main";
-let counter 0;
+sleep;
 
-def loop;
+def init;
+letCallData x y;
+setDir x y;
+setSpeed 70;
+jump @life;
+
+def life;
 inc counter 1;
-ifEquals counter 30 >die;
 pause;
-jump >loop;
+if counter > 100 @die;
+jump @life;
 
 def die;
 despawn;
+halt;

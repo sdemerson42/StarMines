@@ -31,7 +31,7 @@ private:
 	sf::Clock m_clock;
 	Factory m_factory;
 
-	Vector2 getJoystickInput();
+	Events::JoystickEvent getJoystickInput();
 
 	void onRSCall(const Events::RSCallEvent *);
 	void onQueryEntityByTag(Events::QueryEntityByTagEvent *);

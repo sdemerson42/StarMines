@@ -33,6 +33,7 @@ namespace Events
 		{}
 		std::string blueprint;
 		Vector2 position;
+		std::vector<int> initData;
 	};
 
 	struct DespawnEvent : EventBase
@@ -62,10 +63,12 @@ namespace Events
 	{
 		JoystickEvent()
 		{}
-		JoystickEvent(float _x, float _y) :
-			x{ _x }, y{ _y }
+		JoystickEvent(float _x, float _y, float _u, float _v) :
+			x{ _x }, y{ _y }, u{ _u }, v{ _v }
 		{}
 		float x;
 		float y;
+		float u;
+		float v;
 	};
 };

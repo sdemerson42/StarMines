@@ -11,8 +11,8 @@ class Factory
 {
 public:
 	Factory(GameState *gameState, const std::string &fName);
-	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, bool cache = true);
-	void activateFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f);
+	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr, bool cache = true);
+	void activateFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr);
 	void deactivate(Entity *e);
 	struct CompData
 	{
@@ -28,4 +28,5 @@ public:
 private:
 	GameState *m_gameState;
 	std::vector<Blueprint> m_blueprint;
+	void addInitCall(Entity *e, std::vector<int> *initData);
 };

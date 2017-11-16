@@ -3,12 +3,20 @@ setSpeed 60;
 setDir 0 0;
 let face 0;
 playAnim "right";
+let shotCool 20;
+sendToTag 1 2 3 "Logic" "test";
 
 def loop;
-letInputAxis x y;
+letInputAxis x y u v;
 setDir x y;
-if x < 0 @left;
-playAnim "right";
+if x < 0 and x != 0 @left;
+if x > 0 and x != 0 @right;
+if x == 0 and y == 0 @stopper;
+
+def shot;
+if u != 0 or v != u and shotCool == 0 @blast;
+if shotCool == 0 @move;
+dec shotCool 1;
 
 def move;
 posBound 0 770 0 570;
@@ -17,12 +25,24 @@ jump @loop;
 
 def left;
 playAnim "left";
+let face 0;
+jump @shot;
+
+def right;
+playAnim "right";
+let face 1;
+jump @shot;
+
+def stopper;
+if face == 0 @stopB;
+playAnim "idleR";
+jump @shot;
+def stopB;
+playAnim "idleL";
+jump @shot;
+
+def blast;
+letPos spawnX spawnY;
+spawn u v "Laser" (spawnX + 14) (spawnY + 14);
+let shotCool 20;
 jump @move;
-
-def collision;
-ifCallerTag "Lump" @die;
-jump @loop;
-
-def die;
-despawn;
-halt;

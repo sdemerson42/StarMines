@@ -7,6 +7,7 @@ if <comparison> <optional and/or comparisons> <label>
 inc <var> <val>
 jump <label>
 let <var> <val>
+letCallData <vars...>
 letDir <var> <var>
 letPos <var> <var>
 letSpeed <var>
@@ -18,8 +19,8 @@ playAnim <animStr>
 posBound <xmin> <xmax> <ymin> <ymax>
 rand <var> <min> <max>
 retSub
-sendToCaller <labelStr>
-sendToTag <tagStr> <labelStr>
+sendToCaller <optional data> <labelStr>
+sendToTag <optional data> <tagStr> <labelStr>
 setDir <val> <val>
 setPos <val> <val>
 setSpeed <val>
@@ -30,8 +31,9 @@ setTargetTag <strTag> <strMethod>
 
 setTargetCaller
 sleep
-spawn <blueprintStr> <val> <val>
+spawn <optional data> <blueprintStr> <valX> <valY>
 
 RESERVED LABELS
 
 collision
+init

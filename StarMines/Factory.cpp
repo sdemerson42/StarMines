@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "ComponentManager.h"
 #include "Entity.h"
+#include "RuffCommon.h"
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -101,7 +102,7 @@ std::istream &operator >> (std::istream &is, Factory::Blueprint &b)
 	return is;
 }
 
-void Factory::createFromBlueprint(const std::string &blueprint, float x, float y, bool cache)
+void Factory::createFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, bool cache)
 {
 	auto p = std::find_if(begin(m_blueprint), end(m_blueprint), [&](const Blueprint &b)
 	{
@@ -122,13 +123,15 @@ void Factory::createFromBlueprint(const std::string &blueprint, float x, float y
 	{
 		m_gameState->m_compManager->addComponent(e, cd.type, cd.data);
 	}
+	if (initData)
+		addInitCall(e, initData);
 	if (cache)
 		m_gameState->m_compManager->deactivateAll(e);
 	else
 		e->setActive(true);
 }
 
-void Factory::activateFromBlueprint(const std::string &blueprint, float x, float y)
+void Factory::activateFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData)
 {
 	auto &v = m_gameState->m_entity;
 	auto p = std::find_if(begin(v), end(v), [&](std::shared_ptr<Entity> &sp)
@@ -145,11 +148,13 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 			bc->resetVM();
 		
 		(*p)->setPosition(x, y);
+		if (initData)
+			addInitCall(p->get(), initData);
 		std::cout << "Factory: Existing Entity activated.\n";
 	}
 	else
 	{
-		createFromBlueprint(blueprint, x, y, false);
+		createFromBlueprint(blueprint, x, y, initData, false);
 		std::cout << "Factory: New Entity constructed.\n";
 	}
 }
@@ -157,4 +162,17 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 void Factory::deactivate(Entity *e)
 {
 	m_gameState->m_compManager->deactivateAll(e);
+}
+
+void Factory::addInitCall(Entity *e, std::vector<int> *initData)
+{
+	auto c = e->getComponent<BehaviorComponent>();
+	if (c)
+	{
+		Ruff::Call call;
+		call.data = *initData;
+		call.label = "init";
+		c->addCall(call);
+		std::cout << "initCall added.\n";
+	}
 }

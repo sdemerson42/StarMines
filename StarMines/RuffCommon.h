@@ -60,8 +60,8 @@ namespace Ruff
 		setTargetTag = 113,
 		letTargetPos = 114,
 		setTargetCaller = 117,
-		letInputAxis = 118
-
+		letInputAxis = 118,
+		letCallData = 119
 	};
 
 	struct ByteCode
@@ -79,5 +79,6 @@ namespace Ruff
 		{}
 		Entity *caller;
 		std::string label;
+		std::vector<int> data;
 	};
 }

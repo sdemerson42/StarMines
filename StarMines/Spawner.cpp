@@ -13,7 +13,10 @@ void Spawner::update()
 {
 	for (auto p : m_spawnData)
 	{
-		m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y);
+		if (p.initData.size() > 0)
+			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, &p.initData);
+		else
+			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y);
 	}
 	m_spawnData.clear();
 

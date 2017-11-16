@@ -21,12 +21,11 @@ public:
 
 	static void setInput(Events::JoystickEvent *evnt)
 	{
-		float x = evnt->x;
-		float y = evnt->y;
-		if (abs(x) < 20.0f) x = 0.0f;
-		if (abs(y) < 20.0f) y = 0.0f;
-		m_input.x = x;
-		m_input.y = y;
+		m_input = *evnt;
+		if (abs(m_input.x) < 20.0f) m_input.x = 0.0f;
+		if (abs(m_input.y) < 20.0f) m_input.y = 0.0f;
+		if (abs(m_input.u) < 20.0f) m_input.u = 0.0f;
+		if (abs(m_input.v) < 20.0f) m_input.v = 0.0f;
 	}
 
 	void initialize(const std::vector<std::string> &input) override
@@ -50,6 +49,7 @@ public:
 	void addCall(Ruff::Call& c)
 	{
 		m_call.emplace_back(c);
+		(end(m_call) - 1)->data = c.data;
 	}
 
 private:

@@ -4,6 +4,7 @@
 #include "BehaviorComponent.h"
 #include <iostream>
 
+
 GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
 	m_window{ sf::VideoMode{800,600}, "StarMines v0.1" }, m_factory{ this, "data\\blueprints.txt" }
@@ -41,8 +42,6 @@ void GameState::exec()
 			}
 		}
 
-		Vector2 input{ getJoystickInput() };
-
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
 		{
 			delta = m_clock.getElapsedTime().asMilliseconds() - m_frameRate;
@@ -50,33 +49,30 @@ void GameState::exec()
 				delta = 0.0f;
 			m_clock.restart();
 
-			bool close{ sf::Keyboard::isKeyPressed(sf::Keyboard::Q) };
-			Events::JoystickEvent je{ input.x, input.y };
+			auto je = getJoystickInput();
 			broadcast(&je);
 
 			for (auto &p : m_sys)
 				p->update();
-			if (close)
-			{
-				m_window.close();
-				return;
-			}
 		}
 	}
 }
 
-Vector2 GameState::getJoystickInput()
+Events::JoystickEvent GameState::getJoystickInput()
 {
-	Vector2 r;
-	r.x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X);
-	r.y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y);
-	return r;
+	float x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X);
+	float y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y);
+	float u = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::U);
+	float v = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::R);
+	return Events::JoystickEvent{ x,y,u,v };
+	
 }
 
 void GameState::onRSCall(const Events::RSCallEvent *evnt)
 {
 	std::string tag{ evnt->tag };
 	Ruff::Call call = evnt->call;
+	call.data = evnt->call.data;
 	for (auto &spe : m_entity)
 	{
 		if (spe->findTag(tag))
@@ -146,7 +142,7 @@ void GameState::loadTestData(const std::string &fName)
 		float x, y;
 		bool cache;
 		ifs >> x >> y >> cache;
-		m_factory.createFromBlueprint(b, x, y, cache);
+		m_factory.createFromBlueprint(b, x, y, nullptr, cache);
 		
 	}
 }

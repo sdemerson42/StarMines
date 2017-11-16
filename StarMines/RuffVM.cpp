@@ -26,6 +26,7 @@ void Ruff::RuffVM::update()
 			m_sleep = false;
 			callAct = true;
 			m_parent->m_curCaller = c.caller;
+			m_callData = &c.data;
 			m_pauseIndex = -1;
 			exec(lb->second);
 		}
@@ -315,9 +316,13 @@ void Ruff::RuffVM::exec(int line)
 					Call c;
 					c.caller = m_parent->parent();
 					c.label = strPop();
+					for (auto k : m_stack)
+						c.data.emplace_back(k);
+					m_stack.clear();
 					p->addCall(c);
 				}
 			}
+			m_letVar.clear();
 			break;
 		}
 		case Code::sendTag:
@@ -326,7 +331,11 @@ void Ruff::RuffVM::exec(int line)
 			c.caller = m_parent->parent();
 			c.label = strPop();
 			std::string tag{ strPop() };
+			for (auto k : m_stack)
+				c.data.emplace_back(k);
+			m_stack.clear();
 			m_parent->broadcastCall(c, tag);
+			m_letVar.clear();
 			break;
 		}
 		case Code::setDir:
@@ -378,6 +387,9 @@ void Ruff::RuffVM::exec(int line)
 			float x = float(pop());
 			std::string tag{ strPop() };
 			Events::SpawnDataEvent sde{ tag, x, y };
+			for (auto k : m_stack)
+				sde.initData.emplace_back(k);
+			m_stack.clear();
 			m_parent->broadcast(&sde);
 			m_letVar.clear();
 			break;
@@ -481,8 +493,26 @@ void Ruff::RuffVM::exec(int line)
 		{
 			pop();
 			pop();
+			pop();
+			pop();
 			m_reg[m_letVar[0]] = int(m_parent->m_input.x);
 			m_reg[m_letVar[1]] = int(m_parent->m_input.y);
+			m_reg[m_letVar[2]] = int(m_parent->m_input.u);
+			m_reg[m_letVar[3]] = int(m_parent->m_input.v);
+			m_letVar.clear();
+			break;
+		}
+		case Code::letCallData:
+		{
+			if (m_callData)
+			{
+				int dCount{ 0 };
+				for (auto val : *m_callData)
+				{
+					m_reg[m_letVar[dCount++]] = val;
+					pop();
+				}
+			}
 			m_letVar.clear();
 			break;
 		}
@@ -504,6 +534,9 @@ void Ruff::RuffVM::reset()
 {
 	m_stack.clear();
 	m_frame.clear();
+	m_reg.clear();
+	m_reg.resize(20);
+
 	m_pauseIndex = -1;
 	m_sleep = false;
 }

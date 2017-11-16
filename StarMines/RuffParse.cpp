@@ -243,6 +243,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "setTargetCaller", Code::setTargetCaller });
 	cmdTable.emplace_back(SigIndex{ "letTargetPos", Code::letTargetPos });
 	cmdTable.emplace_back(SigIndex{ "letInputAxis", Code::letInputAxis });
+	cmdTable.emplace_back(SigIndex{ "letCallData", Code::letCallData });
 
 	std::vector<SigIndex> label;
 	std::vector<SigIndex> var;
