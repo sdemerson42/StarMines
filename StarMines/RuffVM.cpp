@@ -536,6 +536,8 @@ void Ruff::RuffVM::reset()
 	m_frame.clear();
 	m_reg.clear();
 	m_reg.resize(20);
+	m_parent->m_call.clear();
+	m_parent->m_curCaller = nullptr;
 
 	m_pauseIndex = -1;
 	m_sleep = false;

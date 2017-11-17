@@ -23,9 +23,12 @@ void Physics::fillMap()
 
 void Physics::processMovement()
 {
+	m_collisionMap.clear();
+
 	for (int i{ 0 }; i < m_compManager->m_physicsSz; ++i)
 	{
 		auto cp = &m_compManager->m_physics[i];
+
 		if (cp->m_moveVec.x == 0.0f && cp->m_moveVec.y == 0.0f)
 			continue;
 		
@@ -115,21 +118,34 @@ void Physics::processMovement()
 			// Events / notifications?
 			if (collFlag)
 			{
-				auto bc = cp->parent()->getComponent<BehaviorComponent>();
-				if (bc)
+				bool send{ true };
+				auto key = m_collisionMap.find(p);
+				if (key != end(m_collisionMap))
 				{
-					Ruff::Call call;
-					call.caller = p->parent();
-					call.label = "collision";
-					bc->addCall(call);
+					auto val = std::find(begin(key->second), end(key->second), cp);
+					if (val != end(key->second))
+						send = false;
 				}
-				bc = p->parent()->getComponent<BehaviorComponent>();
-				if (bc)
+
+				if (send)
 				{
-					Ruff::Call call;
-					call.caller = cp->parent();
-					call.label = "collision";
-					bc->addCall(call);
+					auto bc = cp->parent()->getComponent<BehaviorComponent>();
+					if (bc)
+					{
+						Ruff::Call call;
+						call.caller = p->parent();
+						call.label = "collision";
+						bc->addCall(call);
+					}
+					bc = p->parent()->getComponent<BehaviorComponent>();
+					if (bc)
+					{
+						Ruff::Call call;
+						call.caller = cp->parent();
+						call.label = "collision";
+						bc->addCall(call);
+					}
+					m_collisionMap[cp].emplace_back(p);
 				}
 			}
 			

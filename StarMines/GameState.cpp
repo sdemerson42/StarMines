@@ -11,10 +11,10 @@ GameState::GameState() :
 {
 	//m_window.setVerticalSyncEnabled(true);
 
-	m_sys.emplace_back(std::make_unique<Animator>(m_compManager.get()));
-	m_sys.emplace_back(std::make_unique<Behavior>(m_compManager.get()));
-	m_sys.emplace_back(std::make_unique<Physics>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Spawner>(m_compManager.get(), &m_factory));
+	m_sys.emplace_back(std::make_unique<Behavior>(m_compManager.get()));
+	m_sys.emplace_back(std::make_unique<Animator>(m_compManager.get()));
+	m_sys.emplace_back(std::make_unique<Physics>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
 
 	// Events

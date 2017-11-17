@@ -19,7 +19,7 @@ if counter > 20 @find;
 jump @loop;
 
 def collision;
-ifCallerTag "RedGuy" @die;
+ifCallerTag "Laser" @die;
 jump @loop;
 
 def die;

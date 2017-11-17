@@ -4,6 +4,8 @@ def init;
 letCallData x y;
 setDir x y;
 setSpeed 70;
+logStr "Awake";
+log counter;
 jump @life;
 
 def life;
@@ -14,4 +16,9 @@ jump @life;
 
 def die;
 despawn;
+logStr "Die";
 halt;
+
+def collision;
+ifCallerTag "Lump" @die;
+jump @life;
