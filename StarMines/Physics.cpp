@@ -91,9 +91,9 @@ void Physics::processMovement()
 				ya += vecY;
 				if (collide(xa, ya, wa, ha, xb, yb, wb, hb))
 				{
+					collFlag = true;
 					if (cp->m_solid && p->m_solid)
 					{
-						collFlag = true;
 						// Collision: Apply physics changes only if solid.
 						if (vecY < 0.0f)
 						{

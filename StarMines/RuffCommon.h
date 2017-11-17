@@ -75,8 +75,15 @@ namespace Ruff
 		Call()
 		{}
 		Call(const Call &r) :
-			caller{ r.caller }, label{ r.label }
+			caller{ r.caller }, label{ r.label }, data{ r.data }
 		{}
+		Call &operator=(const Call &r)
+		{
+			caller = r.caller;
+			label = r.label;
+			data = r.data;
+			return *this;
+		}
 		Entity *caller;
 		std::string label;
 		std::vector<int> data;

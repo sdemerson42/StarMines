@@ -3,6 +3,7 @@
 #include "IComponent.h"
 #include "RuffVM.h"
 #include "Events.h"
+#include <iostream>
 
 class Entity;
 
@@ -49,7 +50,7 @@ public:
 	void addCall(Ruff::Call& c)
 	{
 		m_call.emplace_back(c);
-		(end(m_call) - 1)->data = c.data;
+		//(end(m_call) - 1)->data = c.data;
 	}
 
 private:

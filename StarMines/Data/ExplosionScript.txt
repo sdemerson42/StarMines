@@ -5,7 +5,6 @@ letCallData x y;
 setDir x y;
 setSpeed 70;
 logStr "Awake";
-log counter;
 jump @life;
 
 def life;

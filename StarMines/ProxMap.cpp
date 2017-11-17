@@ -1,6 +1,7 @@
 #include "ProxMap.h"
 #include "PhysicsComponent.h"
 #include "Entity.h"
+#include <algorithm>
 #include <iostream>
 
 void ProxMap::clear()
@@ -46,7 +47,7 @@ std::vector <PhysicsComponent *> ProxMap::retrieve(PhysicsComponent *pc)
 		{
 			for (auto p : m_map[i][j])
 			{
-				if (p != pc)
+				if (p != pc && std::find(begin(r), end(r), p) == end(r))
 					r.push_back(p);
 			}
 		}

@@ -173,6 +173,5 @@ void Factory::addInitCall(Entity *e, std::vector<int> *initData)
 		call.data = *initData;
 		call.label = "init";
 		c->addCall(call);
-		std::cout << "initCall added.\n";
 	}
 }

@@ -4,7 +4,6 @@ setDir 0 0;
 let face 0;
 playAnim "right";
 let shotCool 20;
-sendToTag 1 2 3 "Logic" "test";
 
 def loop;
 letInputAxis x y u v;
