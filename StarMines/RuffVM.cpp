@@ -15,26 +15,27 @@ void Ruff::RuffVM::loadScript(const std::string &fName)
 
 void Ruff::RuffVM::update()
 {
-	bool callAct{ false };
 	if (m_parent->m_call.size() > 0)
 	{
+			
 		for (auto &c : m_parent->m_call)
 		{
-			auto lb = m_code.label.find(c.label);
-			if (lb == end(m_code.label))
-				continue;
-			m_sleep = false;
-			callAct = true;
-			m_parent->m_curCaller = c.caller;
-			m_callData = &c.data;
-			m_pauseIndex = -1;
-			exec(lb->second);
+			if (!m_lock)
+			{
+				auto lb = m_code.label.find(c.label);
+				if (lb == end(m_code.label))
+					continue;
+				m_sleep = false;
+				m_parent->m_curCaller = c.caller;
+				m_callData = &c.data;
+				m_pauseIndex = -1;
+				exec(lb->second);
+			}
 		}
 		m_parent->m_call.clear();
 		m_parent->m_curCaller = nullptr;
 	}
-
-	if (!m_sleep && !callAct)
+	if (!m_sleep)
 		exec();
 	
 }
@@ -516,6 +517,16 @@ void Ruff::RuffVM::exec(int line)
 			m_letVar.clear();
 			break;
 		}
+		case Code::lock:
+		{
+			m_lock = true;
+			break;
+		}
+		case Code::unlock:
+		{
+			m_lock = false;
+			break;
+		}
 
 		}
 
@@ -538,6 +549,7 @@ void Ruff::RuffVM::reset()
 	m_reg.resize(20);
 	m_parent->m_call.clear();
 	m_parent->m_curCaller = nullptr;
+	m_lock = false;
 
 	m_pauseIndex = -1;
 	m_sleep = false;

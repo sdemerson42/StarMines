@@ -61,7 +61,9 @@ namespace Ruff
 		letTargetPos = 114,
 		setTargetCaller = 117,
 		letInputAxis = 118,
-		letCallData = 119
+		letCallData = 119,
+		lock = 120,
+		unlock = 121
 	};
 
 	struct ByteCode

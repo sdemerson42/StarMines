@@ -150,12 +150,10 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 		(*p)->setPosition(x, y);
 		if (initData)
 			addInitCall(p->get(), initData);
-		std::cout << "Factory: Existing Entity activated.\n";
 	}
 	else
 	{
 		createFromBlueprint(blueprint, x, y, initData, false);
-		std::cout << "Factory: New Entity constructed.\n";
 	}
 }
 

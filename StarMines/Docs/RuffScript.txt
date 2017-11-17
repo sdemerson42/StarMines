@@ -12,6 +12,7 @@ letDir <var> <var>
 letPos <var> <var>
 letSpeed <var>
 letTargetPos <var> <var>
+lock
 log <val>
 logStr <str>
 pause
@@ -32,6 +33,7 @@ setTargetTag <strTag> <strMethod>
 setTargetCaller
 sleep
 spawn <optional data> <blueprintStr> <valX> <valY>
+unlock
 
 RESERVED LABELS
 
