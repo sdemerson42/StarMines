@@ -19,9 +19,27 @@ if counter > 20 @find;
 jump @loop;
 
 def collision;
-ifCallerTag "Laser" @die;
+ifCallerTag "Fire" @die;
 jump @loop;
 
 def die;
+sendToTag "Logic" "deadbot";
 despawn;
-halt;
+lock;
+
+letPos x y;
+inc x 15;
+inc y 15;
+
+spawn 0 1 "Plasma" x y;
+spawn 1 0 "Plasma" x y;
+spawn (0-1) 0 "Plasma" x y;
+spawn 0 (0-1) "Plasma" x y;
+spawn 1 1 "Plasma" x y;
+spawn 1 (0-1) "Plasma" x y;
+spawn (0-1) 1 "Plasma" x y;
+spawn (0-1) (0-1) "Plasma" x y;
+
+playSound "Die" 0 0 50;
+
+sleep;

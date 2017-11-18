@@ -157,6 +157,7 @@
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="BehaviorComponent.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="RuffCommon.h" />
     <ClInclude Include="RuffParse.h" />
     <ClInclude Include="RuffVM.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Systems.h" />
     <ClInclude Include="Vector2.h" />

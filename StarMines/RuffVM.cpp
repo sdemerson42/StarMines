@@ -527,6 +527,26 @@ void Ruff::RuffVM::exec(int line)
 			m_lock = false;
 			break;
 		}
+		case Code::playSound:
+		{
+			float volume = float(pop());
+			bool hiPriority = (pop() == 1 ? true : false);
+			bool loop = (pop() == 1 ? true : false);
+			std::string tag{ strPop() };
+			Events::SoundEvent se{ tag, loop, hiPriority, false, volume };
+			m_parent->broadcast(&se);
+
+			m_letVar.clear();
+			break;
+		}
+		case Code::stopSound:
+		{
+			Events::SoundEvent se;
+			se.stop = true;
+			se.tag = strPop();
+			m_parent->broadcast(&se);
+			break;
+		}
 
 		}
 

@@ -17,6 +17,7 @@ log <val>
 logStr <str>
 pause
 playAnim <animStr>
+playSound <tag> <loop> <priority> <volume>
 posBound <xmin> <xmax> <ymin> <ymax>
 rand <var> <min> <max>
 retSub
@@ -33,6 +34,7 @@ setTargetTag <strTag> <strMethod>
 setTargetCaller
 sleep
 spawn <optional data> <blueprintStr> <valX> <valY>
+stopSound <tag>
 unlock
 
 RESERVED LABELS

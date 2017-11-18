@@ -9,7 +9,7 @@ idleR 1 0 0 1 0
 idleL 1 224 0 1 0
 right ]
 [ physics 2 2 26 26 8 10 1 true ]
-[ behavior data\primescript.txt ]
+[ behavior data\playerscript.txt ]
 }
 
 Lump : Default
@@ -29,10 +29,17 @@ Logic : Default
 [ behavior data\logicscript.txt ]
 }
 
-Laser : Default
+Fire : Default
+{
+[ render sprites\flame.png 0 0 38 50 ]
+[ behavior data\firescript.txt ]
+[ physics 2 2 16 16 0 0 0 false ]
+}
+
+Plasma : Default
 {
 [ render sprites\s.gif 0 0 20 20 ]
-[ anim 1 main 2 20 0 0 0 5 1  main ]
-[ behavior data\explosionscript.txt ]
+[ anim 1 main 2 20 0 0 0 3 1 main ]
+[ behavior data\plasmascript.txt ]
 [ physics 2 2 16 16 0 0 0 false ]
 }

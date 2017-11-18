@@ -59,7 +59,7 @@ namespace Events
 		Entity *response;
 	};
 
-	struct JoystickEvent : public EventBase
+	struct JoystickEvent : EventBase
 	{
 		JoystickEvent()
 		{}
@@ -70,5 +70,19 @@ namespace Events
 		float y;
 		float u;
 		float v;
+	};
+
+	struct SoundEvent : EventBase
+	{
+		SoundEvent()
+		{}
+		SoundEvent(const std::string &_tag, bool _loop, bool _hiPriority, bool _stop = false, float _volume = 50.0f) :
+			tag{ _tag }, loop{ _loop }, hiPriority{ _hiPriority }, stop{ _stop }, volume { _volume }
+		{}
+		std::string tag;
+		bool loop;
+		bool hiPriority;
+		bool stop;
+		float volume;
 	};
 };

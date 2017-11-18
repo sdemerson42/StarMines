@@ -63,7 +63,9 @@ namespace Ruff
 		letInputAxis = 118,
 		letCallData = 119,
 		lock = 120,
-		unlock = 121
+		unlock = 121,
+		playSound = 122,
+		stopSound = 123
 	};
 
 	struct ByteCode

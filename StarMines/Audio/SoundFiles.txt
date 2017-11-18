@@ -1,0 +1,2 @@
+Die audio\SFX_Die.wav
+Alarm audio\SFX_Rewind.wav
