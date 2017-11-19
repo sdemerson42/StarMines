@@ -57,19 +57,17 @@ std::vector <PhysicsComponent *> ProxMap::retrieve(PhysicsComponent *pc)
 
 ProxMap::Indices ProxMap::getIndices(PhysicsComponent *pc, bool retrieval)
 {
-	int t, l;
-	if (retrieval)
-	{
-		l = (int)(pc->parent()->position().x + pc->m_colliderPos.x + pc->m_moveVec.x);
-		t = (int)(pc->parent()->position().y + pc->m_colliderPos.y + pc->m_moveVec.y);
-	}
-	else
-	{
-		l = (int)(pc->parent()->position().x + pc->m_colliderPos.x);
-		t = (int)(pc->parent()->position().y + pc->m_colliderPos.y);
-	}
-	int r = l + (int)(pc->m_colliderSize.x);
-	int b = t + (int)(pc->m_colliderSize.y);
+	int pcx = (int)pc->parent()->position().x + pc->m_colliderPos.x;
+	int pcy = (int)pc->parent()->position().y + pc->m_colliderPos.y;
+	int pcvx = (int)(pc->m_moveVec.x * pc->m_speed);
+	int pcvy = (int)(pc->m_moveVec.y * pc->m_speed);
+	int pccx = (int)pc->m_colliderSize.x;
+	int pccy = (int)pc->m_colliderSize.y;
+
+	int l = std::min(pcx, pcx + pcvx);
+	int t = std::min(pcy, pcy + pcvy);
+	int r = std::max(pcx + pccx, pcx + pccx + pcvx);
+	int b = std::max(pcy + pccy, pcy + pccy + pcvy);
 
 	int ib = l / m_cw;
 	if (ib < 0) ib = 0;

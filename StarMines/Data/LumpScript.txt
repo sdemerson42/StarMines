@@ -1,45 +1,21 @@
-setSpeed 20;
-rand x 0 770;
-rand y 0 570;
-setPos x y;
-playAnim "active";
-
-def find;
+def switch;
 let counter 0;
-setTargetTag "RedGuy" "first";
-letTargetPos tx ty;
-letPos x y;
-setDir (tx-x) (ty-y);
+setSpeed 40;
+def dirLoop;
+rand x (0-5) 5;
+rand y (0-5) 5;
+if x == 0 and y == 0 @dirLoop;
+setDir x y;
 
 def loop;
+letPos x y;
+if x > 800 or x < 0 or y > 600 or y < 0 @die;
 inc counter 1;
-posBound 0 770 0 570;
+if counter == 20 @switch;
 pause;
-if counter > 20 @find;
-jump @loop;
-
-def collision;
-ifCallerTag "Fire" @die;
 jump @loop;
 
 def die;
-sendToTag "Logic" "deadbot";
-despawn;
 lock;
-
-letPos x y;
-inc x 15;
-inc y 15;
-
-spawn 0 1 "Plasma" x y;
-spawn 1 0 "Plasma" x y;
-spawn (0-1) 0 "Plasma" x y;
-spawn 0 (0-1) "Plasma" x y;
-spawn 1 1 "Plasma" x y;
-spawn 1 (0-1) "Plasma" x y;
-spawn (0-1) 1 "Plasma" x y;
-spawn (0-1) (0-1) "Plasma" x y;
-
-playSound "Die" 0 0 50;
-
+despawn;
 sleep;

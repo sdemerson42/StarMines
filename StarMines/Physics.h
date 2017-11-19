@@ -22,4 +22,6 @@ private:
 	void fillMap();
 	void processMovement();
 	bool collide(float xa, float ya, float wa, float ha, float xb, float yb, float wb, float hb);
+	void callSender(PhysicsComponent *cp, PhysicsComponent *p);
+	void bugTest();
 };

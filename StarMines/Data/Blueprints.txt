@@ -43,3 +43,14 @@ Plasma : Default
 [ behavior data\plasmascript.txt ]
 [ physics 2 2 16 16 0 0 0 false ]
 }
+
+Grave : Default
+{
+[ render sprites\grave.png 0 0 30 30 ]
+}
+
+Block : Default
+{
+[ render sprites\Squares.png 0 0 30 30 ]
+[ physics 0 0 30 30 0 0 0 true ]
+}

@@ -1,26 +1,14 @@
-let robs 0;
-playSound "Alarm" 1 1 30;
-let alarmCounter 0;
-
 def loop;
+jump ^spawner;
 inc counter 1;
-inc alarmCounter 1;
-if alarmCounter == 500 ^stopper;
-if counter > 20 and robs < 16 @spawner;
-pause;
+if counter == 30 @ender;
 jump @loop;
 
 def spawner;
-spawn "Lump" 0 0;
-let counter 0;
-inc robs 1;
-jump @loop;
-
-def deadbot;
-dec robs 1;
-pause;
-jump @loop;
-
-def stopper;
-stopSound "Alarm";
+rand x 0 770;
+rand y 0 570;
+spawn "Lump" x y;
 retSub;
+
+def ender;
+sleep;
