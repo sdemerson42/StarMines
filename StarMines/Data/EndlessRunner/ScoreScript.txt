@@ -1,0 +1,10 @@
+def loop;
+inc counter 1;
+if counter == 40 @die;
+pause;
+jump @loop;
+
+def die;
+lock;
+despawn;
+sleep;

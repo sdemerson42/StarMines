@@ -51,8 +51,12 @@ void Ruff::TokenStream::makeTokens(const std::vector<std::string> &ss)
 				});
 				if (p == end(stack))
 				{
-					for (auto &tt : stack)
-						m_stream.emplace_back(tt);
+					auto i = std::rbegin(stack);
+					while (i != std::rend(stack))
+					{
+						m_stream.emplace_back(*i);
+						++i;
+					}
 					expr = false;
 				}
 				else

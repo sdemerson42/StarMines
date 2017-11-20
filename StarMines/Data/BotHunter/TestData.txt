@@ -1,0 +1,87 @@
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+Plasma 0 0 1
+RedGuy 500 500 0
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Lump 0 0 1
+Logic 0 0 0
+Grave 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+Fire 0 0 1
+
+
+
+
+
+
+
+

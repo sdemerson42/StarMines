@@ -1,0 +1,43 @@
+let robs 0;
+playSound "Alarm" 1 1 30;
+let alarmCounter 0;
+let speed 10;
+let speedCounter 0;
+let score 0;
+
+def loop;
+inc counter 1;
+inc speedCounter 1;
+inc alarmCounter 1;
+if alarmCounter == 500 ^stopper;
+if counter > 30 and robs < 16 @spawner;
+if speedCounter > 200 ^speeder;
+pause;
+jump @loop;
+
+def spawner;
+spawn speed "Lump" 0 0;
+let counter 0;
+inc robs 1;
+jump @loop;
+
+def deadbot;
+dec robs 1;
+inc score 1;
+pause;
+jump @loop;
+
+def stopper;
+stopSound "Alarm";
+retSub;
+
+def speeder;
+let speedCounter 0;
+inc speed 1;
+retSub;
+
+def playerDead;
+lock;
+logStr "Score";
+log score;
+sleep;

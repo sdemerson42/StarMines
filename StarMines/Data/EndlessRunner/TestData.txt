@@ -1,0 +1,53 @@
+Logic 0 0 0
+
+Player 200 400 0
+
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+Block -50 -50 1
+
+Block 200 430 0
+Block 230 430 0
+Block 260 430 0
+Block 290 430 0
+Block 320 430 0
+
+
+Bot -50 -50 1
+Bot -50 -50 1
+Bot -50 -50 1
+Bot -50 -50 1
+Bot -50 -50 1
+
+Treasure -50 -50 1
+Treasure -50 -50 1
+Treasure -50 -50 1
+Treasure -50 -50 1
+Treasure -50 -50 1
+
+
+
+
+
+
+
+
+
+

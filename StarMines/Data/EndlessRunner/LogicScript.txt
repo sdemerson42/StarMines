@@ -1,0 +1,61 @@
+spawn "BTrigger" 565 430;
+spawn "Block" 550 430;
+spawn "Block" 580 430;
+spawn "Block" 610 430;
+spawn "Block" 640 430;
+spawn "Block" 670 430;
+
+spawn "BTrigger" 870 430;
+spawn "Block" 900 430;
+spawn "Block" 930 430;
+spawn "Block" 960 430;
+spawn "Block" 990 430;
+spawn "Block" 1020 430;
+
+let by 430;
+let score 0;
+
+def loop;
+inc counter 1;
+if counter == 100 ^blockSpawn;
+pause;
+jump @loop;
+
+def blockSpawn;
+let counter 0;
+def calcLoop;
+rand y (0-50) 50;
+if (by + y) > 500 or (by + y) < 100 @calcLoop;
+inc by y;
+rand bTotal 3 7;
+let bCount 0;
+spawn "BTrigger" 870 by;
+def buildLoop;
+let bx (900+bCount*30);
+spawn "Block" bx by;
+inc bCount 1;
+if bCount < bTotal @buildLoop;
+rand t 1 3;
+if t == 3 ^treasureSpawn;
+inc score 10;
+retSub;
+
+def treasureSpawn;
+spawn "Treasure" (bx-50) (by - 100);
+retSub;
+
+def treasureGot;
+letCallData val;
+inc score val;
+pause;
+jump @loop;
+
+
+def endgame;
+lock;
+sendToTag "Block" "stopMoving";
+sendToTag "Treasure" "stopMoving";
+logStr "Score";
+log score;
+playSound "Die" 0 0 50;
+sleep;

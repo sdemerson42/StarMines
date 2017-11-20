@@ -1,0 +1,29 @@
+def loop;
+letPos x y;
+if x < (0-40) @die;
+pause;
+jump @loop;
+
+def collision;
+ifCallerTag "Player" @got;
+sleep;
+
+def got;
+playSound "Coin" 0 0 50;
+sendToTag 100 "Logic" "treasureGot";
+letPos x y;
+spawn "Score" x y;
+jump @die;
+
+def die;
+lock;
+despawn;
+sleep;
+
+def stopMoving;
+lock;
+setSpeed 0;
+sleep;
+
+
+

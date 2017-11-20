@@ -9,6 +9,7 @@ jump <label>
 let <var> <val>
 letCallData <vars...>
 letDir <var> <var>
+letInputAxis <x> <y> <u> <v>
 letPos <var> <var>
 letSpeed <var>
 letTargetPos <var> <var>
