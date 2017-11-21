@@ -4,7 +4,8 @@
 #include "Events.h"
 
 std::string BehaviorComponent::m_tag{ "behavior" };
-Events::JoystickEvent BehaviorComponent::m_input{ 0,0,0,0 };
+Events::InputEvent BehaviorComponent::m_input{};
+const float BehaviorComponent::m_axisDeadzone{ 20.0f };
 
 void BehaviorComponent::resetVM()
 {

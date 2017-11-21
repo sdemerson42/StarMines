@@ -9,9 +9,9 @@ public:
 	Behavior(ComponentManager *cm) :
 		ISystem{ cm }
 	{
-		registerFunc(this, &Behavior::onJoystickEvent);
+		registerFunc(this, &Behavior::onInputEvent);
 	}
 	void update() override;
 private:
-	void onJoystickEvent(Events::JoystickEvent *);
+	void onInputEvent(Events::InputEvent *);
 };

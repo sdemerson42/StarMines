@@ -496,10 +496,10 @@ void Ruff::RuffVM::exec(int line)
 			pop();
 			pop();
 			pop();
-			m_reg[m_letVar[0]] = int(m_parent->m_input.x);
-			m_reg[m_letVar[1]] = int(m_parent->m_input.y);
-			m_reg[m_letVar[2]] = int(m_parent->m_input.u);
-			m_reg[m_letVar[3]] = int(m_parent->m_input.v);
+			m_reg[m_letVar[0]] = int(m_parent->m_input.xAxis);
+			m_reg[m_letVar[1]] = int(m_parent->m_input.yAxis);
+			m_reg[m_letVar[2]] = int(m_parent->m_input.uAxis);
+			m_reg[m_letVar[3]] = int(m_parent->m_input.vAxis);
 			m_letVar.clear();
 			break;
 		}

@@ -59,17 +59,17 @@ namespace Events
 		Entity *response;
 	};
 
-	struct JoystickEvent : EventBase
+	struct InputEvent : EventBase
 	{
-		JoystickEvent()
+		InputEvent()
 		{}
-		JoystickEvent(float _x, float _y, float _u, float _v) :
-			x{ _x }, y{ _y }, u{ _u }, v{ _v }
+		InputEvent(float _xAxis, float _yAxis, float _uAxis, float _vAxis) :
+			xAxis{ _xAxis }, yAxis{ _yAxis }, uAxis{ _uAxis }, vAxis{ _vAxis }
 		{}
-		float x;
-		float y;
-		float u;
-		float v;
+		float xAxis;
+		float yAxis;
+		float uAxis;
+		float vAxis;
 	};
 
 	struct SoundEvent : EventBase

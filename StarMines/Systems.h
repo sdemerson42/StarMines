@@ -6,3 +6,4 @@
 #include "Renderer.h"
 #include "Spawner.h"
 #include "Sound.h"
+#include "Input.h"

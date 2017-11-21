@@ -9,7 +9,7 @@ void Behavior::update()
 		m_compManager->m_behavior[i].update();
 }
 
-void Behavior::onJoystickEvent(Events::JoystickEvent *evnt)
+void Behavior::onInputEvent(Events::InputEvent *evnt)
 {
 	BehaviorComponent::setInput(evnt);
 }

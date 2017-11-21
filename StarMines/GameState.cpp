@@ -11,6 +11,7 @@ GameState::GameState() :
 {
 	//m_window.setVerticalSyncEnabled(true);
 
+	m_sys.emplace_back(std::make_unique<Input>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Spawner>(m_compManager.get(), &m_factory));
 	m_sys.emplace_back(std::make_unique<Physics>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Behavior>(m_compManager.get()));
@@ -50,24 +51,12 @@ void GameState::exec()
 				delta = 0.0f;
 			m_clock.restart();
 
-			auto je = getJoystickInput();
-			broadcast(&je);
-
 			for (auto &p : m_sys)
 				p->update();
 		}
 	}
 }
 
-Events::JoystickEvent GameState::getJoystickInput()
-{
-	float x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::X);
-	float y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y);
-	float u = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::U);
-	float v = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::R);
-	return Events::JoystickEvent{ x,y,u,v };
-	
-}
 
 void GameState::onRSCall(const Events::RSCallEvent *evnt)
 {

@@ -20,13 +20,13 @@ public:
 		registerFunc(this, &BehaviorComponent::onQueryEntityByTag);
 	}
 
-	static void setInput(Events::JoystickEvent *evnt)
+	static void setInput(Events::InputEvent *evnt)
 	{
 		m_input = *evnt;
-		if (abs(m_input.x) < 20.0f) m_input.x = 0.0f;
-		if (abs(m_input.y) < 20.0f) m_input.y = 0.0f;
-		if (abs(m_input.u) < 20.0f) m_input.u = 0.0f;
-		if (abs(m_input.v) < 20.0f) m_input.v = 0.0f;
+		if (abs(m_input.xAxis) < m_axisDeadzone) m_input.xAxis = 0.0f;
+		if (abs(m_input.yAxis) < m_axisDeadzone) m_input.yAxis = 0.0f;
+		if (abs(m_input.uAxis) < m_axisDeadzone) m_input.uAxis = 0.0f;
+		if (abs(m_input.vAxis) < m_axisDeadzone) m_input.vAxis = 0.0f;
 	}
 
 	void initialize(const std::vector<std::string> &input) override
@@ -50,12 +50,12 @@ public:
 	void addCall(Ruff::Call& c)
 	{
 		m_call.emplace_back(c);
-		//(end(m_call) - 1)->data = c.data;
 	}
 
 private:
 	static std::string m_tag;
-	static Events::JoystickEvent m_input;
+	static Events::InputEvent m_input;
+	static const float m_axisDeadzone;
 
 	Ruff::RuffVM m_vm;
 	std::vector<Ruff::Call> m_call;
