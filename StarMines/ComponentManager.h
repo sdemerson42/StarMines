@@ -4,10 +4,8 @@
 #include <string>
 #include <algorithm>
 #include <typeindex>
-#include "RenderComponent.h"
-#include "AnimationComponent.h"
-#include "PhysicsComponent.h"
-#include "BehaviorComponent.h"
+
+#include "Components.h"
 
 #include "Entity.h"
 
@@ -36,6 +34,8 @@ private:
 	int m_physicsSz{ 0 };
 	std::vector<BehaviorComponent> m_behavior{ MAX_COMPONENTS };
 	int m_behaviorSz{ 0 };
+	std::vector<TextComponent> m_text{ MAX_COMPONENTS };
+	int m_textSz{ 0 };
 
 	template<typename T>
 	void genAddComponent(Entity *e, const std::vector<std::string> &initArgs, std::vector<T> &v, int &sz);

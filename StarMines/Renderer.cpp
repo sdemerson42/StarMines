@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
+#include "TextComponent.h"
 #include "Entity.h"
 #include "ComponentManager.h"
 #include <iostream>
@@ -48,6 +49,8 @@ void Renderer::render()
 {
 	m_window.clear();
 	
+	// Draw all vertex arrays
+
 	for (auto &dl : m_drawLayer)
 	{
 		for (auto &vaMap : dl.vaMap)
@@ -61,6 +64,15 @@ void Renderer::render()
 
 			m_window.draw(vaMap.second, sf::RenderStates{ &tp->second });
 		}
+	}
+
+	// Draw text objects
+
+	for (unsigned int i{ 0 }; i < m_compManager->m_textSz; ++i)
+	{
+		auto &tc = m_compManager->m_text[i];
+		tc.m_text.setPosition(tc.parent()->position().x, tc.parent()->position().y);
+		m_window.draw(tc.m_text);
 	}
 
 	m_window.display();

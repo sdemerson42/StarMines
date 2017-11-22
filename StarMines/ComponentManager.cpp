@@ -19,6 +19,10 @@ void ComponentManager::addComponent(Entity *e, const std::string &tag, const std
 	{
 		genAddComponent<BehaviorComponent>(e, initArgs, m_behavior, m_behaviorSz);
 	}
+	if (tag == "text")
+	{
+		genAddComponent<TextComponent>(e, initArgs, m_text, m_textSz);
+	}
 }
 
 void ComponentManager::deactivateComponent(Entity *e, const std::string &tag)
@@ -38,6 +42,10 @@ void ComponentManager::deactivateComponent(Entity *e, const std::string &tag)
 	if (tag == "behavior")
 	{
 		genDeactivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
+	}
+	if (tag == "text")
+	{
+		genDeactivateComponent<TextComponent>(e, m_text, m_textSz);
 	}
 }
 
@@ -59,6 +67,10 @@ void ComponentManager::activateComponent(Entity *e, const std::string &tag)
 	{
 		genActivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
 	}
+	if (tag == "text")
+	{
+		genActivateComponent<TextComponent>(e, m_text, m_textSz);
+	}
 }
 
 void ComponentManager::removeComponent(Entity *e, const std::string &tag)
@@ -78,6 +90,10 @@ void ComponentManager::removeComponent(Entity *e, const std::string &tag)
 	if (tag == "behavior")
 	{
 		genRemoveComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
+	}
+	if (tag == "text")
+	{
+		genRemoveComponent<TextComponent>(e, m_text, m_textSz);
 	}
 }
 
