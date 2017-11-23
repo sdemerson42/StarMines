@@ -1,8 +1,6 @@
 #include "RuffVM.h"
 #include "RuffParse.h"
-#include "BehaviorComponent.h"
-#include "AnimationComponent.h"
-#include "PhysicsComponent.h"
+#include "Components.h"
 #include "Entity.h"
 
 
@@ -545,6 +543,36 @@ void Ruff::RuffVM::exec(int line)
 			se.stop = true;
 			se.tag = strPop();
 			m_parent->broadcast(&se);
+			break;
+		}
+		case Code::setText:
+		{
+			auto c = m_parent->parent()->getComponent<TextComponent>();
+			if (c)
+				c->setString(strPop());
+			break;
+		}
+		case Code::setTextVal:
+		{
+			auto c = m_parent->parent()->getComponent<TextComponent>();
+			if (c)
+				c->setString(std::to_string(pop()));
+			m_letVar.clear();
+			break;
+		}
+		case Code::appendText:
+		{
+			auto c = m_parent->parent()->getComponent<TextComponent>();
+			if (c)
+				c->appendString(strPop());
+			break;
+		}
+		case Code::appendTextVal:
+		{
+			auto c = m_parent->parent()->getComponent<TextComponent>();
+			if (c)
+				c->appendString(std::to_string(pop()));
+			m_letVar.clear();
 			break;
 		}
 

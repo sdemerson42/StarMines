@@ -18,13 +18,22 @@ void Ruff::TokenStream::makeTokens(const std::vector<std::string> &ss)
 {
 	std::vector<Token> stack;
 	bool expr{ false };
+	bool str{ false };
 
 	for (const auto &s : ss)
 	{
 		Token t;
-		if (!isalnum(s[0]))
+		if (str)
+		{
+			t.type = 's';
+			t.val = s;
+			str = false;
+		}
+		else if (!isalnum(s[0]))
 		{
 			t.type = s[0];
+			if (s[0] == '"')
+				str = true;
 		}
 		else if (isalpha(s[0]))
 		{
@@ -128,10 +137,13 @@ std::vector<std::string> Ruff::TokenStream::parseSymbols(const std::string &fNam
 {
 	std::ifstream ifs{ fName };
 	std::vector<std::string> r;
+	bool onString{ false };
+	std::string rStr;
 	
 	while (true)
 	{
 		std::string s;
+		
 		if (!(ifs >> s)) break;
 
 		auto b = begin(s);
@@ -139,17 +151,29 @@ std::vector<std::string> Ruff::TokenStream::parseSymbols(const std::string &fNam
 
 		while (b < e)
 		{
-			if (!isalnum(*b))
+			if (onString)
 			{
 				if (*b == '"')
 				{
-					r.emplace_back(std::string{ *b });
-					std::string symbol;
-					while (isalpha(*++b))
-					{
-						symbol.insert(begin(symbol), *b);
-					}
-					r.emplace_back(symbol);
+					onString = false;
+					r.emplace_back(rStr);
+					++b;
+				}
+				else
+				{
+					rStr.insert(begin(rStr), *b);
+					if (b == e - 1)
+						rStr.insert(begin(rStr), ' ');
+					++b;
+				}
+			}
+			else if (!isalnum(*b))
+			{
+				if (*b == '"')
+				{
+					r.emplace_back(std::string{ '"' });
+					onString = true;
+					rStr.clear();
 					++b;
 				}
 				else
@@ -252,6 +276,10 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "unlock", Code::unlock });
 	cmdTable.emplace_back(SigIndex{ "playSound", Code::playSound });
 	cmdTable.emplace_back(SigIndex{ "stopSound", Code::stopSound });
+	cmdTable.emplace_back(SigIndex{ "setText", Code::setText });
+	cmdTable.emplace_back(SigIndex{ "setTextVal", Code::setTextVal });
+	cmdTable.emplace_back(SigIndex{ "appendText", Code::appendText });
+	cmdTable.emplace_back(SigIndex{ "appendTextVal", Code::appendTextVal });
 
 	std::vector<SigIndex> label;
 	std::vector<SigIndex> var;

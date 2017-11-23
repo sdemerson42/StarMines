@@ -1,0 +1,8 @@
+setText "Score: 0";
+sleep;
+
+def score;
+letCallData x;
+setText "Score: ";
+appendTextVal x;
+sleep;

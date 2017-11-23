@@ -39,8 +39,6 @@ namespace Ruff
 		semi = 51,
 		var = 52,
 		sublabel = 53,
-		strbegin = 54,
-		strend = 55,
 
 		log = 100,
 		logStr = 101,
@@ -65,7 +63,14 @@ namespace Ruff
 		lock = 120,
 		unlock = 121,
 		playSound = 122,
-		stopSound = 123
+		stopSound = 123,
+		setText = 124,
+		appendText = 125,
+		setTextVal = 126,
+		appendTextVal = 127,
+
+		strbegin = 1000,
+		strend = 1001
 	};
 
 	struct ByteCode

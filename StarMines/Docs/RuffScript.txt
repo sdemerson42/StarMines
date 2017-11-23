@@ -1,4 +1,6 @@
 addPos <val> <val>
+appendText <string>
+appendTextVal <val>
 dec <var> <val>
 despawn
 halt
@@ -33,6 +35,8 @@ setTargetTag <strTag> <strMethod>
 ** near - find nearest by position
 
 setTargetCaller
+setText <string>
+setTextVal <val>
 sleep
 spawn <optional data> <blueprintStr> <valX> <valY>
 stopSound <tag>

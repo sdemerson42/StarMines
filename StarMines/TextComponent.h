@@ -22,6 +22,16 @@ public:
 	{
 		return m_tag;
 	}
+	void setString(const std::string &str)
+	{
+		m_text.setString(str);
+	}
+	void appendString(const std::string &str)
+	{
+		std::string s{ m_text.getString() };
+		s.append(str);
+		m_text.setString(s);
+	}
 private:
 	sf::Text m_text;
 	sf::Font m_font;

@@ -24,6 +24,7 @@ jump @loop;
 def deadbot;
 dec robs 1;
 inc score 1;
+sendToTag score "Title" "score";
 pause;
 jump @loop;
 
@@ -38,6 +39,4 @@ retSub;
 
 def playerDead;
 lock;
-logStr "Score";
-log score;
 sleep;

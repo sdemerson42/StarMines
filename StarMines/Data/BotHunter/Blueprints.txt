@@ -54,3 +54,9 @@ Block : Default
 [ render sprites\Squares.png 0 0 30 30 ]
 [ physics 0 0 30 30 0 0 0 true ]
 }
+
+Title : Default
+{
+[ text fonts\fullamak.ttf 30 200 10 10 255 text ]
+[ behavior data\TitleScript.txt ]
+}
