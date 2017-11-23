@@ -55,7 +55,6 @@ def endgame;
 lock;
 sendToTag "Block" "stopMoving";
 sendToTag "Treasure" "stopMoving";
-logStr "Score";
-log score;
+sendToTag score "Title" "ending";
 playSound "Die" 0 0 50;
 sleep;

@@ -42,3 +42,8 @@ BTrigger : Default
 [ physics 5 5 25 25 -1 0 3 false ]
 [ behavior data\BTriggerScript.txt ]
 }
+Title : Default
+{
+[ behavior data\TitleScript.txt ]
+[ text fonts\fullamak.ttf 30 10 40 210 255 text ]
+}

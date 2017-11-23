@@ -29,6 +29,7 @@ let ground 0;
 setDir 0 (0-1);
 setSpeed 40;
 playAnim "jump";
+playSound "Jump" 0 0 30;
 retSub;
 
 
