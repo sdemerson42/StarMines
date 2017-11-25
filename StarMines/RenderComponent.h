@@ -14,14 +14,19 @@ public:
 	}
 	void initialize(const std::vector<std::string> &input) override
 	{
+		int wl;
+		int sl;
 		initSerial(&m_textureName, Serializable::Type::STRING,
 			&m_position.x, Serializable::Type::FLOAT,
 			&m_position.y, Serializable::Type::FLOAT,
 			&m_size.x, Serializable::Type::FLOAT,
-			&m_size.y, Serializable::Type::FLOAT);
+			&m_size.y, Serializable::Type::FLOAT,
+			&wl, Serializable::Type::INT,
+			&sl, Serializable::Type::INT
+		);
 		readSerial(input);
-		setWinLayer(WindowLayer::MAIN);
-		setSceneLayer(SceneLayer::ACTOR);
+		m_winLayer = (WindowLayer)(wl);
+		m_sceneLayer = (SceneLayer)(sl);
 	}
 	void writeOut(std::vector<std::string> &output) override
 	{
@@ -39,11 +44,11 @@ public:
 
 	enum class WindowLayer
 	{
-		MAIN, OVERLAY, _SIZE
+		MAIN, MENU, _SIZE
 	};
 	enum class SceneLayer
 	{
-		BACK, FORE, ACTOR, _SIZE
+		BACK, FORE, ACTOR, OVERLAY, _SIZE
 	};
 
 	WindowLayer winLayer() const

@@ -32,8 +32,11 @@ setDir 0 1;
 retSub;
 
 def loop;
-posBound 0 770 0 570;
+letPos ox oy;
 pause;
+posBound 0 770 0 570;
+letPos x y;
+if x == ox and y == oy @dirPhase;
 inc moveCounter 1;
 if moveCounter == moveTime @dirPhase;
 jump @loop;

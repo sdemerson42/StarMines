@@ -82,10 +82,26 @@ public:
 		return m_active;
 	}
 
+	// Persistence
+
+	enum class PersistType
+	{
+		ScenePos, SceneNoPos, Global, None 
+	};
+	void setPersist(PersistType p)
+	{
+		m_persist = p;
+	}
+	PersistType persist() const
+	{
+		return m_persist;
+	}
+
 private:
 	std::vector<IComponent *> m_compRef;
 	Vector2 m_position;
 	std::vector<std::string> m_tag;
 	bool m_active{ false };
+	PersistType m_persist;
 };
 

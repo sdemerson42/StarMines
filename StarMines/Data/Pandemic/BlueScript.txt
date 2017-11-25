@@ -1,6 +1,7 @@
-setSpeed 60;
+setSpeed 80;
 
 def dirPhase;
+posBound 0 770 0 570;
 let counter 0;
 setTargetTag "Red" "near";
 letTargetPos u v;
@@ -9,8 +10,8 @@ let a (x-u);
 let b (y-v);
 if a < (0-100) or a > 100 or b < (0-100) or b > 100 @still;
 
-if a == 0 ^aCorrection;
-if b == 0 ^bCorrection;
+if x > 760 or x < 10 ^aCorrection;
+if y > 560 or y < 10 ^bCorrection;
 
 setDir a b;
 
@@ -18,7 +19,7 @@ def loop;
 posBound 0 770 0 570;
 pause;
 inc counter 1;
-if counter > 30 @dirPhase;
+if counter > 15 @dirPhase;
 jump @loop;
 
 def still;
@@ -26,19 +27,19 @@ setDir 0 0;
 jump @loop;
 
 def aCorrection;
-if a > 400 @aLeft;
-let a (0-10);
+if x > 400 @aLeft;
+let a 100;
 retSub;
 def aLeft;
-let a 10;
+let a (0-100);
 retSub;
 
 def bCorrection;
-if b > 300 @bLeft;
-let b (0-10);
+if y > 300 @bLeft;
+let b 100;
 retSub;
 def bLeft;
-let b 10;
+let b (0-100);
 retSub;
 
 def collision;
