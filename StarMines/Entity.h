@@ -70,6 +70,10 @@ public:
 			return true;
 		return false;
 	}
+	const std::string &name() const
+	{
+		return m_tag[0];
+	}
 
 	// Active
 
@@ -86,7 +90,7 @@ public:
 
 	enum class PersistType
 	{
-		ScenePos, SceneNoPos, Global, None 
+		Scene, Global, None 
 	};
 	void setPersist(PersistType p)
 	{
@@ -102,6 +106,6 @@ private:
 	Vector2 m_position;
 	std::vector<std::string> m_tag;
 	bool m_active{ false };
-	PersistType m_persist;
+	PersistType m_persist{ PersistType::None };
 };
 

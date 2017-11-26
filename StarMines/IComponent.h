@@ -32,10 +32,10 @@ public:
 	}
 	void setParent(Entity *parent)
 	{
-		m_parent.reset(parent);
+		m_parent = parent;
 	}
 	Entity *parent();
 private:
-	std::shared_ptr<Entity> m_parent;
+	Entity *m_parent;
 	bool m_active{ true };
 };

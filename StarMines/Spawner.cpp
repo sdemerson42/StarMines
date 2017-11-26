@@ -7,6 +7,7 @@ Spawner::Spawner(ComponentManager *cm, Factory *fac) :
 {
 	registerFunc(this, &Spawner::onSpawnData);
 	registerFunc(this, &Spawner::onDespawnData);
+	registerFunc(this, &Spawner::onSceneChange);
 }
 
 void Spawner::update()
@@ -35,5 +36,11 @@ void Spawner::onSpawnData(const Events::SpawnDataEvent *sde)
 void Spawner::onDespawnData(const Events::DespawnEvent *de)
 {
 	m_despawnData.emplace_back(*de);
+}
+
+void Spawner::onSceneChange(const Events::SceneChangeEvent *sce)
+{
+	m_spawnData.clear();
+	m_despawnData.clear();
 }
 

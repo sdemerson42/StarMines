@@ -66,6 +66,8 @@ void ComponentManager::activateComponent(Entity *e, const std::string &tag)
 	if (tag == "behavior")
 	{
 		genActivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
+		auto c = e->getComponent<BehaviorComponent>();
+		c->resetVM();
 	}
 	if (tag == "text")
 	{
@@ -109,4 +111,13 @@ void ComponentManager::deactivateAll(Entity *e)
 	for (auto p : e->m_compRef)
 		deactivateComponent(e, p->getTag());
 	e->setActive(false);
+}
+
+void ComponentManager::removeAll(Entity *e)
+{
+	while (e->m_compRef.size() > 0)
+	{
+		auto p = e->m_compRef[e->m_compRef.size() - 1];
+		removeComponent(e, p->getTag());
+	}
 }

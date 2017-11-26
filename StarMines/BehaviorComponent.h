@@ -52,6 +52,13 @@ public:
 		m_call.emplace_back(c);
 	}
 
+	std::vector<int> getSceneDespawnData()
+	{
+		auto r{ m_sceneDespawnData };
+		m_sceneDespawnData.clear();
+		return r;
+	}
+
 private:
 	static std::string m_tag;
 	static Events::InputEvent m_input;
@@ -61,6 +68,7 @@ private:
 	std::vector<Ruff::Call> m_call;
 	Entity *m_curCaller;
 	Entity *m_target;
+	std::vector<int> m_sceneDespawnData;
 
 	void broadcastCall(Ruff::Call &c, const std::string &tag);
 	void setTargetTag(const std::string &tag, const std::string &method);

@@ -23,6 +23,7 @@ public:
 	void exec();
 private:
 	const float m_frameRate{ 100.0f / 6.0f };
+	std::string m_name;
 
 	std::unique_ptr<ComponentManager> m_compManager;
 	sf::RenderWindow m_window;
@@ -31,8 +32,22 @@ private:
 	sf::Clock m_clock;
 	Factory m_factory;
 
+	struct SceneSpawnData
+	{
+		Events::SpawnDataEvent spawnData;
+		Entity::PersistType persist;
+		bool cache;
+	};
+	struct SceneData
+	{
+		std::string name;
+		std::vector<SceneSpawnData> data;
+	};
+	std::vector<SceneData> m_sceneData;
+
 	void onRSCall(const Events::RSCallEvent *);
 	void onQueryEntityByTag(Events::QueryEntityByTagEvent *);
-	
+
+	void buildScene(const std::string &name);
 	void loadTestData(const std::string &fName);
 };

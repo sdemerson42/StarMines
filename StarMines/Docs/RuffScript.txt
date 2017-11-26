@@ -24,6 +24,7 @@ playSound <tag> <loop> <priority> <volume>
 posBound <xmin> <xmax> <ymin> <ymax>
 rand <var> <min> <max>
 retSub
+sendSceneSpawnData <vars...>
 sendToCaller <optional data> <labelStr>
 sendToTag <optional data> <tagStr> <labelStr>
 setDir <val> <val>

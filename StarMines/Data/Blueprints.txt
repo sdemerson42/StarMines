@@ -1,0 +1,63 @@
+RedGuy : Hero Player
+{
+[ render sprites\player.png 0 0 32 32 0 2 ]
+[ anim
+4
+right 4 0 0 32 0 64 0 96 0 10 1
+left 4 128 0 160 0 192 0 224 0 10 1
+idleR 1 0 0 1 0
+idleL 1 224 0 1 0
+right ]
+[ physics 2 2 26 26 8 10 1 true ]
+[ behavior data\playerscript.txt ]
+}
+
+Lump : Default
+{
+[ render sprites\robot.gif 0 0 30 30 0 2 ]
+[ physics 2 2 26 26 0 0 3 true ]
+[ behavior data\lumpscript.txt ]
+[ anim
+2
+active 2 30 0 0 0 15 1
+idle 1 0 0 1 0
+idle ]
+}
+
+Logic : Default
+{
+[ behavior data\logicscript.txt ]
+}
+
+Fire : Default
+{
+[ render sprites\flame.png 0 0 38 50 0 2 ]
+[ behavior data\firescript.txt ]
+[ physics 2 2 16 16 0 0 0 false ]
+}
+
+Plasma : Default
+{
+[ render sprites\s.gif 0 0 20 20 0 2 ]
+[ anim 1 main 2 20 0 0 0 3 1 main ]
+[ behavior data\plasmascript.txt ]
+[ physics 2 2 16 16 0 0 0 false ]
+}
+
+Grave : Default
+{
+[ render sprites\grave.png 0 0 30 30 0 2 ]
+}
+
+Block : Default
+{
+[ render sprites\Squares.png 0 0 30 30 0 2 ]
+[ physics 0 0 30 30 0 0 0 true ]
+[ behavior data\blocktestscript.txt ]
+}
+
+Title : Default
+{
+[ text fonts\fullamak.ttf 30 200 10 10 255 text ]
+[ behavior data\TitleScript.txt ]
+}

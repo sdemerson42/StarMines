@@ -280,6 +280,7 @@ Ruff::ByteCode Ruff::parse(const std::string &fName)
 	cmdTable.emplace_back(SigIndex{ "setTextVal", Code::setTextVal });
 	cmdTable.emplace_back(SigIndex{ "appendText", Code::appendText });
 	cmdTable.emplace_back(SigIndex{ "appendTextVal", Code::appendTextVal });
+	cmdTable.emplace_back(SigIndex{ "sendSceneSpawnData", Code::sendSceneSpawnData });
 
 	std::vector<SigIndex> label;
 	std::vector<SigIndex> var;

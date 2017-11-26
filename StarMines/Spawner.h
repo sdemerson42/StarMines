@@ -16,4 +16,5 @@ private:
 
 	void onSpawnData(const Events::SpawnDataEvent *);
 	void onDespawnData(const Events::DespawnEvent *);
+	void onSceneChange(const Events::SceneChangeEvent *);
 };

@@ -1,0 +1,52 @@
+def find;
+let counter 0;
+setTargetTag "RedGuy" "first";
+letTargetPos tx ty;
+letPos x y;
+setDir (tx-x) (ty-y);
+
+def loop;
+inc counter 1;
+posBound 0 770 0 570;
+pause;
+if counter > 20 @find;
+jump @loop;
+
+def collision;
+ifCallerTag "Fire" @die;
+jump @loop;
+
+def die;
+sendToTag "Logic" "deadbot";
+despawn;
+lock;
+
+letPos x y;
+inc x 15;
+inc y 15;
+
+spawn 0 1 "Plasma" x y;
+spawn 1 0 "Plasma" x y;
+spawn (0-1) 0 "Plasma" x y;
+spawn 0 (0-1) "Plasma" x y;
+spawn 1 1 "Plasma" x y;
+spawn 1 (0-1) "Plasma" x y;
+spawn (0-1) 1 "Plasma" x y;
+spawn (0-1) (0-1) "Plasma" x y;
+
+playSound "Die" 0 0 50;
+
+sleep;
+
+def init;
+letCallData s;
+setSpeed s;
+def roll;
+rand x 0 2;
+rand y 0 2;
+if x == 1 and y == 1 @roll;
+let x (x*385);
+let y (y*285);
+setPos x y;
+playAnim "active";
+jump @find;

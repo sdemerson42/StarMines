@@ -68,6 +68,7 @@ namespace Ruff
 		appendText = 125,
 		setTextVal = 126,
 		appendTextVal = 127,
+		sendSceneSpawnData = 128,
 
 		strbegin = 1000,
 		strend = 1001

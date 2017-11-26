@@ -23,6 +23,7 @@ public:
 	void removeComponent(Entity *e, const std::string &tag);
 	void activateAll(Entity *e);
 	void deactivateAll(Entity *e);
+	void removeAll(Entity *e);
 private:	
 	static constexpr int MAX_COMPONENTS = 5000;
 	
@@ -57,7 +58,7 @@ void ComponentManager::genAddComponent(Entity *e, const std::vector<std::string>
 	cp->initialize(initArgs);
 	cp->setParent(e);
 	e->m_compRef.push_back(&*cp);
-	genActivateComponent<T>(e, v, sz);
+	activateComponent(e, cp->getTag());
 }
 template<typename T>
 void ComponentManager::genDeactivateComponent(Entity *e, std::vector<T> &v, int &sz)

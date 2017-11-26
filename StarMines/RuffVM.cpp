@@ -8,6 +8,8 @@
 
 void Ruff::RuffVM::loadScript(const std::string &fName)
 {
+	m_code.code.clear();
+	m_code.label.clear();
 	m_code = Ruff::parse(fName);
 }
 
@@ -395,6 +397,10 @@ void Ruff::RuffVM::exec(int line)
 		}
 		case Code::despawn:
 		{
+			m_parent->m_sceneDespawnData.clear();
+			for (auto k : m_stack)
+				m_parent->m_sceneDespawnData.emplace_back(k);
+			m_stack.clear();
 			Events::DespawnEvent de{ m_parent->parent() };
 			m_parent->broadcast(&de);
 			break;
@@ -572,6 +578,15 @@ void Ruff::RuffVM::exec(int line)
 			auto c = m_parent->parent()->getComponent<TextComponent>();
 			if (c)
 				c->appendString(std::to_string(pop()));
+			m_letVar.clear();
+			break;
+		}
+		case Code::sendSceneSpawnData:
+		{
+			m_parent->m_sceneDespawnData.clear();
+			for (auto k : m_stack)
+				m_parent->m_sceneDespawnData.emplace_back(k);
+			m_stack.clear();
 			m_letVar.clear();
 			break;
 		}

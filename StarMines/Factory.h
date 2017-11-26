@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include "Entity.h"
 
 class ComponentManager;
 class GameState;
@@ -11,9 +12,13 @@ class Factory
 {
 public:
 	Factory(GameState *gameState, const std::string &fName);
-	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr, bool cache = true);
+	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr, bool cache = true, Entity::PersistType persist = Entity::PersistType::None);
 	void activateFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr);
 	void deactivate(Entity *e);
+
+	void buildScene(const std::string &name);
+	void clearScene();
+
 	struct CompData
 	{
 		std::string type;

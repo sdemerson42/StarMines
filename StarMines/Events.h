@@ -85,4 +85,9 @@ namespace Events
 		bool stop;
 		float volume;
 	};
+
+	struct SceneChangeEvent : EventBase
+	{
+
+	};
 };

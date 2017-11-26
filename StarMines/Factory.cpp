@@ -1,7 +1,6 @@
 #include "Factory.h"
 #include "GameState.h"
 #include "ComponentManager.h"
-#include "Entity.h"
 #include "RuffCommon.h"
 #include <fstream>
 #include <iostream>
@@ -102,7 +101,7 @@ std::istream &operator >> (std::istream &is, Factory::Blueprint &b)
 	return is;
 }
 
-void Factory::createFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, bool cache)
+void Factory::createFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, bool cache, Entity::PersistType persist)
 {
 	auto p = std::find_if(begin(m_blueprint), end(m_blueprint), [&](const Blueprint &b)
 	{
@@ -125,6 +124,9 @@ void Factory::createFromBlueprint(const std::string &blueprint, float x, float y
 	}
 	if (initData)
 		addInitCall(e, initData);
+
+	e->setPersist(persist);
+
 	if (cache)
 		m_gameState->m_compManager->deactivateAll(e);
 	else
@@ -142,10 +144,6 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 	if (p != end(v))
 	{
 		m_gameState->m_compManager->activateAll(p->get());
-		
-		auto bc = (*p)->getComponent<BehaviorComponent>();
-		if (bc)
-			bc->resetVM();
 		
 		(*p)->setPosition(x, y);
 		if (initData)
@@ -172,4 +170,68 @@ void Factory::addInitCall(Entity *e, std::vector<int> *initData)
 		call.label = "init";
 		c->addCall(call);
 	}
+}
+
+void Factory::buildScene(const std::string &name)
+{
+	auto &data = std::find_if(begin(m_gameState->m_sceneData), end(m_gameState->m_sceneData), [&](GameState::SceneData &sd)
+	{
+		return sd.name == name;
+	});
+	if (data != end(m_gameState->m_sceneData))
+	{
+		auto &v = data->data;
+		for (auto &ssd : v)
+		{
+			createFromBlueprint(ssd.spawnData.blueprint, ssd.spawnData.position.x, ssd.spawnData.position.y, 
+				(ssd.spawnData.initData.size() == 0 ? nullptr : &ssd.spawnData.initData), ssd.cache, ssd.persist);
+		}
+
+		// Clear scene data
+		v.clear();
+	}
+}
+
+void Factory::clearScene()
+{
+	std::string name{ m_gameState->m_name };
+
+	auto sceneIter = std::find_if(begin(m_gameState->m_sceneData), end(m_gameState->m_sceneData), [&](GameState::SceneData &d)
+	{
+		return d.name == name;
+	});
+
+	if (sceneIter == end(m_gameState->m_sceneData)) return;
+
+	sceneIter->data.clear();
+
+	for (auto &spe : m_gameState->m_entity)
+	{
+		Entity::PersistType persist = spe->persist();
+		if (persist == Entity::PersistType::Scene)
+		{
+			GameState::SceneSpawnData ssd;
+			ssd.spawnData.blueprint = spe->name();
+			ssd.spawnData.position = spe->position();
+			auto bc = spe->getComponent<BehaviorComponent>();
+			if (bc)
+				ssd.spawnData.initData = bc->getSceneDespawnData();
+			ssd.persist = Entity::PersistType::Scene;
+			ssd.cache = false;
+			sceneIter->data.emplace_back(ssd);
+		}
+		
+		if (persist != Entity::PersistType::Global)
+		{
+			deactivate(spe.get());
+			m_gameState->m_compManager->removeAll(spe.get());
+		}
+	}
+
+	auto b = begin(m_gameState->m_entity);
+	const auto e = end(m_gameState->m_entity);
+	while (b != e && (*b)->persist() == Entity::PersistType::Global)
+		++b;
+	if (b != e)
+		m_gameState->m_entity.erase(b, e);
 }

@@ -1,0 +1,19 @@
+sleep;
+
+def init;
+letCallData x y;
+setDir x y;
+setSpeed 30;
+let counter 0;
+jump @loop;
+
+def loop;
+inc counter 1;
+if counter > 18 @die;
+pause;
+jump @loop;
+
+def die;
+despawn;
+lock;
+sleep;

@@ -24,13 +24,43 @@ GameState::GameState() :
 	registerFunc(this, &GameState::onRSCall);
 	registerFunc(this, &GameState::onQueryEntityByTag);
 
+	//TEST DATA
+
+	SceneData sd;
+	sd.name = "Main";
+	SceneSpawnData ssd;
+	ssd.spawnData.blueprint = "RedGuy";
+	ssd.spawnData.position.x = 300;
+	ssd.spawnData.position.y = 300;
+	ssd.cache = false;
+	ssd.persist = Entity::PersistType::Global;
+	sd.data.emplace_back(ssd);
+	m_sceneData.push_back(sd);
+
+	sd.name = "Alt";
+	ssd.spawnData.blueprint = "Block";
+	ssd.spawnData.position.x = 100;
+	ssd.spawnData.position.y = 100;
+	ssd.cache = false;
+	ssd.persist = Entity::PersistType::Scene;
+	sd.data.clear();
+	sd.data.emplace_back(ssd);
+	m_sceneData.push_back(sd);
+
+	buildScene("Main");
+	//END TEST
+
 	// Test Data
-	loadTestData("Data\\TestData.txt");
+	//loadTestData("Data\\TestData.txt");
 	
 };
 
 void GameState::exec()
 {
+	// TEST DATA
+	bool k{ false };
+	bool l{ true };
+	// END TEST
 	float delta{ 0.0f };
 	while (m_window.isOpen())
 	{
@@ -43,7 +73,20 @@ void GameState::exec()
 				return;
 			}
 		}
-
+		//TEST DATA
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !k)
+		{
+			k = true;
+			l = false;
+			buildScene("Alt");
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && !l)
+		{
+			k = false;
+			l = true;
+			buildScene("Main");
+		}
+		//END TEST
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
 		{
 			delta = m_clock.getElapsedTime().asMilliseconds() - m_frameRate;
@@ -121,6 +164,13 @@ void GameState::onQueryEntityByTag(Events::QueryEntityByTagEvent *evnt)
 		evnt->response = e;
 	}
 	broadcast(evnt);
+}
+
+void GameState::buildScene(const std::string &name)
+{
+	m_factory.clearScene();
+	m_factory.buildScene(name);
+	m_name = name;
 }
 
 void GameState::loadTestData(const std::string &fName)
