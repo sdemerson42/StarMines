@@ -590,6 +590,13 @@ void Ruff::RuffVM::exec(int line)
 			m_letVar.clear();
 			break;
 		}
+		case Code::newScene:
+		{
+			Events::SceneChangeEvent sce;
+			sce.name = strPop();
+			m_parent->broadcast(&sce);
+			break;
+		}
 
 		}
 

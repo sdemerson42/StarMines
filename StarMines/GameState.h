@@ -24,6 +24,8 @@ public:
 private:
 	const float m_frameRate{ 100.0f / 6.0f };
 	std::string m_name;
+	std::string m_nextName;
+	bool m_sceneChange;
 
 	std::unique_ptr<ComponentManager> m_compManager;
 	sf::RenderWindow m_window;
@@ -47,6 +49,7 @@ private:
 
 	void onRSCall(const Events::RSCallEvent *);
 	void onQueryEntityByTag(Events::QueryEntityByTagEvent *);
+	void onSceneChangeEvent(const Events::SceneChangeEvent *);
 
 	void buildScene(const std::string &name);
 	void loadTestData(const std::string &fName);

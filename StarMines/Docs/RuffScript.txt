@@ -18,6 +18,7 @@ letTargetPos <var> <var>
 lock
 log <val>
 logStr <str>
+newScene <str>
 pause
 playAnim <animStr>
 playSound <tag> <loop> <priority> <volume>

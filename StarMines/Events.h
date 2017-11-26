@@ -88,6 +88,11 @@ namespace Events
 
 	struct SceneChangeEvent : EventBase
 	{
-
+		SceneChangeEvent()
+		{}
+		SceneChangeEvent(const std::string &_name) :
+			name{ name }
+		{}
+		std::string name;
 	};
 };

@@ -7,7 +7,7 @@
 
 GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
-	m_window{ sf::VideoMode{800,600}, "StarMines v0.1" }, m_factory{ this, "data\\blueprints.txt" }
+	m_window{ sf::VideoMode{800,600}, "StarMines v0.1" }, m_factory{ this, "data\\blueprints.txt" }, m_sceneChange{ false }
 {
 	//m_window.setVerticalSyncEnabled(true);
 
@@ -23,44 +23,16 @@ GameState::GameState() :
 
 	registerFunc(this, &GameState::onRSCall);
 	registerFunc(this, &GameState::onQueryEntityByTag);
-
-	//TEST DATA
-
-	SceneData sd;
-	sd.name = "Main";
-	SceneSpawnData ssd;
-	ssd.spawnData.blueprint = "RedGuy";
-	ssd.spawnData.position.x = 300;
-	ssd.spawnData.position.y = 300;
-	ssd.cache = false;
-	ssd.persist = Entity::PersistType::Global;
-	sd.data.emplace_back(ssd);
-	m_sceneData.push_back(sd);
-
-	sd.name = "Alt";
-	ssd.spawnData.blueprint = "Block";
-	ssd.spawnData.position.x = 100;
-	ssd.spawnData.position.y = 100;
-	ssd.cache = false;
-	ssd.persist = Entity::PersistType::Scene;
-	sd.data.clear();
-	sd.data.emplace_back(ssd);
-	m_sceneData.push_back(sd);
-
-	buildScene("Main");
-	//END TEST
+	registerFunc(this, &GameState::onSceneChangeEvent);
 
 	// Test Data
-	//loadTestData("Data\\TestData.txt");
+	loadTestData("Data\\TestData.txt");
+	buildScene("Main");
 	
 };
 
 void GameState::exec()
 {
-	// TEST DATA
-	bool k{ false };
-	bool l{ true };
-	// END TEST
 	float delta{ 0.0f };
 	while (m_window.isOpen())
 	{
@@ -73,20 +45,7 @@ void GameState::exec()
 				return;
 			}
 		}
-		//TEST DATA
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && !k)
-		{
-			k = true;
-			l = false;
-			buildScene("Alt");
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && !l)
-		{
-			k = false;
-			l = true;
-			buildScene("Main");
-		}
-		//END TEST
+	
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
 		{
 			delta = m_clock.getElapsedTime().asMilliseconds() - m_frameRate;
@@ -96,6 +55,13 @@ void GameState::exec()
 
 			for (auto &p : m_sys)
 				p->update();
+		}
+
+		// Scene changes
+		if (m_sceneChange)
+		{
+			m_sceneChange = false;
+			buildScene(m_nextName);
 		}
 	}
 }
@@ -166,6 +132,12 @@ void GameState::onQueryEntityByTag(Events::QueryEntityByTagEvent *evnt)
 	broadcast(evnt);
 }
 
+void GameState::onSceneChangeEvent(const Events::SceneChangeEvent *evnt)
+{
+	m_sceneChange = true;
+	m_nextName = evnt->name;
+}
+
 void GameState::buildScene(const std::string &name)
 {
 	m_factory.clearScene();
@@ -176,13 +148,50 @@ void GameState::buildScene(const std::string &name)
 void GameState::loadTestData(const std::string &fName)
 {
 	std::ifstream ifs{ fName };
-	std::string b;
-	while (ifs >> b)
+	std::string s;
+	
+	while (true)
 	{
-		float x, y;
-		bool cache;
-		ifs >> x >> y >> cache;
-		m_factory.createFromBlueprint(b, x, y, nullptr, cache);
-		
+		if (!(ifs >> s)) break;
+		SceneData sd;
+		sd.name = s;
+		ifs >> s;
+		while ((ifs >> s) && s == "[")
+		{
+			Entity::PersistType persist{ Entity::PersistType::None };
+			bool cache{ false };
+			std::string pString, cString;
+			ifs >> pString >> cString;
+			if (pString == "global") persist = Entity::PersistType::Global;
+			else if (pString == "scene") persist = Entity::PersistType::Scene;
+			if (cString == "cache") cache = true;
+			while (true)
+			{
+				ifs >> s;
+				if (s == "]") break;
+				SceneSpawnData ssd;
+				ssd.cache = cache;
+				ssd.persist = persist;
+				int total = stoi(s);
+				ifs >> s;
+				ssd.spawnData.blueprint = s;
+				ifs >> s;
+				ssd.spawnData.position.x = stof(s);
+				ifs >> s;
+				ssd.spawnData.position.y = stof(s);
+				ifs >> s;
+				int dTotal = stoi(s);
+				for (int i = 0; i < dTotal; ++i)
+				{
+					ifs >> s;
+					ssd.spawnData.initData.push_back(stoi(s));
+				}
+				for (int i = 0; i < total; ++i)
+				{
+					sd.data.emplace_back(ssd);
+				}
+			}
+		}
+		m_sceneData.emplace_back(sd);
 	}
 }

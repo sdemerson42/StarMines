@@ -24,6 +24,7 @@ jump @loop;
 def deadbot;
 dec robs 1;
 inc score 1;
+if score == 20 @test;
 sendToTag score "Title" "score";
 pause;
 jump @loop;
@@ -39,4 +40,11 @@ retSub;
 
 def playerDead;
 lock;
+sleep;
+
+def test;
+sendToTag "Title" "win";
+sendToTag 380 500 "RedGuy" "win";
+lock;
+newScene "Alt";
 sleep;

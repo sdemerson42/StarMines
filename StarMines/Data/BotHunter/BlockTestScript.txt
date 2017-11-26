@@ -1,0 +1,19 @@
+def start;
+sendSceneSpawnData active;
+if active == 1 @mover;
+sleep;
+
+def mover;
+setDir 1 0;
+setSpeed 10;
+sleep;
+
+def init;
+letCallData active;
+jump @start;
+
+def collision;
+let active 1;
+sendSceneSpawnData active;
+jump @ mover;
+

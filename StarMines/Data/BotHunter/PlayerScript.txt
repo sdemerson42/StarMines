@@ -84,3 +84,10 @@ despawn;
 playSound "GameOver" 0 1 50;
 stopSound "Flame";
 sleep;
+
+def win;
+lock;
+letCallData x y;
+setPos x y;
+playAnim "idleR";
+sleep;

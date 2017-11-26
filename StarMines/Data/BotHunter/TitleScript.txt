@@ -6,3 +6,8 @@ letCallData x;
 setText "Score: ";
 appendTextVal x;
 sleep;
+
+def win;
+lock;
+setText "YOU R WINNER!";
+sleep;

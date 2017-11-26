@@ -3,7 +3,7 @@
 
 
 Spawner::Spawner(ComponentManager *cm, Factory *fac) :
-	ISystem{ cm }, m_factory{ fac }
+	ISystem{ cm }, m_factory{ fac }, m_sceneLock{ false }
 {
 	registerFunc(this, &Spawner::onSpawnData);
 	registerFunc(this, &Spawner::onDespawnData);
@@ -12,6 +12,9 @@ Spawner::Spawner(ComponentManager *cm, Factory *fac) :
 
 void Spawner::update()
 {
+	if (m_sceneLock)
+		m_sceneLock = false;
+
 	for (auto p : m_spawnData)
 	{
 		if (p.initData.size() > 0)
@@ -30,11 +33,13 @@ void Spawner::update()
 
 void Spawner::onSpawnData(const Events::SpawnDataEvent *sde)
 {
+	if (m_sceneLock) return;
 	m_spawnData.emplace_back(*sde);
 }
 
 void Spawner::onDespawnData(const Events::DespawnEvent *de)
 {
+	if (m_sceneLock) return;
 	m_despawnData.emplace_back(*de);
 }
 
@@ -42,5 +47,6 @@ void Spawner::onSceneChange(const Events::SceneChangeEvent *sce)
 {
 	m_spawnData.clear();
 	m_despawnData.clear();
+	m_sceneLock = true;
 }
 
