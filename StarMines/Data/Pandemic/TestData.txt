@@ -1,128 +1,15 @@
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
-Blue 400 400 1
+Main
+{
+[ 
+none spawn
+1 Logic 0 0 0
+]
 
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
-Green 100 100 1
+[
+none cache
+61 Red 0 0 0
+50 Blue 0 0 0
+10 Green 0 0 0
+]
 
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-Red 200 200 1
-
-Logic 0 0 0
+}

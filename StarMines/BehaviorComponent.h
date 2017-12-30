@@ -4,6 +4,10 @@
 #include "RuffVM.h"
 #include "Events.h"
 #include <iostream>
+#include <map>
+#include <vector>
+#include <string>
+#include <algorithm>
 
 class Entity;
 
@@ -31,7 +35,16 @@ public:
 
 	void initialize(const std::vector<std::string> &input) override
 	{
-		m_vm.loadScript(input[0]);
+		//m_vm.loadScript(input[0]);
+		auto p = m_codeMap.find(input[0]);
+		if (p == end(m_codeMap))
+		{
+			m_codeMap[input[0]] = m_vm.loadScript(input[0]);
+		}
+		else
+		{
+			m_vm.setCode(p->second);
+		}
 	}
 	void update()
 	{
@@ -63,6 +76,7 @@ private:
 	static std::string m_tag;
 	static Events::InputEvent m_input;
 	static const float m_axisDeadzone;
+	static std::map<std::string, Ruff::ByteCode> m_codeMap;
 
 	Ruff::RuffVM m_vm;
 	std::vector<Ruff::Call> m_call;

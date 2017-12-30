@@ -6,6 +6,7 @@
 std::string BehaviorComponent::m_tag{ "behavior" };
 Events::InputEvent BehaviorComponent::m_input{};
 const float BehaviorComponent::m_axisDeadzone{ 20.0f };
+std::map<std::string, Ruff::ByteCode> BehaviorComponent::m_codeMap;
 
 void BehaviorComponent::resetVM()
 {

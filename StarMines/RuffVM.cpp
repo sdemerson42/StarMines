@@ -6,11 +6,19 @@
 
 #include <iostream>
 
-void Ruff::RuffVM::loadScript(const std::string &fName)
+const Ruff::ByteCode &Ruff::RuffVM::loadScript(const std::string &fName)
 {
 	m_code.code.clear();
 	m_code.label.clear();
 	m_code = Ruff::parse(fName);
+	return m_code;
+}
+
+void Ruff::RuffVM::setCode(const Ruff::ByteCode &code)
+{
+	m_code.code.clear();
+	m_code.label.clear();
+	m_code = code;
 }
 
 void Ruff::RuffVM::update()

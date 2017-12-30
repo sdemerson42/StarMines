@@ -18,7 +18,8 @@ namespace Ruff
 			m_stack.reserve(20);
 			m_frame.reserve(20);
 		}
-		void loadScript(const std::string &fName);
+		const Ruff::ByteCode &loadScript(const std::string &fName);
+		void setCode(const Ruff::ByteCode &code);
 		void update();
 		void exec(int line = -1);
 		void setParent(BehaviorComponent *parent);
