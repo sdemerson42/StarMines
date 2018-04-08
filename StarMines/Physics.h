@@ -18,10 +18,18 @@ private:
 	int m_cellW{ 96 };
 	int m_cellH{ 96 };
 	std::map<PhysicsComponent *, std::vector<PhysicsComponent *>> m_collisionMap;
+	
+	struct MomentumData
+	{
+		PhysicsComponent *p;
+		Vector2 momentum;
+	};
+	std::vector<MomentumData> m_momentumTable;
+
 
 	void fillMap();
-	void processMovement();
+	void adjustMomentum();
+	void applyMomentum();
 	bool collide(float xa, float ya, float wa, float ha, float xb, float yb, float wb, float hb);
 	void callSender(PhysicsComponent *cp, PhysicsComponent *p);
-	void bugTest();
 };

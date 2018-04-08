@@ -37,7 +37,8 @@ public:
 	}
 	void setSpeed(float speed)
 	{
-		m_speed = speed;
+		if (speed >= 0.0f)
+			m_speed = speed;
 	}
 	Vector2 dir() const
 	{
