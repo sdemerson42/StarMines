@@ -63,12 +63,6 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="RuffParse.cpp">
-      <Filter>Source Files\Ruff</Filter>
-    </ClCompile>
-    <ClCompile Include="RuffVM.cpp">
-      <Filter>Source Files\Ruff</Filter>
-    </ClCompile>
     <ClCompile Include="EventSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -156,12 +150,6 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="RuffCommon.h">
-      <Filter>Header Files\Ruff</Filter>
-    </ClInclude>
-    <ClInclude Include="RuffParse.h">
-      <Filter>Header Files\Ruff</Filter>
-    </ClInclude>
-    <ClInclude Include="RuffVM.h">
       <Filter>Header Files\Ruff</Filter>
     </ClInclude>
     <ClInclude Include="IComponent.h">

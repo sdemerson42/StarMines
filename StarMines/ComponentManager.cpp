@@ -64,10 +64,11 @@ void ComponentManager::activateComponent(Entity *e, const std::string &tag)
 		genActivateComponent<PhysicsComponent>(e, m_physics, m_physicsSz);
 	}
 	if (tag == "behavior")
+
 	{
 		genActivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
-		auto c = e->getComponent<BehaviorComponent>();
-		c->resetVM();
+		/*auto c = e->getComponent<BehaviorComponent>();
+		c->resetVM();*/
 	}
 	if (tag == "text")
 	{

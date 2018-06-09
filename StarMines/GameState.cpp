@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "BehaviorComponent.h"
 #include <iostream>
+#include "Python.h"
 
 
 GameState::GameState() :
@@ -33,6 +34,14 @@ GameState::GameState() :
 
 void GameState::exec()
 {
+	// Start Python instance and load definitions
+
+	Py_Initialize();
+	const char *pName{ "Data/Python/cDefs.py" };
+	auto pyF{ _Py_fopen(pName, "r") };
+	PyRun_SimpleFile(pyF, pName);
+	fclose(pyF);
+
 	float delta{ 0.0f };
 	while (m_window.isOpen())
 	{
@@ -64,6 +73,9 @@ void GameState::exec()
 			buildScene(m_nextName);
 		}
 	}
+
+	// Stop Python
+	Py_Finalize();
 }
 
 

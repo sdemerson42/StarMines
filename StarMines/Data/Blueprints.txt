@@ -1,0 +1,22 @@
+Red : Default
+{
+[ render sprites\cells.png 0 0 30 30 0 2 ]
+[ physics 10 10 10 10 0 0 0 false ]
+}
+
+Blue : Default
+{
+[ render sprites\cells.png 30 0 30 30 0 2 ]
+[ physics 10 10 10 10 0 0 0 false ]
+}
+
+Green : Default
+{
+[ render sprites\cells.png 60 0 30 30 0 2 ]
+[ physics 10 10 10 10 0 0 0 false ]
+}
+
+Logic : Default
+{
+[ behavior data\Python\logic.py ]
+}
