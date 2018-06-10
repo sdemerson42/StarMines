@@ -80,3 +80,65 @@ extern "C" _declspec(dllexport) void Behavior_spawn(BehaviorComponent *bc, const
 		sde.initData.push_back(data[i]);
 	bc->broadcast(&sde);
 }
+
+// Position
+
+//TEST
+
+extern "C" _declspec(dllexport) const Vector2 *Behavior_position(BehaviorComponent *bc)
+{
+	return &bc->parent()->position();
+}
+
+extern "C" _declspec(dllexport) void Behavior_setPosition(BehaviorComponent *bc, float x, float y)
+{
+	bc->parent()->setPosition(x, y);
+}
+
+// Sending and interpreting Calls
+
+extern "C" _declspec(dllexport) Ruff::CCall *Behavior_getCall(BehaviorComponent *bc)
+{
+	auto &calls = bc->getCalls();
+
+	if (bc->callIndex == calls.size()) return nullptr;
+
+	bc->curCCall.caller = calls[0].caller;
+	bc->curCCall.label = calls[0].label.c_str();
+	bc->curCCall.data = &calls[0].data[0];
+	bc->curCCall.sz = calls[0].data.size();
+	++bc->callIndex;
+
+	return &bc->curCCall;
+}
+
+//extern "C" _declspec(dllexport) void Behavior_sendToCaller(BehaviorComponent *bc, const char *message, 
+//	int data[], int dataSz)
+//{
+//	auto caller = bc->getCaller();
+//	if (caller)
+//	{
+//		auto p = caller->getComponent<BehaviorComponent>();
+//		if (p)
+//		{
+//			Ruff::Call c;
+//			c.caller = bc->parent();
+//			c.label = message;
+//			for (int i = 0; i < dataSz; ++i)
+//				c.data.emplace_back(data[i]);
+//			p->addCall(c);
+//		}
+//	}
+//}
+//
+//extern "C" _declspec(dllexport) void Behavior_sendToTag(BehaviorComponent *bc, const char *tag, const char *message, 
+//	int data[], int dataSz)
+//{
+//	Ruff::Call c;
+//	c.caller = bc->parent();
+//	c.label = message;
+//	std::string ltag{ tag };
+//	for (int i = 0; i < dataSz; ++i)
+//		c.data.emplace_back(data[i]);
+//	bc->broadcastCall(c, ltag);
+//}

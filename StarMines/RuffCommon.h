@@ -99,4 +99,12 @@ namespace Ruff
 		std::string label;
 		std::vector<int> data;
 	};
+
+	struct CCall
+	{
+		Entity *caller;
+		const char *label;
+		const int *data;
+		int sz;
+	};
 }

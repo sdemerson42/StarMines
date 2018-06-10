@@ -2,6 +2,7 @@ Red : Default
 {
 [ render sprites\cells.png 0 0 30 30 0 2 ]
 [ physics 10 10 10 10 0 0 0 false ]
+[ behavior data\Python\red.py ]
 }
 
 Blue : Default

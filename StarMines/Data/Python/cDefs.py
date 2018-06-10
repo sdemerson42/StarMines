@@ -6,7 +6,18 @@ import random
 from ctypes import *
 sm = cdll.LoadLibrary("StarMines.exe")
 
-CIntAry = c_int * 10
+CIntAry = POINTER(c_int)
+CStrAry = POINTER(c_char_p)
+
+class Vector2(Structure):
+    _fields_ = [("x", c_float),
+                ("y", c_float)]
+
+class CCall(Structure):
+    _fields_ = [("caller", c_void_p),
+                ("label", c_char_p),
+                ("data", POINTER(c_int)),
+                ("sz", c_int)]
 
 class Behavior(object):
     def __init__(self):
@@ -26,9 +37,17 @@ class Behavior(object):
                                       CIntAry, c_int]
 
         sm.Behavior_deactivate.argtypes = [c_void_p]
+
+        sm.Behavior_position.argtypes = [c_void_p]
+        sm.Behavior_position.restype = POINTER(Vector2)
+
+        sm.Behavior_setPosition.argtypes = [c_void_p, c_float, c_float]
+
+        sm.Behavior_getCall.argtypes = [c_void_p]
+        sm.Behavior_getCall.restype = POINTER(CCall)
         
         self.obj = sm.Behavior_getCurrentComponent()
-
+    
     def deactivate(self):
         sm.Behavior_deactivate(self.obj)
     
@@ -41,11 +60,21 @@ class Behavior(object):
     def getRegisterFloat(self, i):
         return sm.Behavior_getRegisterFloat(self.obj, i)
 
+    def position(self):
+        return sm.Behavior_position(self.obj)
+
+    def setPosition(self, x, y):
+        sm.Behavior_setPosition(self.obj, x, y)
+
     def setRegisterFloat(self, i, val):
         sm.Behavior_setRegisterFloat(self.obj, i, val)
 
     def spawn(self, blueprint, x, y, data, dataSz):
         sm.Behavior_spawn(self.obj, blueprint, x, y, data, dataSz)
+
+    def getCall(self):
+        return sm.Behavior_getCall(self.obj)
+
 
 
 print("cDefs.py complete.")

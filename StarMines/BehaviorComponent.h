@@ -21,6 +21,7 @@ public:
 		m_target{ nullptr }
 	{
 		registerFunc(this, &BehaviorComponent::onQueryEntityByTag);
+		m_call.reserve(64);
 	}
 
 	static void setInput(Events::InputEvent *evnt)
@@ -45,6 +46,10 @@ public:
 		auto f{ _Py_fopen(m_pName, "r") };
 		PyRun_SimpleFile(f, m_pName);
 		fclose(f);
+
+		// Local state cleanup
+		m_call.clear();
+		callIndex = 0;
 	}
 	std::string &getTag() const override
 	{
@@ -92,6 +97,23 @@ public:
 	{
 		m_pyRegister[index].f = val;
 	}
+	Entity *getCaller()
+	{
+		return m_curCaller;
+	}
+	void setCaller(Entity *e)
+	{
+		m_curCaller = e;
+	}
+	const std::vector<Ruff::Call> &getCalls()
+	{
+		return m_call;
+	}
+	void broadcastCall(Ruff::Call &c, const std::string &tag);
+	void setTargetTag(const std::string &tag, const std::string &method);
+	void onQueryEntityByTag(const Events::QueryEntityByTagEvent *);
+	Ruff::CCall curCCall;
+	int callIndex{ 0 };
 private:
 	static std::string m_tag;
 	static Events::InputEvent m_input;
@@ -102,13 +124,9 @@ private:
 	//Ruff::RuffVM m_vm;
 	const char *m_pName;
 	std::vector<Ruff::Call> m_call;
-	Entity *m_curCaller;
+	Entity *m_curCaller{ nullptr };
 	Entity *m_target;
 	std::vector<int> m_sceneDespawnData;
-
-	void broadcastCall(Ruff::Call &c, const std::string &tag);
-	void setTargetTag(const std::string &tag, const std::string &method);
-	void onQueryEntityByTag(const Events::QueryEntityByTagEvent *);
 
 	// Behavior state for Python
 	union RegisterVal
