@@ -112,33 +112,32 @@ extern "C" _declspec(dllexport) Ruff::CCall *Behavior_getCall(BehaviorComponent 
 	return &bc->curCCall;
 }
 
-//extern "C" _declspec(dllexport) void Behavior_sendToCaller(BehaviorComponent *bc, const char *message, 
-//	int data[], int dataSz)
-//{
-//	auto caller = bc->getCaller();
-//	if (caller)
-//	{
-//		auto p = caller->getComponent<BehaviorComponent>();
-//		if (p)
-//		{
-//			Ruff::Call c;
-//			c.caller = bc->parent();
-//			c.label = message;
-//			for (int i = 0; i < dataSz; ++i)
-//				c.data.emplace_back(data[i]);
-//			p->addCall(c);
-//		}
-//	}
-//}
-//
-//extern "C" _declspec(dllexport) void Behavior_sendToTag(BehaviorComponent *bc, const char *tag, const char *message, 
-//	int data[], int dataSz)
-//{
-//	Ruff::Call c;
-//	c.caller = bc->parent();
-//	c.label = message;
-//	std::string ltag{ tag };
-//	for (int i = 0; i < dataSz; ++i)
-//		c.data.emplace_back(data[i]);
-//	bc->broadcastCall(c, ltag);
-//}
+extern "C" _declspec(dllexport) void Behavior_sendToCaller(BehaviorComponent *bc, Entity *receiver, const char *message, 
+	int data[], int dataSz)
+{
+	if (receiver)
+	{
+		auto p = receiver->getComponent<BehaviorComponent>();
+		if (p)
+		{
+			Ruff::Call c;
+			c.caller = bc->parent();
+			c.label = message;
+			for (int i = 0; i < dataSz; ++i)
+				c.data.emplace_back(data[i]);
+			p->addCall(c);
+		}
+	}
+}
+
+extern "C" _declspec(dllexport) void Behavior_sendToTag(BehaviorComponent *bc, const char *tag, const char *message, 
+	int data[], int dataSz)
+{
+	Ruff::Call c;
+	c.caller = bc->parent();
+	c.label = message;
+	std::string ltag{ tag };
+	for (int i = 0; i < dataSz; ++i)
+		c.data.emplace_back(data[i]);
+	bc->broadcastCall(c, ltag);
+}

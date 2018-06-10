@@ -17,7 +17,6 @@ class BehaviorComponent : public IComponent
 	friend class Behavior;
 public:
 	BehaviorComponent() :
-		m_curCaller{ nullptr },
 		m_target{ nullptr }
 	{
 		registerFunc(this, &BehaviorComponent::onQueryEntityByTag);
@@ -97,14 +96,6 @@ public:
 	{
 		m_pyRegister[index].f = val;
 	}
-	Entity *getCaller()
-	{
-		return m_curCaller;
-	}
-	void setCaller(Entity *e)
-	{
-		m_curCaller = e;
-	}
 	const std::vector<Ruff::Call> &getCalls()
 	{
 		return m_call;
@@ -124,7 +115,6 @@ private:
 	//Ruff::RuffVM m_vm;
 	const char *m_pName;
 	std::vector<Ruff::Call> m_call;
-	Entity *m_curCaller{ nullptr };
 	Entity *m_target;
 	std::vector<int> m_sceneDespawnData;
 
@@ -134,7 +124,7 @@ private:
 		float f;
 		int i{ 0 };
 	};
-	static const int m_pyRegisterCount{ 10 };
+	static const int m_pyRegisterCount{ 20 };
 	RegisterVal m_pyRegister[m_pyRegisterCount];
 };
 

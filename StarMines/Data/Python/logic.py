@@ -1,5 +1,4 @@
 def behave():
-    s = 3
     b = Behavior()
 
     dataT = c_int * 0

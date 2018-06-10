@@ -14,7 +14,7 @@ class Vector2(Structure):
                 ("y", c_float)]
 
 class CCall(Structure):
-    _fields_ = [("caller", c_void_p),
+    _fields_ = [("sender", c_void_p),
                 ("label", c_char_p),
                 ("data", POINTER(c_int)),
                 ("sz", c_int)]
@@ -45,6 +45,12 @@ class Behavior(object):
 
         sm.Behavior_getCall.argtypes = [c_void_p]
         sm.Behavior_getCall.restype = POINTER(CCall)
+
+        sm.Behavior_sendToCaller.argtypes = [c_void_p, c_void_p, c_char_p, CIntAry,
+                                             c_int]
+
+        sm.Behavior_sendToTag.argtypes = [c_void_p, c_char_p, c_char_p, CIntAry,
+                                             c_int] 
         
         self.obj = sm.Behavior_getCurrentComponent()
     
@@ -75,6 +81,11 @@ class Behavior(object):
     def getCall(self):
         return sm.Behavior_getCall(self.obj)
 
+    def sendToCaller(self, caller, message, data, dataSz):
+        sm.Behavior_sendToCaller(self.obj, caller, message, data, dataSz)
+
+    def sendToTag(self, tag, message, data, dataSz):
+        sm.Behavior_sendToTag(self.obj, tag, message, data, dataSz)
 
 
 print("cDefs.py complete.")
