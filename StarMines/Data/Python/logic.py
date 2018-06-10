@@ -14,6 +14,14 @@ def behave():
 
     b.spawn(b"Red", float(random.randint(0, 500)),
              float(random.randint(0, 500)), data, 0)
+    x = 5
+    s = "Score: "
+    s += str(x)
+    txt = bytes(s, 'utf-8')
+
+    b.setText(txt)
+    b.appendText(b'0')
+    
 
     b.deactivate()
 

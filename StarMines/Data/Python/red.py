@@ -1,10 +1,9 @@
 def behave():
     b = Behavior()
+    i = b.input()
 
-    p = b.position()
-    p.contents.x += .1
-    p.contents.y += .1
+    b.setDirection(i.contents.x, i.contents.y)
+    b.setSpeed(5)
 
-    b.setPosition(p.contents.x, p.contents.y)
 
 behave()

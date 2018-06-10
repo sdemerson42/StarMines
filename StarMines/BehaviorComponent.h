@@ -25,11 +25,15 @@ public:
 
 	static void setInput(Events::InputEvent *evnt)
 	{
-		m_input = *evnt;
-		if (abs(m_input.xAxis) < m_axisDeadzone) m_input.xAxis = 0.0f;
-		if (abs(m_input.yAxis) < m_axisDeadzone) m_input.yAxis = 0.0f;
-		if (abs(m_input.uAxis) < m_axisDeadzone) m_input.uAxis = 0.0f;
-		if (abs(m_input.vAxis) < m_axisDeadzone) m_input.vAxis = 0.0f;
+		m_input.x = evnt->xAxis;
+		m_input.y = evnt->yAxis;
+		m_input.u = evnt->uAxis;
+		m_input.v = evnt->vAxis;
+
+		if (abs(m_input.x) < m_axisDeadzone) m_input.x = 0.0f;
+		if (abs(m_input.y) < m_axisDeadzone) m_input.y = 0.0f;
+		if (abs(m_input.u) < m_axisDeadzone) m_input.u = 0.0f;
+		if (abs(m_input.v) < m_axisDeadzone) m_input.v = 0.0f;
 	}
 
 	void initialize(const std::vector<std::string> &input) override
@@ -72,6 +76,10 @@ public:
 		m_sceneDespawnData.clear();
 		return r;
 	}
+	std::vector<int> &refSceneDespawnData()
+	{
+		return m_sceneDespawnData;
+	}
 
 	// Behavior state access methods
 
@@ -100,6 +108,23 @@ public:
 	{
 		return m_call;
 	}
+	Entity *&target()
+	{
+		return m_target;
+	}
+
+	struct CInput
+	{
+		float x;
+		float y;
+		float u;
+		float v;
+	};
+
+	const CInput &input() const
+	{
+		return m_input;
+	}
 	void broadcastCall(Ruff::Call &c, const std::string &tag);
 	void setTargetTag(const std::string &tag, const std::string &method);
 	void onQueryEntityByTag(const Events::QueryEntityByTagEvent *);
@@ -107,7 +132,7 @@ public:
 	int callIndex{ 0 };
 private:
 	static std::string m_tag;
-	static Events::InputEvent m_input;
+	static CInput m_input;
 	static const float m_axisDeadzone;
 	static BehaviorComponent *m_currentComponent;
 	//static std::map<std::string, Ruff::ByteCode> m_codeMap;
