@@ -45,14 +45,21 @@ public:
 		// Set current component reference
 		m_currentComponent = this;
 
+		// Prepare local state
+		ccDelCount = 0;
+
 		// Execute Python script
 		auto f{ _Py_fopen(m_pName, "r") };
+		PyRun_SimpleFile(f, m_pName);
 		PyRun_SimpleFile(f, m_pName);
 		fclose(f);
 
 		// Local state cleanup
-		m_call.clear();
-		callIndex = 0;
+		while (ccDelCount > 0)
+		{
+			m_call.erase(begin(m_call));
+			--ccDelCount;
+		}
 	}
 	std::string &getTag() const override
 	{
@@ -104,7 +111,7 @@ public:
 	{
 		m_pyRegister[index].f = val;
 	}
-	const std::vector<Ruff::Call> &getCalls()
+	std::vector<Ruff::Call> &getCalls()
 	{
 		return m_call;
 	}
@@ -129,7 +136,7 @@ public:
 	void setTargetTag(const std::string &tag, const std::string &method);
 	void onQueryEntityByTag(const Events::QueryEntityByTagEvent *);
 	Ruff::CCall curCCall;
-	int callIndex{ 0 };
+	int ccDelCount;
 private:
 	static std::string m_tag;
 	static CInput m_input;

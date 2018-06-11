@@ -14,7 +14,7 @@ class Vector2(Structure):
                 ("y", c_float)]
 
 class CCall(Structure):
-    _fields_ = [("sender", c_void_p),
+    _fields_ = [("caller", c_void_p),
                 ("label", c_char_p),
                 ("data", POINTER(c_int)),
                 ("sz", c_int)]
@@ -81,6 +81,9 @@ class Behavior(object):
         sm.Behavior_newScene.argtypes = [c_void_p, c_char_p]
         sm.Behavior_sendSceneSpawnData.argtypes = [c_void_p,
                                                    CIntAry, c_int]
+
+        sm.Behavior_parent.argtypes = [c_void_p]
+        sm.Behavior_parent.restype = c_void_p
         
         self.obj = sm.Behavior_getCurrentComponent()
     
@@ -163,7 +166,10 @@ class Behavior(object):
         sm.Behavior_newScene(self.obj, scene)
 
     def sendSceneSpawnData(self, data, sz):
-        sm.Behavioe_sendSceneSpawnData(self.obj, data, sz)
+        sm.Behavior_sendSceneSpawnData(self.obj, data, sz)
+
+    def parent(self):
+        return sm.Behavior_parent(self.obj)
     
 
 

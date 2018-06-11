@@ -112,17 +112,18 @@ extern "C" _declspec(dllexport) Ruff::CCall *Behavior_getCall(BehaviorComponent 
 {
 	auto &calls = bc->getCalls();
 
-	if (bc->callIndex == calls.size()) return nullptr;
-
-	bc->curCCall.caller = calls[0].caller;
-	bc->curCCall.label = calls[0].label.c_str();
-	if (calls[0].data.size() > 0)
-		bc->curCCall.data = &calls[0].data[0];
+	if (calls.size() == bc->ccDelCount) return nullptr;
+	
+	auto i = bc->ccDelCount;
+	bc->curCCall.caller = calls[i].caller;
+	bc->curCCall.label = calls[i].label.c_str();
+	if (calls[i].data.size() > 0)
+		bc->curCCall.data = &calls[i].data[0];
 	else
 		bc->curCCall.data = nullptr;
-	bc->curCCall.sz = calls[0].data.size();
-	++bc->callIndex;
+	bc->curCCall.sz = calls[i].data.size();
 
+	++bc->ccDelCount;
 	return &bc->curCCall;
 }
 
@@ -209,7 +210,9 @@ extern "C" _declspec(dllexport) void Behavior_setTargetByTag(BehaviorComponent *
 
 extern "C" _declspec(dllexport) const Vector2 *Behavior_targetPosition(BehaviorComponent *bc)
 {
-	return &bc->target()->position();
+	if (bc->target() != nullptr)
+		return &bc->target()->position();
+	return nullptr;
 }
 
 // Input
@@ -267,4 +270,11 @@ extern "C" _declspec(dllexport) void Behavior_sendSceneSpawnData(BehaviorCompone
 	for (int i = 0; i < sz; ++i)
 		sdd.push_back(data[i]);
 	sdd.clear();
+}
+
+// Parent Entity (for comparisons)
+
+extern "C" _declspec(dllexport) Entity *Behavior_parent(BehaviorComponent *bc)
+{
+	return bc->parent();
 }

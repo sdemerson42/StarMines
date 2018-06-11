@@ -57,6 +57,8 @@ void GameState::exec()
 	
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
 		{
+			std::cout << m_frameRate << std::endl;
+			
 			delta = m_clock.getElapsedTime().asMilliseconds() - m_frameRate;
 			if (delta < 0.0f)
 				delta = 0.0f;
@@ -64,6 +66,7 @@ void GameState::exec()
 
 			for (auto &p : m_sys)
 				p->update();
+			std::cout << m_clock.getElapsedTime().asMilliseconds() << std::endl;
 		}
 
 		// Scene changes

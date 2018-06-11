@@ -1,1 +1,1 @@
-Infect audio\SFX_Infect.wav
+infect audio\SFX_Infect.wav
