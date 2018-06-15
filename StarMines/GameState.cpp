@@ -3,8 +3,6 @@
 #include <algorithm>
 #include "BehaviorComponent.h"
 #include <iostream>
-#include "Python.h"
-
 
 GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
@@ -34,14 +32,6 @@ GameState::GameState() :
 
 void GameState::exec()
 {
-	// Start Python instance and load definitions
-
-	Py_Initialize();
-	const char *pName{ "Data/Python/cDefs.py" };
-	auto pyF{ _Py_fopen(pName, "r") };
-	PyRun_SimpleFile(pyF, pName);
-	fclose(pyF);
-
 	float delta{ 0.0f };
 	while (m_window.isOpen())
 	{
@@ -54,11 +44,9 @@ void GameState::exec()
 				return;
 			}
 		}
-	
+
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
 		{
-			std::cout << m_frameRate << std::endl;
-			
 			delta = m_clock.getElapsedTime().asMilliseconds() - m_frameRate;
 			if (delta < 0.0f)
 				delta = 0.0f;
@@ -76,9 +64,6 @@ void GameState::exec()
 			buildScene(m_nextName);
 		}
 	}
-
-	// Stop Python
-	Py_Finalize();
 }
 
 

@@ -8,7 +8,6 @@
 #include <string>
 #include <algorithm>
 #include "RuffCommon.h"
-#include "Python.h"
 
 class Entity;
 
@@ -47,12 +46,6 @@ public:
 
 		// Prepare local state
 		ccDelCount = 0;
-
-		// Execute Python script
-		auto f{ _Py_fopen(m_pName, "r") };
-		PyRun_SimpleFile(f, m_pName);
-		PyRun_SimpleFile(f, m_pName);
-		fclose(f);
 
 		// Local state cleanup
 		while (ccDelCount > 0)
