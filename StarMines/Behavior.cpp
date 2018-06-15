@@ -32,8 +32,24 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("getBC", &Behavior_getBC);
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).
+		beginClass<Vector2>("Vector2").
+		addData("x", &Vector2::x).
+		addData("y", &Vector2::y).
+		endClass();
+
+	luabridge::getGlobalNamespace(LuaWrapper::L).
 		beginClass<BehaviorComponent>("BehaviorComponent").
 		addFunction("module", &BehaviorComponent::module).
+		addFunction("position", &BehaviorComponent::position).
+		addFunction("setPosition", &BehaviorComponent::setPosition).
+		addFunction("speed", &BehaviorComponent::speed).
+		addFunction("setSpeed", &BehaviorComponent::setSpeed).
+		addFunction("dir", &BehaviorComponent::dir).
+		addFunction("setDir", &BehaviorComponent::setDir).
+		addFunction("getRegInt", &BehaviorComponent::getRegisterInt).
+		addFunction("setRegInt", &BehaviorComponent::setRegisterInt).
+		addFunction("getRegFloat", &BehaviorComponent::getRegisterFloat).
+		addFunction("setRegFloat", &BehaviorComponent::setRegisterFloat).
 		endClass();
 }
 

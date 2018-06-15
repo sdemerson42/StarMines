@@ -61,10 +61,13 @@ public:
 
 	// Lua Interface Functions
 
-	const std::string &module()
-	{
-		return m_luaModule;
-	}
+	const std::string &module();
+	const Vector2 &position();
+	void setPosition(float x, float y);
+	float speed();
+	void setSpeed(float x);
+	const Vector2 &dir();
+	void setDir(float x, float y);
 
 	// End Lua
 
@@ -102,19 +105,19 @@ public:
 
 	int getRegisterInt(int index) const
 	{
-		return m_pyRegister[index].i;
+		return m_register[index].i;
 	}
 	float getRegisterFloat(int index) const
 	{
-		return m_pyRegister[index].f;
+		return m_register[index].f;
 	}
 	void setRegisterInt(int index, int val)
 	{
-		m_pyRegister[index].i = val;
+		m_register[index].i = val;
 	}
 	void setRegisterFloat(int index, float val)
 	{
-		m_pyRegister[index].f = val;
+		m_register[index].f = val;
 	}
 	std::vector<Ruff::Call> &getCalls()
 	{
@@ -161,8 +164,8 @@ private:
 		float f;
 		int i{ 0 };
 	};
-	static const int m_pyRegisterCount{ 20 };
-	RegisterVal m_pyRegister[m_pyRegisterCount];
+	static const int m_registerCount{ 20 };
+	RegisterVal m_register[m_registerCount];
 };
 
 
