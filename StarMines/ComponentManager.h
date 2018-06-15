@@ -16,6 +16,7 @@ class ComponentManager
 	friend class Animator;
 	friend class Physics;
 	friend class Behavior;
+	friend class GameState;
 public:
 	void addComponent(Entity *e, const std::string &tag, const std::vector<std::string> &initArgs);
 	void deactivateComponent(Entity *e, const std::string &tag);

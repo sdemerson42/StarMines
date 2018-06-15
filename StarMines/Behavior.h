@@ -6,11 +6,7 @@
 class Behavior : public ISystem
 {
 public:
-	Behavior(ComponentManager *cm) :
-		ISystem{ cm }
-	{
-		registerFunc(this, &Behavior::onInputEvent);
-	}
+	Behavior(ComponentManager *cm);
 	void update() override;
 private:
 	void onInputEvent(Events::InputEvent *);

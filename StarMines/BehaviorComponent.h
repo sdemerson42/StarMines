@@ -37,7 +37,7 @@ public:
 
 	void initialize(const std::vector<std::string> &input) override
 	{
-		m_pName = input[0].c_str();
+		m_luaModule = input[0];
 	}
 	void update()
 	{
@@ -54,10 +54,22 @@ public:
 			--ccDelCount;
 		}
 	}
-	std::string &getTag() const override
+	const std::string &getTag() const override
 	{
 		return m_tag;
 	}
+
+	// Lua Interface Functions
+
+	const std::string &module()
+	{
+		return m_luaModule;
+	}
+
+	// End Lua
+
+
+
 	void onMove()
 	{
 		// Probably no longer necessary
@@ -138,7 +150,7 @@ private:
 	//static std::map<std::string, Ruff::ByteCode> m_codeMap;
 
 	//Ruff::RuffVM m_vm;
-	const char *m_pName;
+	std::string m_luaModule;
 	std::vector<Ruff::Call> m_call;
 	Entity *m_target;
 	std::vector<int> m_sceneDespawnData;

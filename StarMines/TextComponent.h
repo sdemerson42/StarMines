@@ -18,7 +18,7 @@ public:
 		m_text.setFillColor(sf::Color{ uint8_t(std::stoi(input[2])), uint8_t(std::stoi(input[3])), uint8_t(std::stoi(input[4])), uint8_t(std::stoi(input[5])) });
 		m_text.setString(input[6]);
 	}
-	std::string &getTag() const override
+	const std::string &getTag() const override
 	{
 		return m_tag;
 	}

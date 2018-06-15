@@ -158,6 +158,7 @@
     <ClCompile Include="BehaviorComponent.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LuaWrapper.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="Factory.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="ISystem.h" />
+    <ClInclude Include="LuaWrapper.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="ProxMap.h" />

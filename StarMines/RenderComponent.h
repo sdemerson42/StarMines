@@ -37,7 +37,7 @@ public:
 			&m_size.y, Serializable::Type::FLOAT);
 		writeSerial(output);
 	}
-	std::string &getTag() const override
+	const std::string &getTag() const override
 	{
 		return m_tag;
 	}

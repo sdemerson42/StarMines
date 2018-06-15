@@ -3,12 +3,22 @@
 #include <algorithm>
 #include "BehaviorComponent.h"
 #include <iostream>
+#include "LuaWrapper.h"
 
 GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
 	m_window{ sf::VideoMode{800,600}, "StarMines v0.1" }, m_factory{ this, "data\\blueprints.txt" }, m_sceneChange{ false }
 {
 	//m_window.setVerticalSyncEnabled(true);
+
+	// Prepare LuaWrapper
+
+	LuaWrapper::L = luabridge::luaL_newstate();
+	luaL_openlibs(LuaWrapper::L);
+	LuaWrapper::bcomps = &m_compManager.get()->m_behavior;
+	LuaWrapper::bcompSz = &m_compManager.get()->m_behaviorSz;
+
+	// Create Systems
 
 	m_sys.emplace_back(std::make_unique<Input>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Spawner>(m_compManager.get(), &m_factory));
@@ -27,7 +37,6 @@ GameState::GameState() :
 	// Test Data
 	loadTestData("Data\\TestData.txt");
 	buildScene("Main");
-	
 };
 
 void GameState::exec()
