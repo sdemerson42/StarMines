@@ -18,7 +18,8 @@ void Physics::fillMap()
 	m_proxMap.initialize(m_sceneSize.x, m_sceneSize.y, m_cellW, m_cellH);
 	for (int i{ 0 }; i < m_compManager->m_physicsSz; ++i)
 	{
-		m_proxMap.insert(&m_compManager->m_physics[i]);
+		if (m_compManager->m_physics[i].active())
+			m_proxMap.insert(&m_compManager->m_physics[i]);
 	}
 }
 

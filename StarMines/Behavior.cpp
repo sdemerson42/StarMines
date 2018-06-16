@@ -59,8 +59,18 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("getRegFloat", &BehaviorComponent::getRegisterFloat).
 		addFunction("setRegFloat", &BehaviorComponent::setRegisterFloat).
 		addFunction("getCall", &BehaviorComponent::getCall).
+		addFunction("clearCalls", &BehaviorComponent::clearCalls).
 		addFunction("sendToTag", &BehaviorComponent::sendToTag).
 		addFunction("sendToCaller", &BehaviorComponent::sendToCaller).
+		addFunction("spawn", &BehaviorComponent::spawn).
+		addFunction("despawn", &BehaviorComponent::despawn).
+		addFunction("playSound", &BehaviorComponent::playSound).
+		addFunction("playAnim", &BehaviorComponent::playAnim).
+		addFunction("setTargetByTag", &BehaviorComponent::setTargetByTag).
+		addFunction("setTargetByCaller", &BehaviorComponent::setTargetByCaller).
+		addFunction("targetPosition", &BehaviorComponent::targetPosition).
+		addFunction("active", &BehaviorComponent::active).
+		addFunction("deactivate", &BehaviorComponent::deactivate).
 		endClass();
 }
 

@@ -16,8 +16,10 @@ Green : Default
 {
 [ render sprites\cells.png 60 0 30 30 0 2 ]
 [ physics 10 10 10 10 0 0 0 false ]
+[ behavior Green ]
 }
 
 Logic : Default
 {
+[ behavior Logic ]
 }

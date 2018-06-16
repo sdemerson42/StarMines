@@ -34,6 +34,7 @@ namespace Events
 		std::string blueprint;
 		Vector2 position;
 		std::vector<int> initData;
+		std::string sInitData;
 	};
 
 	struct DespawnEvent : EventBase

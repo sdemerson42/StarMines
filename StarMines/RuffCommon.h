@@ -86,7 +86,7 @@ namespace Ruff
 		Call()
 		{}
 		Call(const Call &r) :
-			caller{ r.caller }, label{ r.label }, data{ r.data }
+			caller{ r.caller }, label{ r.label }, data{ r.data }, tag{ r.tag }, sdata{ r.sdata }
 		{}
 		Call &operator=(const Call &r)
 		{

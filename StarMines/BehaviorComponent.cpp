@@ -35,7 +35,8 @@ void BehaviorComponent::onQueryEntityByTag(const Events::QueryEntityByTagEvent *
 		m_target = evnt->response;
 }
 
-// Lua API definitions
+
+// ==================================  Lua API definitions
 
 const std::string &BehaviorComponent::module()
 {
@@ -92,6 +93,11 @@ const Ruff::Call &BehaviorComponent::getCall()
 	return r;
 }
 
+void BehaviorComponent::clearCalls()
+{
+	m_call.clear();
+}
+
 void BehaviorComponent::sendToTag
 (const std::string &tag, const std::string &label, const std::string &sdata = {})
 {
@@ -123,6 +129,82 @@ void BehaviorComponent::sendToCaller(const std::string &label, const std::string
 	}
 }
 
+void BehaviorComponent::spawn(const std::string &bTag, float x, float y, const std::string &sdata)
+{
+	Events::SpawnDataEvent sde{ bTag, x, y };
+	sde.sInitData = sdata;
+	spawnDataSync(sde);
+	broadcast(&sde);
+}
+
+void BehaviorComponent::despawn(const std::string &sdata)
+{
+	auto &sdData = refSceneDespawnData();
+	sdData.clear();
+	
+	if (sdata.size() > 0)
+	{
+		std::string n;
+		for (char ch : sdata)
+		{
+			if (ch == ',')
+			{
+				sdData.push_back(std::stoi(n));
+				n = "";
+			}
+			else
+			{
+				n += ch;
+			}
+		}
+		sdData.push_back(std::stoi(n));
+	}
+
+	Events::DespawnEvent de{ parent() };
+	broadcast(&de);
+}
+
+void BehaviorComponent::playSound(const std::string &tag, float volume, bool hi, bool loop)
+{
+	Events::SoundEvent se{ tag, loop, hi, false, volume };
+	se.tag = tag;
+	se.volume = volume;
+	se.hiPriority = hi;
+	se.loop = loop;
+	broadcast(&se);
+}
+
+void BehaviorComponent::playAnim(const std::string &tag)
+{
+	auto a = parent()->getComponent<AnimationComponent>();
+	if (a)
+		a->play(tag);
+}
+
+void BehaviorComponent::setTargetByCaller()
+{
+	m_target = m_curCall.caller;
+}
+void BehaviorComponent::setTargetByTag(const std::string &tag, const std::string &method)
+{
+	setTargetTag(tag, method);
+}
+const Vector2 &BehaviorComponent::targetPosition()
+{
+	return m_target->position();
+}
+
+void BehaviorComponent::deactivate()
+{
+	setActive(false);
+}
+
+bool BehaviorComponent::active()
+{
+	return IComponent::active();
+}
+
+// ==================================== END LUA ========================================================
 
 void BehaviorComponent::callDataSync(Ruff::Call &c)
 {
@@ -151,6 +233,36 @@ void BehaviorComponent::callDataSync(Ruff::Call &c)
 			}
 		}
 		c.data.push_back(std::stoi(n));
+	}
+}
+
+void BehaviorComponent::spawnDataSync(Events::SpawnDataEvent &e)
+{
+	if ( e.initData.size() > 0)
+	{
+		e.sInitData = "";
+		for (auto x :  e.initData)
+		{
+			e.sInitData += std::to_string(x);
+			e.sInitData += ",";
+		}
+	}
+	else if (e.sInitData.size() > 0)
+	{
+		std::string n;
+		for (char ch : e.sInitData)
+		{
+			if (ch == ',')
+			{
+				 e.initData.push_back(std::stoi(n));
+				n = "";
+			}
+			else
+			{
+				n += ch;
+			}
+		}
+		 e.initData.push_back(std::stoi(n));
 	}
 }
 

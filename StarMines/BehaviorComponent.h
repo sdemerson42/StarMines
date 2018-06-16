@@ -58,8 +58,18 @@ public:
 	const Vector2 &dir();
 	void setDir(float x, float y);
 	const Ruff::Call &getCall();
+	void clearCalls();
 	void sendToTag(const std::string &tag, const std::string &label, const std::string &sdata);
 	void sendToCaller(const std::string &label, const std::string &sdata);
+	void spawn(const std::string &bTag, float x, float y, const std::string &sdata);
+	void despawn(const std::string &sdata);
+	void playSound(const std::string &tag, float volume, bool hi, bool loop);
+	void playAnim(const std::string &tag);
+	void setTargetByCaller();
+	void setTargetByTag(const std::string &tag, const std::string &method);
+	const Vector2 &targetPosition();
+	void deactivate();
+	bool active();
 
 	// End Lua
 
@@ -143,6 +153,7 @@ private:
 	static BehaviorComponent *m_currentComponent;
 
 	void callDataSync(Ruff::Call &c);
+	void spawnDataSync(Events::SpawnDataEvent &e);
 
 	std::string m_luaModule;
 	std::vector<Ruff::Call> m_call;

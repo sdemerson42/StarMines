@@ -7,9 +7,9 @@ none spawn
 
 [
 none cache
-61 Red 0 0 0
-50 Blue 0 0 0
-10 Green 0 0 0
+71 Red 0 0 0
+40 Blue 0 0 0
+30 Green 0 0 0
 ]
 
 }
