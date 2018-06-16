@@ -74,6 +74,85 @@ void BehaviorComponent::setDir(float x, float y)
 		c->setDir(x, y);
 }
 
+const Ruff::Call &BehaviorComponent::getCall()
+{
+	Ruff::Call &r = m_curCall;
+
+	if (m_call.size() == 0)
+	{
+		r.label = "nil";
+		r.caller = nullptr;
+		return r;
+	}
+	r = m_call[0];
+
+	callDataSync(r);
+
+	m_call.erase(begin(m_call));
+	return r;
+}
+
+void BehaviorComponent::sendToTag
+(const std::string &tag, const std::string &label, const std::string &sdata = {})
+{
+	Ruff::Call c;
+	c.caller = this->parent();
+	c.tag = c.caller->name();
+	c.label = label;
+	c.sdata = sdata;
+	callDataSync(c);
+	broadcastCall(c, tag);
+}
+
+void BehaviorComponent::sendToCaller(const std::string &label, const std::string &sdata = {})
+{
+	auto e = m_curCall.caller;
+	if (e)
+	{
+		auto b = e->getComponent<BehaviorComponent>();
+		if (b)
+		{
+			Ruff::Call c;
+			c.caller = this->parent();
+			c.tag = c.caller->name();
+			c.label = label;
+			c.sdata = sdata;
+			callDataSync(c);
+			b->addCall(c);
+		}
+	}
+}
+
+
+void BehaviorComponent::callDataSync(Ruff::Call &c)
+{
+	if (c.data.size() > 0)
+	{
+		c.sdata = "";
+		for (auto x : c.data)
+		{
+			c.sdata += std::to_string(x);
+			c.sdata += ",";
+		}
+	}
+	else if (c.sdata.size() > 0)
+	{
+		std::string n;
+		for (char ch : c.sdata)
+		{
+			if (ch == ',')
+			{
+				c.data.push_back(std::stoi(n));
+				n = "";
+			}
+			else
+			{
+				n += ch;
+			}
+		}
+		c.data.push_back(std::stoi(n));
+	}
+}
 
 
 // Initialization

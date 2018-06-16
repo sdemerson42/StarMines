@@ -93,18 +93,15 @@ namespace Ruff
 			caller = r.caller;
 			label = r.label;
 			data = r.data;
+			tag = r.tag;
+			sdata = r.sdata;
 			return *this;
 		}
 		Entity *caller;
 		std::string label;
 		std::vector<int> data;
+		std::string tag;
+		std::string sdata;
 	};
 
-	struct CCall
-	{
-		Entity *caller;
-		const char *label;
-		const int *data;
-		int sz;
-	};
 }

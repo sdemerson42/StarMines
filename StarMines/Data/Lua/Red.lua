@@ -6,4 +6,5 @@ function Red(bc)
 	bc:setDir(1.0, 0.2)
 	bc:setSpeed(3.0)
 	bc:setRegInt(0,1)
+
 end

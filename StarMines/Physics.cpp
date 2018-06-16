@@ -189,6 +189,7 @@ void Physics::callSender(PhysicsComponent *cp, PhysicsComponent *p)
 			Ruff::Call call;
 			call.caller = p->parent();
 			call.label = "collision";
+			call.tag = p->parent()->name();
 			bc->addCall(call);
 		}
 		bc = p->parent()->getComponent<BehaviorComponent>();
@@ -197,6 +198,7 @@ void Physics::callSender(PhysicsComponent *cp, PhysicsComponent *p)
 			Ruff::Call call;
 			call.caller = cp->parent();
 			call.label = "collision";
+			call.tag = cp->parent()->name();
 			bc->addCall(call);
 		}
 		m_collisionMap[cp].emplace_back(p);

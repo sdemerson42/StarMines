@@ -38,6 +38,14 @@ Behavior::Behavior(ComponentManager *cm) :
 		endClass();
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).
+		beginClass<Ruff::Call>("Call").
+		addData("caller", &Ruff::Call::caller).
+		addData("tag", &Ruff::Call::tag).
+		addData("label", &Ruff::Call::label).
+		addData("sdata", &Ruff::Call::sdata).
+		endClass();
+
+	luabridge::getGlobalNamespace(LuaWrapper::L).
 		beginClass<BehaviorComponent>("BehaviorComponent").
 		addFunction("module", &BehaviorComponent::module).
 		addFunction("position", &BehaviorComponent::position).
@@ -50,6 +58,9 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("setRegInt", &BehaviorComponent::setRegisterInt).
 		addFunction("getRegFloat", &BehaviorComponent::getRegisterFloat).
 		addFunction("setRegFloat", &BehaviorComponent::setRegisterFloat).
+		addFunction("getCall", &BehaviorComponent::getCall).
+		addFunction("sendToTag", &BehaviorComponent::sendToTag).
+		addFunction("sendToCaller", &BehaviorComponent::sendToCaller).
 		endClass();
 }
 
@@ -65,4 +76,5 @@ void Behavior::onInputEvent(Events::InputEvent *evnt)
 {
 	BehaviorComponent::setInput(evnt);
 }
+
 

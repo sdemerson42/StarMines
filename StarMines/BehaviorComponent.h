@@ -41,18 +41,7 @@ public:
 	}
 	void update()
 	{
-		// Set current component reference
-		m_currentComponent = this;
-
-		// Prepare local state
-		ccDelCount = 0;
-
-		// Local state cleanup
-		while (ccDelCount > 0)
-		{
-			m_call.erase(begin(m_call));
-			--ccDelCount;
-		}
+		// BC Loop handled by Main.lua
 	}
 	const std::string &getTag() const override
 	{
@@ -68,6 +57,9 @@ public:
 	void setSpeed(float x);
 	const Vector2 &dir();
 	void setDir(float x, float y);
+	const Ruff::Call &getCall();
+	void sendToTag(const std::string &tag, const std::string &label, const std::string &sdata);
+	void sendToCaller(const std::string &label, const std::string &sdata);
 
 	// End Lua
 
@@ -143,22 +135,21 @@ public:
 	void broadcastCall(Ruff::Call &c, const std::string &tag);
 	void setTargetTag(const std::string &tag, const std::string &method);
 	void onQueryEntityByTag(const Events::QueryEntityByTagEvent *);
-	Ruff::CCall curCCall;
-	int ccDelCount;
 private:
+
 	static std::string m_tag;
 	static CInput m_input;
 	static const float m_axisDeadzone;
 	static BehaviorComponent *m_currentComponent;
-	//static std::map<std::string, Ruff::ByteCode> m_codeMap;
 
-	//Ruff::RuffVM m_vm;
+	void callDataSync(Ruff::Call &c);
+
 	std::string m_luaModule;
 	std::vector<Ruff::Call> m_call;
 	Entity *m_target;
 	std::vector<int> m_sceneDespawnData;
 
-	// Behavior state for Python
+	// Behavior state for Lua
 	union RegisterVal
 	{
 		float f;
@@ -166,6 +157,10 @@ private:
 	};
 	static const int m_registerCount{ 20 };
 	RegisterVal m_register[m_registerCount];
+
+	// Persisting state for Lua return
+
+	Ruff::Call m_curCall;
 };
 
 
