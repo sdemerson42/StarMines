@@ -74,6 +74,8 @@ function RedGuy_calls(bc)
 			bc:stopSound("Flame")
 			bc:incRegInt(3)
 			bc:deactivate("")
+			bc:setSpeed(0)
+			bc:playAnim("idleR")
 			return
 		end
 

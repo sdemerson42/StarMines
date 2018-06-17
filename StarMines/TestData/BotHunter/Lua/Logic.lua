@@ -30,11 +30,12 @@ end
 function Logic_calls(bc)
 	local call = bc:getCall()
 	if call.label ~= "nil" then
-		if call.label == "incScore" then bc:incRegInt(1) end
+		if call.label == "incScore" then bc:setRegInt(1, bc:getRegInt(1) + 5) end
+		if call.label == "treasure" then bc:setRegInt(1, bc:getRegInt(1) + 20) end
 		call = bc:getCall()
 	end
 
-	if bc:getRegInt(1) == 20 then
+	if bc:getRegInt(1) >= 200 then
 		bc:incRegInt(5)
 		bc:sendToTag("RedGuy", "win", "")
 		bc:setPosition(290, 280)
@@ -43,10 +44,20 @@ function Logic_calls(bc)
 	end
 end
 
+function Logic_spawnTreasure(bc)
+	local r = math.random(1,100)
+	if r == 100 then
+		local x = math.random(100, 670)
+		local y = math.random(100, 470)
+		bc:spawn("Treasure", x, y, "")
+	end
+end
+
 function Logic(bc)
 	if bc:getRegInt(5) == 1 then return end
 	Logic_calls(bc)
 	if bc:getRegInt(5) == 1 then return end
 	Logic_setScore(bc)
-	Logic_spawnBots(bc)	
+	Logic_spawnBots(bc)
+	Logic_spawnTreasure(bc)
 end

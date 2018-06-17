@@ -49,3 +49,10 @@ Grave : Default
 {
 [ render sprites\grave.png 0 0 30 30 0 2 ]
 }
+
+Treasure : Default
+{
+[ render sprites\Icons.png 0 0 30 30 0 2 ]
+[ physics 0 0 30 30 0 0 3 false ]
+[ behavior Treasure ]
+}

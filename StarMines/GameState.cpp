@@ -63,7 +63,7 @@ void GameState::exec()
 
 			for (auto &p : m_sys)
 				p->update();
-			std::cout << m_clock.getElapsedTime().asMilliseconds() << std::endl;
+			//std::cout << m_clock.getElapsedTime().asMilliseconds() << std::endl;
 		}
 
 		// Scene changes
