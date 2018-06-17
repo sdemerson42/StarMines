@@ -92,6 +92,7 @@ public:
 	void setText(const std::string &txt);
 	void appendText(const std::string &txt);
 	void newScene(const std::string &scene);
+	bool globalPersist();
 
 	// End Lua
 
@@ -164,7 +165,6 @@ public:
 		return m_target;
 	}
 	void broadcastCall(Ruff::Call &c, const std::string &tag);
-	void setTargetTag(const std::string &tag, const std::string &method);
 	void onQueryEntityByTag(const Events::QueryEntityByTagEvent *);
 private:
 

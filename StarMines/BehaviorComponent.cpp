@@ -24,11 +24,6 @@ void BehaviorComponent::broadcastCall(Ruff::Call &c, const std::string &tag)
 	broadcast(&rsc);
 }
 
-void BehaviorComponent::setTargetTag(const std::string &tag, const std::string &method)
-{
-	Events::QueryEntityByTagEvent q{ this, tag, method };
-	broadcast(&q);
-}
 void BehaviorComponent::onQueryEntityByTag(const Events::QueryEntityByTagEvent *evnt)
 {
 	if (evnt->client == this)
@@ -194,7 +189,8 @@ void BehaviorComponent::setTargetByCaller()
 }
 void BehaviorComponent::setTargetByTag(const std::string &tag, const std::string &method)
 {
-	setTargetTag(tag, method);
+	Events::QueryEntityByTagEvent q{ this, tag, method };
+	broadcast(&q);
 }
 const Vector2 &BehaviorComponent::targetPosition()
 {
@@ -239,6 +235,11 @@ void BehaviorComponent::newScene(const std::string &scene)
 	Events::SceneChangeEvent sce;
 	sce.name = scene;
 	broadcast(&sce);
+}
+
+bool BehaviorComponent::globalPersist()
+{
+	return parent()->persist() == Entity::PersistType::Global;
 }
 
 // ==================================== END LUA ========================================================

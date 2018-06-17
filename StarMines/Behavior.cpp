@@ -11,6 +11,7 @@ extern "C"
 #include "lauxlib.h"
 }
 
+std::string Behavior::m_sceneName;
 
 // Lua callable functions
 
@@ -24,14 +25,24 @@ BehaviorComponent &Behavior_getBC(int index)
 	return (*LuaWrapper::bcomps)[index];
 }
 
+const std::string &Behavior_sceneName()
+{
+	return Behavior::sceneName();
+}
+
 Behavior::Behavior(ComponentManager *cm) :
 	ISystem{ cm }
 {
 	registerFunc(this, &Behavior::onInputEvent);
+	registerFunc(this, &Behavior::onSceneChangeEvent);
+
+	m_sceneName = "Main";
+
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).
 		addFunction("getBCSize", &Behavior_getBCSize).
-		addFunction("getBC", &Behavior_getBC);
+		addFunction("getBC", &Behavior_getBC).
+		addFunction("sceneName", &Behavior_sceneName);
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).
 		beginClass<Vector2>("Vector2").
@@ -88,14 +99,24 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("setText", &BehaviorComponent::setText).
 		addFunction("appendText", &BehaviorComponent::appendText).
 		addFunction("newScene", &BehaviorComponent::newScene).
+		addFunction("gPersist", &BehaviorComponent::globalPersist).
 		endClass();
 }
 
 void Behavior::update()
 {
+	// On scene change: Execute scene change script
+
+	if (m_sceneName != "")
+	{
+		luaL_dofile(LuaWrapper::L, "Data/Lua/System/_Persist.lua");
+		lua_pcall(LuaWrapper::L, 0, 0, 0);
+		m_sceneName = "";
+	}
+
 	// Execute Main lua script
 
-	luaL_dofile(LuaWrapper::L, "Data/Lua/Main.lua");
+	luaL_dofile(LuaWrapper::L, "Data/Lua/System/_Behavior.lua");
 	lua_pcall(LuaWrapper::L, 0, 0, 0);
 
 	// Late update
@@ -106,9 +127,18 @@ void Behavior::update()
 	}
 }
 
+const std::string &Behavior::sceneName()
+{
+	return m_sceneName;
+}
+
 void Behavior::onInputEvent(Events::InputEvent *evnt)
 {
 	BehaviorComponent::setInput(evnt);
 }
 
+void Behavior::onSceneChangeEvent(Events::SceneChangeEvent *evnt)
+{
+	m_sceneName = evnt->name;
+}
 

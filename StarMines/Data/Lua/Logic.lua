@@ -32,15 +32,13 @@ function Logic_calls(bc)
 	if call.label ~= "nil" then
 		if call.label == "incScore" then bc:setRegInt(1, bc:getRegInt(1) + 5) end
 		if call.label == "treasure" then bc:setRegInt(1, bc:getRegInt(1) + 20) end
+		if call.label == "gameOver" then bc:setRegInt(10, 1) end
 		call = bc:getCall()
 	end
 
-	if bc:getRegInt(1) >= 200 then
+	if bc:getRegInt(1) >= 100 then
 		bc:incRegInt(5)
-		bc:sendToTag("RedGuy", "win", "")
-		bc:setPosition(290, 280)
 		bc:newScene("Alt")
-		bc:setText("YOU R A WINNER!")
 	end
 end
 
@@ -54,6 +52,14 @@ function Logic_spawnTreasure(bc)
 end
 
 function Logic(bc)
+	if bc:getRegInt(10) > 0 then
+		bc:incRegInt(10)
+		if bc:getRegInt(10) == 120 then
+			bc:setRegInt(10, 0)
+			bc:newScene("Main")
+		end
+	end
+
 	if bc:getRegInt(5) == 1 then return end
 	Logic_calls(bc)
 	if bc:getRegInt(5) == 1 then return end

@@ -1,9 +1,0 @@
-setText "Lame-Runner!";
-sleep;
-
-def ending;
-lock;
-letCallData x;
-setText "Score: ";
-appendTextVal x;
-sleep;

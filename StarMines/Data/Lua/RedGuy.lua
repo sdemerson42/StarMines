@@ -67,16 +67,8 @@ function RedGuy_calls(bc)
 			bc:spawn("Grave", pos.x, pos.y, "")
 			bc:despawn("")
 			bc:incRegInt(3)
+			bc:sendToTag("Logic", "gameOver", "")
 			break
-		end
-
-		if call.label == "win" then
-			bc:stopSound("Flame")
-			bc:incRegInt(3)
-			bc:deactivate("")
-			bc:setSpeed(0)
-			bc:playAnim("idleR")
-			return
 		end
 
 		call = bc:getCall()
