@@ -87,7 +87,7 @@ void GameState::onRSCall(const Events::RSCallEvent *evnt)
 		{
 			auto c = spe->getComponent<BehaviorComponent>();
 			if (c)
-				c->addCall(call);
+				c->addPendingCall(call);
 		}
 	}
 }

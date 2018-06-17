@@ -38,16 +38,33 @@ public:
 	void initialize(const std::vector<std::string> &input) override
 	{
 		m_luaModule = input[0];
+		reactivate();
 	}
+	void reactivate()
+	{
+		m_call.clear();
+		for (int i = 0; i < m_registerCount; ++i)
+			m_register[i].i = 0;
+	}
+
 	void update()
 	{
-		// BC Loop handled by Main.lua
+		// Late update
+		m_call.clear();
+		m_call = m_pendingCall;
+		m_pendingCall.clear();
 	}
 	const std::string &getTag() const override
 	{
 		return m_tag;
 	}
-
+	struct CInput
+	{
+		float x;
+		float y;
+		float u;
+		float v;
+	};
 	// Lua Interface Functions
 
 	const std::string &module();
@@ -64,12 +81,17 @@ public:
 	void spawn(const std::string &bTag, float x, float y, const std::string &sdata);
 	void despawn(const std::string &sdata);
 	void playSound(const std::string &tag, float volume, bool hi, bool loop);
+	void stopSound(const std::string &tag);
 	void playAnim(const std::string &tag);
 	void setTargetByCaller();
 	void setTargetByTag(const std::string &tag, const std::string &method);
 	const Vector2 &targetPosition();
 	void deactivate();
 	bool active();
+	const CInput &input() const;
+	void setText(const std::string &txt);
+	void appendText(const std::string &txt);
+	void newScene(const std::string &scene);
 
 	// End Lua
 
@@ -85,6 +107,10 @@ public:
 	void addCall(Ruff::Call &c)
 	{
 		m_call.emplace_back(c);
+	}
+	void addPendingCall(Ruff::Call &c)
+	{
+		m_pendingCall.push_back(c);
 	}
 
 	std::vector<int> getSceneDespawnData()
@@ -121,6 +147,14 @@ public:
 	{
 		m_register[index].f = val;
 	}
+	void incRegisterInt(int index)
+	{
+		++m_register[index].i;
+	}
+	void decRegisterInt(int index)
+	{
+		--m_register[index].i;
+	}
 	std::vector<Ruff::Call> &getCalls()
 	{
 		return m_call;
@@ -128,19 +162,6 @@ public:
 	Entity *&target()
 	{
 		return m_target;
-	}
-
-	struct CInput
-	{
-		float x;
-		float y;
-		float u;
-		float v;
-	};
-
-	const CInput &input() const
-	{
-		return m_input;
 	}
 	void broadcastCall(Ruff::Call &c, const std::string &tag);
 	void setTargetTag(const std::string &tag, const std::string &method);
@@ -157,7 +178,8 @@ private:
 
 	std::string m_luaModule;
 	std::vector<Ruff::Call> m_call;
-	Entity *m_target;
+	std::vector<Ruff::Call> m_pendingCall;
+	Entity *m_target{ nullptr };
 	std::vector<int> m_sceneDespawnData;
 
 	// Behavior state for Lua

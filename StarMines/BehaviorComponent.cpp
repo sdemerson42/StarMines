@@ -124,7 +124,7 @@ void BehaviorComponent::sendToCaller(const std::string &label, const std::string
 			c.label = label;
 			c.sdata = sdata;
 			callDataSync(c);
-			b->addCall(c);
+			b->addPendingCall(c);
 		}
 	}
 }
@@ -173,6 +173,13 @@ void BehaviorComponent::playSound(const std::string &tag, float volume, bool hi,
 	se.loop = loop;
 	broadcast(&se);
 }
+void BehaviorComponent::stopSound(const std::string &tag)
+{
+	Events::SoundEvent se;
+	se.tag = tag;
+	se.stop = true;
+	broadcast(&se);
+}
 
 void BehaviorComponent::playAnim(const std::string &tag)
 {
@@ -191,7 +198,12 @@ void BehaviorComponent::setTargetByTag(const std::string &tag, const std::string
 }
 const Vector2 &BehaviorComponent::targetPosition()
 {
-	return m_target->position();
+	if (m_target)
+		return m_target->position();
+	Vector2 r;
+	r.x = 0;
+	r.y = 0;
+	return r;
 }
 
 void BehaviorComponent::deactivate()
@@ -202,6 +214,31 @@ void BehaviorComponent::deactivate()
 bool BehaviorComponent::active()
 {
 	return IComponent::active();
+}
+
+const BehaviorComponent::CInput &BehaviorComponent::input() const
+{
+	return m_input;
+}
+void BehaviorComponent::setText(const std::string &txt)
+{
+	auto c = parent()->getComponent<TextComponent>();
+	if (c)
+		c->setString(txt);
+}
+
+void BehaviorComponent::appendText(const std::string &txt)
+{
+	auto c = parent()->getComponent<TextComponent>();
+	if (c)
+		c->appendString(txt);
+}
+
+void BehaviorComponent::newScene(const std::string &scene)
+{
+	Events::SceneChangeEvent sce;
+	sce.name = scene;
+	broadcast(&sce);
 }
 
 // ==================================== END LUA ========================================================

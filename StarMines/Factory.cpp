@@ -144,8 +144,12 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 	if (p != end(v))
 	{
 		m_gameState->m_compManager->activateAll(p->get());
-		
 		(*p)->setPosition(x, y);
+
+		auto c = p->get()->getComponent<BehaviorComponent>();
+		if (c)
+			c->reactivate();
+
 		if (initData)
 			addInitCall(p->get(), initData);
 	}

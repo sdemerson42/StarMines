@@ -2,10 +2,6 @@ Main
 {
 [ global spawn
 1 RedGuy 400 300 0
-1 Title 300 10 0
-]
-
-[ none spawn
 1 Logic 0 0 0
 ]
 
@@ -13,7 +9,7 @@ Main
 20 Fire 0 0 0
 50 Plasma 0 0 0
 1 Grave 0 0 0
-20 Lump 0 0 0
+20 Bot 0 0 0
 ]
 }
 

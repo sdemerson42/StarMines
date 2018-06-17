@@ -57,7 +57,7 @@ namespace Events
 		void *client;
 		std::string tag;
 		std::string method;
-		Entity *response;
+		Entity *response{ nullptr };
 	};
 
 	struct InputEvent : EventBase

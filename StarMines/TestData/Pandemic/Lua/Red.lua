@@ -29,12 +29,7 @@ function Red_move(bc)
 	Red_bounds(bc)
 end
 
-function Red_calls(bc)
-	bc:clearCalls()
-end
-
 function Red(bc)
 	bc:setSpeed(5)
-	Red_calls(bc)
 	Red_move(bc)
 end
