@@ -6,6 +6,8 @@
 #include <iostream>
 #include "SFML\System.hpp"
 
+sf::View Renderer::m_view;
+
 void Renderer::update()
 {
 	fillDrawLayer();
@@ -49,10 +51,17 @@ void Renderer::render()
 {
 	m_window.clear();
 	
+	// Set view
+
+	m_window.setView(m_view);
+
 	// Draw all vertex arrays
 
 	for (auto &dl : m_drawLayer)
 	{
+		auto index = &dl - &m_drawLayer[0];
+		if (index == int(RenderComponent::SceneLayer::_SIZE))
+			m_window.setView(m_window.getDefaultView());
 		for (auto &vaMap : dl.vaMap)
 		{
 			auto tp = m_textureMap.find(vaMap.first);
@@ -76,5 +85,21 @@ void Renderer::render()
 	}
 
 	m_window.display();
+}
+
+const Vector2 &Renderer::viewCenter()
+{
+	return Vector2{ m_view.getCenter().x, m_view.getCenter().y };
+}
+void Renderer::setViewCenter(float x, float y)
+{
+	m_view.setCenter(x, y);
+}
+
+void Renderer::onView(const Events::ViewEvent *evnt)
+{
+	m_view.setSize(evnt->viewW, evnt->viewH);
+	m_view.setViewport(sf::FloatRect{ evnt->portX, evnt->portY, evnt->portW, evnt->portH });
+	m_view.setCenter(evnt->centerX, evnt->centerY);
 }
 

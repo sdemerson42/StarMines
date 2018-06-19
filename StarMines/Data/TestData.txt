@@ -1,12 +1,17 @@
 Main
 {
 800 600 96 96
+800 600 .25 .25 .416 .555 400 300
 [ global spawn
 1 Logic 0 0 0
 ]
 
 [ global cache
 1 RedGuy 0 0 0
+]
+
+[ scene spawn
+1 Frame 460 250 0
 ]
 
 [ none cache
@@ -21,6 +26,7 @@ Main
 Alt
 {
 100 100 10 10
+800 600 .25 .25 .416 .555 400 300
 }
 
 

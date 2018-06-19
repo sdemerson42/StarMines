@@ -190,6 +190,10 @@ void Factory::buildScene(const std::string &name)
 
 		broadcast(&data->prox);
 
+		// Update view and viewport
+
+		broadcast(&data->view);
+
 		// Build entites from scene data
 
 		auto &v = data->data;
@@ -202,6 +206,7 @@ void Factory::buildScene(const std::string &name)
 		// Clear scene data
 		v.clear();
 	}
+	std::cout << "Scene built...\n";
 }
 
 void Factory::clearScene()
@@ -246,4 +251,5 @@ void Factory::clearScene()
 		++b;
 	if (b != e)
 		m_gameState->m_entity.erase(b, e);
+	std::cout << "Scene cleared...\n";
 }

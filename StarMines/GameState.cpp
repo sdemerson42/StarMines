@@ -7,7 +7,7 @@
 
 GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
-	m_window{ sf::VideoMode{800,600}, "StarMines v0.1" }, m_factory{ this, "data\\blueprints.txt" }, m_sceneChange{ false }
+	m_window{ sf::VideoMode{1920,1080}, "StarMines v0.1", sf::Style::Fullscreen }, m_factory{ this, "data\\blueprints.txt" }, m_sceneChange{ false }
 {
 	//m_window.setVerticalSyncEnabled(true);
 
@@ -17,6 +17,7 @@ GameState::GameState() :
 	luaL_openlibs(LuaWrapper::L);
 	LuaWrapper::bcomps = &m_compManager.get()->m_behavior;
 	LuaWrapper::bcompSz = &m_compManager.get()->m_behaviorSz;
+	std::cout << "Lua state created and common libraries opened...\n";
 
 	// Create Systems
 
@@ -53,6 +54,13 @@ void GameState::exec()
 				return;
 			}
 		}
+
+		// ESCAPE KEY - to be removed later
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			m_window.close();
+
+		// Main loop
 
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
 		{
@@ -167,6 +175,8 @@ void GameState::loadTestData(const std::string &fName)
 		sd.name = s;
 		ifs >> s;
 		ifs >> sd.prox.sceneX >> sd.prox.sceneY >> sd.prox.cellX >> sd.prox.cellY;
+		ifs >> sd.view.viewW >> sd.view.viewH >> sd.view.portX >> sd.view.portY >>
+			sd.view.portW >> sd.view.portH >> sd.view.centerX >> sd.view.centerY;
 		while ((ifs >> s) && s == "[")
 		{
 			Entity::PersistType persist{ Entity::PersistType::None };
@@ -205,4 +215,5 @@ void GameState::loadTestData(const std::string &fName)
 		}
 		m_sceneData.emplace_back(sd);
 	}
+	std::cout << "Scene data loaded...\n";
 }

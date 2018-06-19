@@ -56,3 +56,8 @@ Treasure : Default
 [ physics 0 0 30 30 0 0 3 false ]
 [ behavior Treasure ]
 }
+
+Frame : Default
+{
+[ render sprites\frame.png 0 0 840 640 1 0 ]
+}

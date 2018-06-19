@@ -212,6 +212,4 @@ void Physics::onProxData(const Events::ProxMapInitEvent *evnt)
 	m_sceneSize.y = evnt->sceneY;
 	m_cellW = evnt->cellX;
 	m_cellH = evnt->cellY;
-	std::cout << "ProxMap updated: " << m_sceneSize.x << ", " << m_sceneSize.y <<
-		", " << m_cellW << ", " << m_cellH << "\n";
 }

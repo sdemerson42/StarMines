@@ -2,7 +2,7 @@ function Logic_P(bc)
 	local n = sceneName()
 
 	if n == "Alt" then
-		bc:setPosition(300, 300)
+		bc:setPosition(750, 300)
 		bc:setText("YOU R A WINNER!")
 	end
 

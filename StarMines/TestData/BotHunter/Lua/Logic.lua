@@ -41,7 +41,7 @@ function Logic_calls(bc)
 		call = bc:getCall()
 	end
 
-	if bc:getRegInt(1) >= 500 then
+	if bc:getRegInt(1) >= 2000 then
 		bc:incRegInt(5)
 		bc:newScene("Alt")
 	end

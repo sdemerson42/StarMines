@@ -44,6 +44,7 @@ private:
 	{
 		std::string name;
 		Events::ProxMapInitEvent prox;
+		Events::ViewEvent view;
 		std::vector<SceneSpawnData> data;
 	};
 	std::vector<SceneData> m_sceneData;

@@ -8,7 +8,7 @@ Sound::Sound(ComponentManager *cm, const std::string &fName) :
 {
 	
 	auto data = readData::loadStringData(fName);
-	std::cout << "Sound data loaded.\n";
+	std::cout << "Sound data loaded...\n";
 
 	for (int i = 0; i < data.size(); i+=2)
 		m_buffer[data[i]].loadFromFile(data[i + 1]);

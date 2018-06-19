@@ -2,6 +2,7 @@
 #include "BehaviorComponent.h"
 #include "ComponentManager.h"
 #include "LuaWrapper.h"
+#include "Renderer.h"
 
 #include "LuaBridge.h"
 extern "C"
@@ -42,7 +43,9 @@ Behavior::Behavior(ComponentManager *cm) :
 	luabridge::getGlobalNamespace(LuaWrapper::L).
 		addFunction("getBCSize", &Behavior_getBCSize).
 		addFunction("getBC", &Behavior_getBC).
-		addFunction("sceneName", &Behavior_sceneName);
+		addFunction("sceneName", &Behavior_sceneName).
+		addFunction("viewCenter", &Renderer::viewCenter).
+		addFunction("setViewCenter", &Renderer::setViewCenter);
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).
 		beginClass<Vector2>("Vector2").

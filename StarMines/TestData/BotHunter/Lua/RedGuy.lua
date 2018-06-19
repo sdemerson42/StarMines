@@ -5,7 +5,7 @@
 function RedGuy_move(bc, x, y)
 	bc:setSpeed(6)
 	bc:setDir(x,y)
-	
+
 	local facing = bc:getRegInt(0)
 
 	if x == 0 and y == 0 then
@@ -80,5 +80,5 @@ function RedGuy(bc)
 	RedGuy_calls(bc)
 	if bc:getRegInt(3) ~= 0 then return end
 	RedGuy_input(bc)
-	if bc:getRegInt(1) > 0 then bc:decRegInt(1) end	
+	if bc:getRegInt(1) > 0 then bc:decRegInt(1) end
 end

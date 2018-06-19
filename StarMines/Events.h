@@ -104,5 +104,17 @@ namespace Events
 		int cellX;
 		int cellY;
 	};
+
+	struct ViewEvent : EventBase
+	{
+		float viewW;
+		float viewH;
+		float portX;
+		float portY;
+		float portW;
+		float portH;
+		float centerX;
+		float centerY;
+	};
 	
-};
+}
