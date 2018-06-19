@@ -14,7 +14,8 @@ function Bot_calls(bc)
 	while call.label ~= "nil" do
 		if call.label == "collision" and call.tag == "Fire" then
 			bc:playSound("Die", 40, false, false)
-			bc:sendToTag("Logic", "incScore", "")
+			local speed = bc:speed()
+			bc:sendToTag("Logic", "incScore", speed)
 			
 			-- Plasma
 			

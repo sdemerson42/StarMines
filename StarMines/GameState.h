@@ -43,6 +43,7 @@ private:
 	struct SceneData
 	{
 		std::string name;
+		Events::ProxMapInitEvent prox;
 		std::vector<SceneSpawnData> data;
 	};
 	std::vector<SceneData> m_sceneData;

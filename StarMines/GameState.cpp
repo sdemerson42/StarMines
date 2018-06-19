@@ -149,6 +149,7 @@ void GameState::onSceneChangeEvent(const Events::SceneChangeEvent *evnt)
 
 void GameState::buildScene(const std::string &name)
 {
+	// Factory clears and builds new Entities
 	m_factory.clearScene();
 	m_factory.buildScene(name);
 	m_name = name;
@@ -165,6 +166,7 @@ void GameState::loadTestData(const std::string &fName)
 		SceneData sd;
 		sd.name = s;
 		ifs >> s;
+		ifs >> sd.prox.sceneX >> sd.prox.sceneY >> sd.prox.cellX >> sd.prox.cellY;
 		while ((ifs >> s) && s == "[")
 		{
 			Entity::PersistType persist{ Entity::PersistType::None };

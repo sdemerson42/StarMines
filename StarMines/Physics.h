@@ -10,7 +10,9 @@ class Physics : public ISystem
 public:
 	Physics(ComponentManager *cm) :
 		ISystem{ cm }
-	{}
+	{
+		registerFunc(this, &Physics::onProxData);
+	}
 	void update() override;
 private:
 	ProxMap m_proxMap;
@@ -32,4 +34,6 @@ private:
 	void applyMomentum();
 	bool collide(float xa, float ya, float wa, float ha, float xb, float yb, float wb, float hb);
 	void callSender(PhysicsComponent *cp, PhysicsComponent *p);
+
+	void onProxData(const Events::ProxMapInitEvent *);
 };

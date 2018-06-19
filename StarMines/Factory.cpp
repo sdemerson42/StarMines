@@ -184,6 +184,14 @@ void Factory::buildScene(const std::string &name)
 	});
 	if (data != end(m_gameState->m_sceneData))
 	{
+		// Scene data found; begin construction...
+
+		// Update ProxMap settings
+
+		broadcast(&data->prox);
+
+		// Build entites from scene data
+
 		auto &v = data->data;
 		for (auto &ssd : v)
 		{

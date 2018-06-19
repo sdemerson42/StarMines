@@ -3,12 +3,13 @@
 #include <vector>
 #include <string>
 #include "Entity.h"
+#include "EventSystem.h"
 
 class ComponentManager;
 class GameState;
 class Entity;
 
-class Factory
+class Factory : public EventHandler
 {
 public:
 	Factory(GameState *gameState, const std::string &fName);

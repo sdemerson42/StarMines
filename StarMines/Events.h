@@ -96,4 +96,13 @@ namespace Events
 		{}
 		std::string name;
 	};
+
+	struct ProxMapInitEvent : EventBase
+	{
+		int sceneX;
+		int sceneY;
+		int cellX;
+		int cellY;
+	};
+	
 };

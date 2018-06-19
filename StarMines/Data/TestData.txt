@@ -1,5 +1,6 @@
 Main
 {
+800 600 96 96
 [ global spawn
 1 Logic 0 0 0
 ]
@@ -19,7 +20,7 @@ Main
 
 Alt
 {
-
+100 100 10 10
 }
 
 

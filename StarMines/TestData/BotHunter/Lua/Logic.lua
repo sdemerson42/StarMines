@@ -30,13 +30,18 @@ end
 function Logic_calls(bc)
 	local call = bc:getCall()
 	if call.label ~= "nil" then
-		if call.label == "incScore" then bc:setRegInt(1, bc:getRegInt(1) + 5) end
-		if call.label == "treasure" then bc:setRegInt(1, bc:getRegInt(1) + 20) end
+		if call.label == "incScore" then 
+			local scalar = stoary(call.sdata)
+			scalar[1] = scalar[1] * 5
+			bc:setRegInt(1, bc:getRegInt(1) + scalar[1])
+		end
+
+		if call.label == "treasure" then bc:setRegInt(1, bc:getRegInt(1) + 50) end
 		if call.label == "gameOver" then bc:setRegInt(10, 1) end
 		call = bc:getCall()
 	end
 
-	if bc:getRegInt(1) >= 100 then
+	if bc:getRegInt(1) >= 500 then
 		bc:incRegInt(5)
 		bc:newScene("Alt")
 	end

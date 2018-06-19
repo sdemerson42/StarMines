@@ -1,5 +1,6 @@
 Main
 {
+800 600 96 96
 [ 
 none spawn
 1 Logic 0 0 0
