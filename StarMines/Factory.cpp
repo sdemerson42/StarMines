@@ -206,7 +206,7 @@ void Factory::buildScene(const std::string &name)
 		// Clear scene data
 		v.clear();
 	}
-	std::cout << "Scene built...\n";
+	std::cout << "Scene \"" << name << "\" built...\n";
 }
 
 void Factory::clearScene()

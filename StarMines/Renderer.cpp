@@ -50,16 +50,18 @@ void Renderer::addQuad(RenderComponent &rc)
 void Renderer::render()
 {
 	m_window.clear();
-	
-	// Set view
-
-	m_window.setView(m_view);
 
 	// Draw all vertex arrays
 
 	for (auto &dl : m_drawLayer)
 	{
 		auto index = &dl - &m_drawLayer[0];
+		// View settings
+		// Begin with default view...
+		// Change to scene view after rendering static backgrounds...
+		if (index == 1)
+			m_window.setView(m_view);
+		// Change back to default for UI layer...
 		if (index == int(RenderComponent::SceneLayer::_SIZE))
 			m_window.setView(m_window.getDefaultView());
 		for (auto &vaMap : dl.vaMap)

@@ -55,11 +55,7 @@ void GameState::exec()
 			}
 		}
 
-		// ESCAPE KEY - to be removed later
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			m_window.close();
-
+		
 		// Main loop
 
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
@@ -71,6 +67,12 @@ void GameState::exec()
 
 			for (auto &p : m_sys)
 				p->update();
+
+			// ESCAPE KEY - to be removed later
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				m_window.close();
+
 			//std::cout << m_clock.getElapsedTime().asMilliseconds() << std::endl;
 		}
 

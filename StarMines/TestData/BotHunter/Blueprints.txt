@@ -61,3 +61,8 @@ Frame : Default
 {
 [ render sprites\frame.png 0 0 840 640 1 0 ]
 }
+
+Space : Default
+{
+[ render sprites\space.png 0 0 800 600 0 0 ]
+}

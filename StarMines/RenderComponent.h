@@ -48,7 +48,7 @@ public:
 	};
 	enum class SceneLayer
 	{
-		BACK, FORE, ACTOR, OVERLAY, _SIZE
+		STATIC_BACK, BACK, FORE, ACTOR, OVERLAY, _SIZE
 	};
 
 	WindowLayer winLayer() const
