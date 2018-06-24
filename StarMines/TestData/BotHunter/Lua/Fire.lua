@@ -1,5 +1,5 @@
 function Fire_init(bc)
-	bc:setRegInt(0, 1)
+	bc:setRegInt("init", 1)
 	local call = bc:getCall()
 	local dir = stoary(call.sdata)
 	local r = math.random(-30,30)
@@ -11,9 +11,9 @@ function Fire_init(bc)
 end
 
 function Fire(bc)
-	if bc:getRegInt(0) == 0 then Fire_init(bc) end
+	if bc:getRegInt("init") == 0 then Fire_init(bc) end
 	
-	local counter = bc:getRegInt(1)
+	local counter = bc:getRegInt("counter")
 	if counter == 30 then bc:despawn("")
-	else bc:setRegInt(1, counter + 1) end
+	else bc:setRegInt("counter", counter + 1) end
 end

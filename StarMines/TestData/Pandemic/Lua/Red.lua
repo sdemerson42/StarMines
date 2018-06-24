@@ -4,7 +4,7 @@ function Red_change(bc)
 	if r == 2 then bc:setDir(-1,0) end
 	if r == 3 then bc:setDir(0,1) end
 	if r == 4 then bc:setDir(0,-1) end
-	bc:setRegInt(0, math.random(20,50))
+	bc:setRegInt("moveCounter", math.random(20,50))
 end
 
 function Red_bounds(bc)
@@ -19,11 +19,11 @@ function Red_bounds(bc)
 end
 
 function Red_move(bc)
-	local counter = bc:getRegInt(0)
+	local counter = bc:getRegInt("moveCounter")
 	if counter == 0 then
 		Red_change(bc)
 	else
-		bc:setRegInt(0, counter - 1)
+		bc:decRegInt("moveCounter")
 	end
 	
 	Red_bounds(bc)

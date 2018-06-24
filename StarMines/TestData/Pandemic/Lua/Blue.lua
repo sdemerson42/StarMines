@@ -10,7 +10,7 @@ function Blue_bounds(bc)
 end
 
 function Blue_escape(bc)
-	bc:setRegInt(0, 30)
+	bc:setRegInt("escapeCooldown", 30)
 	bc:setTargetByTag("Red", "near")
 	local pos = bc:position()
 	local tpos = bc:targetPosition()
@@ -26,9 +26,9 @@ function Blue_escape(bc)
 end
 
 function Blue_move(bc)
-	local counter = bc:getRegInt(0)
+	local counter = bc:getRegInt("escapeCooldown")
 	if counter == 0 then Blue_escape(bc) end
-	bc:setRegInt(0, bc:getRegInt(0) - 1)
+	bc:decRegInt("escapeCooldown")
 	Blue_bounds(bc)
 end
 

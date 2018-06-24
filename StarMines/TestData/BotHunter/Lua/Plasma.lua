@@ -6,9 +6,9 @@ function Plasma_init(bc)
 end
 
 function Plasma(bc)
-	if bc:getRegInt(0) == 0 then Plasma_init(bc) end
-	if bc:getRegInt(0) == 20 then
+	if bc:getRegInt("counter") == 0 then Plasma_init(bc) end
+	if bc:getRegInt("counter") == 20 then
 		bc:despawn("")	
 	end
-	bc:incRegInt(0)
+	bc:incRegInt("counter")
 end

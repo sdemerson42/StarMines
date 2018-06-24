@@ -3,7 +3,6 @@ function RedGuy_P(bc)
 	
 	if n == "Alt" then
 		bc:stopSound("Flame")
-		bc:incRegInt(3)
 		bc:deactivate("")
 		bc:setSpeed(0)
 		bc:playAnim("right")

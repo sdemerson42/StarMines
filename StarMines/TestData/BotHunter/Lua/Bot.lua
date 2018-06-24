@@ -1,5 +1,5 @@
 function Bot_attack(bc)
-	bc:setRegInt(0,60)
+	bc:setRegInt("counter",60)
 	bc:setTargetByTag("RedGuy", "first")
 	local tpos = bc:targetPosition()
 	local pos = bc:position()
@@ -43,6 +43,6 @@ end
 
 function Bot(bc)
 	Bot_calls(bc)
-	if bc:getRegInt(0) == 0 then Bot_attack(bc) end
-	bc:decRegInt(0)
+	if bc:getRegInt("counter") == 0 then Bot_attack(bc) end
+	bc:decRegInt("counter")
 end

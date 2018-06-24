@@ -20,6 +20,7 @@ public:
 	{
 		registerFunc(this, &BehaviorComponent::onQueryEntityByTag);
 		m_call.reserve(64);
+		m_regMapIndex = 0;
 	}
 
 	static void setInput(Events::InputEvent *evnt)
@@ -45,6 +46,8 @@ public:
 		m_call.clear();
 		for (int i = 0; i < m_registerCount; ++i)
 			m_register[i].i = 0;
+		m_regMap.clear();
+		m_regMapIndex = 0;
 	}
 
 	void update()
@@ -132,28 +135,83 @@ public:
 		return m_currentComponent;
 	}
 
-	int getRegisterInt(int index) const
+	int getRegisterInt(const std::string &var) 
 	{
+		int index;
+		auto p = m_regMap.find(var);
+		if (p != end(m_regMap))
+			index = p->second;
+		else
+		{
+			index = m_regMapIndex;
+			m_regMap[var] = m_regMapIndex++;
+		}
+
 		return m_register[index].i;
 	}
-	float getRegisterFloat(int index) const
+	float getRegisterFloat(const std::string &var) 
 	{
+		int index;
+		auto p = m_regMap.find(var);
+		if (p != end(m_regMap))
+			index = p->second;
+		else
+		{
+			index = m_regMapIndex;
+			m_regMap[var] = m_regMapIndex++;
+		}
 		return m_register[index].f;
 	}
-	void setRegisterInt(int index, int val)
+	void setRegisterInt(const std::string &var, int val)
 	{
+		int index;
+		auto p = m_regMap.find(var);
+		if (p != end(m_regMap))
+			index = p->second;
+		else
+		{
+			index = m_regMapIndex;
+			m_regMap[var] = m_regMapIndex++;
+		}
 		m_register[index].i = val;
 	}
-	void setRegisterFloat(int index, float val)
+	void setRegisterFloat(const std::string &var, float val)
 	{
+		int index;
+		auto p = m_regMap.find(var);
+		if (p != end(m_regMap))
+			index = p->second;
+		else
+		{
+			index = m_regMapIndex;
+			m_regMap[var] = m_regMapIndex++;
+		}
 		m_register[index].f = val;
 	}
-	void incRegisterInt(int index)
+	void incRegisterInt(const std::string &var)
 	{
+		int index;
+		auto p = m_regMap.find(var);
+		if (p != end(m_regMap))
+			index = p->second;
+		else
+		{
+			index = m_regMapIndex;
+			m_regMap[var] = m_regMapIndex++;
+		}
 		++m_register[index].i;
 	}
-	void decRegisterInt(int index)
+	void decRegisterInt(const std::string &var)
 	{
+		int index;
+		auto p = m_regMap.find(var);
+		if (p != end(m_regMap))
+			index = p->second;
+		else
+		{
+			index = m_regMapIndex;
+			m_regMap[var] = m_regMapIndex++;
+		}
 		--m_register[index].i;
 	}
 	std::vector<Ruff::Call> &getCalls()
@@ -190,6 +248,8 @@ private:
 	};
 	static const int m_registerCount{ 20 };
 	RegisterVal m_register[m_registerCount];
+	std::map<std::string, int> m_regMap;
+	int m_regMapIndex;
 
 	// Persisting state for Lua return
 

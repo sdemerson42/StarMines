@@ -6,7 +6,7 @@ function RedGuy_move(bc, x, y)
 	bc:setSpeed(6)
 	bc:setDir(x,y)
 
-	local facing = bc:getRegInt(0)
+	local facing = bc:getRegInt("face")
 
 	if x == 0 and y == 0 then
 		if facing == 1 then bc:playAnim("idleR")
@@ -19,11 +19,11 @@ end
 
 function RedGuy_fire(bc, u, v)
 	bc:setDir(0,0)
-	if bc:getRegInt(0) == 1 then bc:playAnim("idleR")
+	if bc:getRegInt("face") == 1 then bc:playAnim("idleR")
 	else bc:playAnim("idleL") end
 	
-	if bc:getRegInt(1) == 0 then
-		bc:setRegInt(1, 5)
+	if bc:getRegInt("cool") == 0 then
+		bc:setRegInt("cool", 5)
 		dirstr = ""
 		dirstr = u .. "," .. v
 	
@@ -31,8 +31,8 @@ function RedGuy_fire(bc, u, v)
 		bc:spawn("Fire", pos.x, pos.y, dirstr)
 	end
 
-	if bc:getRegInt(2) == 0 then
-		bc:setRegInt(2,1)
+	if bc:getRegInt("sound") == 0 then
+		bc:setRegInt("sound",1)
 		bc:playSound("Flame", 40, true, true)
 	end
 end
@@ -50,9 +50,9 @@ function RedGuy_input(bc)
 		RedGuy_fire(bc, u, v)
 	else
 		bc:stopSound("Flame")
-		bc:setRegInt(2,0)
-		if x < 0 then bc:setRegInt(0, 0) end
-		if x > 0 then bc:setRegInt(0, 1) end
+		bc:setRegInt("sound",0)
+		if x < 0 then bc:setRegInt("face", 0) end
+		if x > 0 then bc:setRegInt("face", 1) end
 		RedGuy_move(bc, x, y)
 	end
 end
@@ -66,7 +66,7 @@ function RedGuy_calls(bc)
 			local pos = bc:position()
 			bc:spawn("Grave", pos.x, pos.y, "")
 			bc:despawn("")
-			bc:incRegInt(3)
+			bc:incRegInt("inactive")
 			bc:sendToTag("Logic", "gameOver", "")
 			break
 		end
@@ -76,9 +76,9 @@ function RedGuy_calls(bc)
 end
 
 function RedGuy(bc)
-	if bc:getRegInt(3) ~= 0 then return end
+	if bc:getRegInt("inactive") ~= 0 then return end
 	RedGuy_calls(bc)
-	if bc:getRegInt(3) ~= 0 then return end
+	if bc:getRegInt("inactive") ~= 0 then return end
 	RedGuy_input(bc)
-	if bc:getRegInt(1) > 0 then bc:decRegInt(1) end
+	if bc:getRegInt("cool") > 0 then bc:decRegInt("cool") end
 end
