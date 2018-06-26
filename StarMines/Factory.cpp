@@ -18,13 +18,17 @@ Factory::Factory(GameState *gameState, const std::string &fName) :
 		std::cerr << "WARNING: Factory failed to open file for initialization.\n";
 	}
 
+	std::cout << "Loading Blueprints...\n[ ";
+
 	while (true)
 	{
 		Blueprint b;
 		if (!(ifs >> b))
 			break;
 		m_blueprint.emplace_back(b);
+		std::cout << m_blueprint.back().name << "   ";
 	}
+	std::cout << " ]\nBlueprints Loaded...\n";
 }
 
 std::istream &operator >> (std::istream &is, Factory::CompData &cd)

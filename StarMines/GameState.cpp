@@ -28,6 +28,7 @@ GameState::GameState() :
 	m_sys.emplace_back(std::make_unique<Animator>(m_compManager.get()));
 	m_sys.emplace_back(std::make_unique<Sound>(m_compManager.get(), "data\\SoundFiles.txt"));
 	m_sys.emplace_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
+	std::cout << "Systems created...\n";
 
 	// Events
 
@@ -42,6 +43,7 @@ GameState::GameState() :
 
 void GameState::exec()
 {
+	std::cout << "-- Executing game loop... --\n";
 	float delta{ 0.0f };
 	while (m_window.isOpen())
 	{

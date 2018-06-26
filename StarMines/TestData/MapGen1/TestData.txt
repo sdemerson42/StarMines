@@ -1,0 +1,26 @@
+Main
+{
+1920 1080 96 96
+800 600 .25 .25 .416 .555 400 300
+[ global spawn
+1 Master 0 0 0
+1 Logic 0 0 0
+]
+
+[ global cache
+1 RedGuy 0 0 0
+]
+
+[ scene spawn
+1 Frame 460 250 0
+]
+
+[ none cache
+20 Fire 0 0 0
+50 Plasma 0 0 0
+1 Grave 0 0 0
+20 Bot 0 0 0
+10 Treasure 0 0 0
+]
+
+}

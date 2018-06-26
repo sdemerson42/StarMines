@@ -1,0 +1,85 @@
+RedGuy : Hero Player
+{
+[ render sprites\player.png 0 0 32 32 0 2 ]
+[ anim
+4
+right 4 0 0 32 0 64 0 96 0 10 1
+left 4 128 0 160 0 192 0 224 0 10 1
+idleR 1 0 0 1 0
+idleL 1 224 0 1 0
+right ]
+[ physics 2 2 26 26 8 10 1 true ]
+[ behavior RedGuy ]
+}
+
+Bot : Default
+{
+[ render sprites\robot.gif 0 0 30 30 0 2 ]
+[ physics 2 2 26 26 0 0 3 true ]
+[ anim
+2
+active 2 30 0 0 0 15 1
+idle 1 0 0 1 0
+idle ]
+[ behavior Bot ]
+}
+
+Logic : Default
+{
+[ behavior Logic ]
+[ text fonts\fullamak.ttf 30 200 10 10 255 text ]
+}
+
+Fire : Default
+{
+[ render sprites\flame.png 0 0 38 50 0 2 ]
+[ physics 2 2 16 16 0 0 0 false ]
+[ behavior Fire ]
+}
+
+Plasma : Default
+{
+[ render sprites\s.gif 0 0 20 20 0 2 ]
+[ anim 1 main 2 20 0 0 0 3 1 main ]
+[ physics 2 2 16 16 0 0 0 false ]
+[ behavior Plasma ]
+}
+
+Grave : Default
+{
+[ render sprites\grave.png 0 0 30 30 0 2 ]
+}
+
+Treasure : Default
+{
+[ render sprites\Icons.png 0 0 30 30 0 2 ]
+[ physics 0 0 30 30 0 0 3 false ]
+[ behavior Treasure ]
+}
+
+Frame : Default
+{
+[ render sprites\frame.png 0 0 840 640 1 0 ]
+}
+
+Space : Default
+{
+[ render sprites\space.png 0 0 800 600 0 0 ]
+}
+
+Master : Default
+{
+[ behavior Master ]
+}
+
+Wall : Default
+{
+[ render sprites\squares.png 0 0 32 32 0 1 ]
+[ physics 0 0 32 32 0 0 0 true ]
+}
+
+Floor : Default
+{
+[ render sprites\squares.png 32 0 32 32 0 1 ]
+[ physics 0 0 32 32 0 0 0 false ]
+}
