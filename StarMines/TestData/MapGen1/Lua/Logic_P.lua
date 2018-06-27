@@ -8,5 +8,6 @@ function Logic_P(bc)
 
 	if n == "Main" then
 		bc:setRegInt("score", 0)
+		bc:spawn("RedGuy", 928, 448, "", "default")
 	end
 end

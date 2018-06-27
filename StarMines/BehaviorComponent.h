@@ -81,7 +81,7 @@ public:
 	void clearCalls();
 	void sendToTag(const std::string &tag, const std::string &label, const std::string &sdata);
 	void sendToCaller(const std::string &label, const std::string &sdata);
-	void spawn(const std::string &bTag, float x, float y, const std::string &sdata);
+	void spawn(const std::string &bTag, float x, float y, const std::string &sdata, const std::string &persist);
 	void despawn(const std::string &sdata);
 	void playSound(const std::string &tag, float volume, bool hi, bool loop);
 	void stopSound(const std::string &tag);

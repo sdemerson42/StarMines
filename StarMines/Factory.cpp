@@ -137,7 +137,7 @@ void Factory::createFromBlueprint(const std::string &blueprint, float x, float y
 		e->setActive(true);
 }
 
-void Factory::activateFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData)
+void Factory::activateFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, Entity::PersistType persist)
 {
 	auto &v = m_gameState->m_entity;
 	auto p = std::find_if(begin(v), end(v), [&](std::shared_ptr<Entity> &sp)
@@ -156,10 +156,14 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 
 		if (initData)
 			addInitCall(p->get(), initData);
+		
+		if (persist != Entity::PersistType::Default)
+			(*p)->setPersist(persist);
 	}
 	else
 	{
-		createFromBlueprint(blueprint, x, y, initData, false);
+		if (persist == Entity::PersistType::Default) persist = Entity::PersistType::None;
+		createFromBlueprint(blueprint, x, y, initData, false, persist);
 	}
 }
 

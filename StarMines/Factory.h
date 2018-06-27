@@ -14,7 +14,7 @@ class Factory : public EventHandler
 public:
 	Factory(GameState *gameState, const std::string &fName);
 	void createFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr, bool cache = true, Entity::PersistType persist = Entity::PersistType::None);
-	void activateFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr);
+	void activateFromBlueprint(const std::string &blueprint, float x = 0.0f, float y = 0.0f, std::vector<int> *initData = nullptr, Entity::PersistType persist = Entity::PersistType::Default);
 	void deactivate(Entity *e);
 
 	void buildScene(const std::string &name);

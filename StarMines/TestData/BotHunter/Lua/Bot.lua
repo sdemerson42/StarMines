@@ -20,14 +20,14 @@ function Bot_calls(bc)
 			-- Plasma
 			
 			local pos = bc:position()
-			bc:spawn("Plasma", pos.x, pos.y, "1,0") 
-			bc:spawn("Plasma", pos.x, pos.y, "0,1")
-			bc:spawn("Plasma", pos.x, pos.y, "-1,0")
-			bc:spawn("Plasma", pos.x, pos.y, "0,-1")
-			bc:spawn("Plasma", pos.x, pos.y, "1,1")
-			bc:spawn("Plasma", pos.x, pos.y, "-1,-1")
-			bc:spawn("Plasma", pos.x, pos.y, "-1,1")
-			bc:spawn("Plasma", pos.x, pos.y, "1,-1")
+			bc:spawn("Plasma", pos.x, pos.y, "1,0", "default") 
+			bc:spawn("Plasma", pos.x, pos.y, "0,1", "default")
+			bc:spawn("Plasma", pos.x, pos.y, "-1,0", "default")
+			bc:spawn("Plasma", pos.x, pos.y, "0,-1", "default")
+			bc:spawn("Plasma", pos.x, pos.y, "1,1", "default")
+			bc:spawn("Plasma", pos.x, pos.y, "-1,-1", "default")
+			bc:spawn("Plasma", pos.x, pos.y, "-1,1", "default")
+			bc:spawn("Plasma", pos.x, pos.y, "1,-1", "default")
 			
 			bc:despawn("")
 		end

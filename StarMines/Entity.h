@@ -90,7 +90,7 @@ public:
 
 	enum class PersistType
 	{
-		Scene, Global, None 
+		Scene, Global, None, Default 
 	};
 	void setPersist(PersistType p)
 	{

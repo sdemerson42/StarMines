@@ -53,7 +53,7 @@ function Master_tryDir(bc, mapAry, dir, x, y)
 
 	-- Spawn Robot?
 
-	if math.random(1,3) == 1 then bc:spawn("Bot", 32*(l+2), 32 * (t+2), "") end
+	if math.random(1,3) == 1 then bc:spawn("Bot", 32*(l+2), 32 * (t+2), "", "default") end
 
 	return true
 end	
@@ -84,9 +84,9 @@ function Master_buildMap(bc, mapAry)
 	for i = 0, 59 do
 		for j = 0, 31 do
 			if mapAry[i][j] == 1 then
-				bc:spawn("Wall", i * 32, j * 32, "")
+				bc:spawn("Wall", i * 32, j * 32, "", "scene")
 			elseif mapAry[i][j] == 0 then
-				bc:spawn("Floor", i * 32, j * 32, "")
+				bc:spawn("Floor", i * 32, j * 32, "", "scene")
 			end
 		end
 	end
@@ -127,7 +127,6 @@ function Master_genMap(bc)
 	
 	collectgarbage()
 
-	bc:spawn("RedGuy", 928, 448, "")
 end
 
 

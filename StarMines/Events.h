@@ -35,6 +35,7 @@ namespace Events
 		Vector2 position;
 		std::vector<int> initData;
 		std::string sInitData;
+		std::string persist;
 	};
 
 	struct DespawnEvent : EventBase

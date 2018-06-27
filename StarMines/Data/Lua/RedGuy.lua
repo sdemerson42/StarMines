@@ -1,7 +1,3 @@
--- Registers: 0 = facing, 1 = shoot cooldown counter
--- 2 = FlameSound
--- 3 = Dead / win
-
 function RedGuy_move(bc, x, y)
 	bc:setSpeed(6)
 	bc:setDir(x,y)
@@ -28,7 +24,7 @@ function RedGuy_fire(bc, u, v)
 		dirstr = u .. "," .. v
 	
 		local pos = bc:position()
-		bc:spawn("Fire", pos.x, pos.y, dirstr)
+		bc:spawn("Fire", pos.x, pos.y, dirstr, "default")
 	end
 
 	if bc:getRegInt("sound") == 0 then
@@ -64,7 +60,7 @@ function RedGuy_calls(bc)
 			bc:stopSound("Flame")
 			bc:playSound("GameOver", 40, true, false)
 			local pos = bc:position()
-			bc:spawn("Grave", pos.x, pos.y, "")
+			bc:spawn("Grave", pos.x, pos.y, "", "default")
 			bc:despawn("")
 			bc:incRegInt("inactive")
 			bc:sendToTag("Logic", "gameOver", "")

@@ -20,7 +20,7 @@ function Green_calls(bc)
 	while call.label ~= "nil" do
 		if call.label == "collision" and call.tag == "Red" then
 			local pos = bc:position()
-			bc:spawn("Red", pos.x, pos.y, "")
+			bc:spawn("Red", pos.x, pos.y, "", "default")
 			bc:despawn("")
 			bc:playSound("Infect", 40, false, false)
 			return

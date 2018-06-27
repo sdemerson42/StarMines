@@ -12,7 +12,6 @@ Main
 
 [ scene spawn
 1 Frame 460 250 0
-1 Space 480 270 0
 ]
 
 [ none cache

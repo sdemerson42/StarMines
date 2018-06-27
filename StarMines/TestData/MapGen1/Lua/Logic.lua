@@ -17,7 +17,7 @@ function Logic_spawnBots(bc)
 		
 		local speed = math.random(1, 6)
 		bc:setRegInt("botCounter", 0)
-		bc:spawn("Bot", x, y, speed)
+		bc:spawn("Bot", x, y, speed, "default")
 	end
 end
 
@@ -52,7 +52,7 @@ function Logic_spawnTreasure(bc)
 	if r == 100 then
 		local x = math.random(100, 670)
 		local y = math.random(100, 470)
-		bc:spawn("Treasure", x, y, "")
+		bc:spawn("Treasure", x, y, "", "default")
 	end
 end
 

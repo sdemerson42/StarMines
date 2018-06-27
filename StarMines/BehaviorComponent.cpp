@@ -124,9 +124,11 @@ void BehaviorComponent::sendToCaller(const std::string &label, const std::string
 	}
 }
 
-void BehaviorComponent::spawn(const std::string &bTag, float x, float y, const std::string &sdata)
+void BehaviorComponent::spawn(const std::string &bTag, float x, float y, const std::string &sdata,
+	const std::string &persist = "default")
 {
 	Events::SpawnDataEvent sde{ bTag, x, y };
+	sde.persist = persist;
 	sde.sInitData = sdata;
 	spawnDataSync(sde);
 	broadcast(&sde);

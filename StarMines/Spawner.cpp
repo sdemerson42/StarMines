@@ -17,10 +17,15 @@ void Spawner::update()
 
 	for (auto p : m_spawnData)
 	{
+		Entity::PersistType persist = Entity::PersistType::Default;
+		if (p.persist == "global") persist = Entity::PersistType::Global;
+		else if (p.persist == "scene") persist = Entity::PersistType::Scene;
+		else if (p.persist == "none") persist = Entity::PersistType::None;
+
 		if (p.initData.size() > 0)
-			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, &p.initData);
+			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, &p.initData, persist);
 		else
-			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y);
+			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, nullptr, persist);
 	}
 	m_spawnData.clear();
 
