@@ -11,6 +11,7 @@ int main()
 	auto gs = new GameState;
 	gs->exec();
 	delete gs;
+	std::cout << "GameState deleted. Session end.\n";
 
 	_getch();
 }

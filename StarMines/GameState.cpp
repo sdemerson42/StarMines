@@ -9,6 +9,8 @@ GameState::GameState() :
 	m_compManager{ std::make_unique<ComponentManager>() },
 	m_window{ sf::VideoMode{1920,1080}, "StarMines v0.1", sf::Style::Fullscreen }, m_factory{ this, "data\\blueprints.txt" }, m_sceneChange{ false }
 {
+	std::cout << "Constructing GameState...\n";
+
 	//m_window.setVerticalSyncEnabled(true);
 
 	// Prepare LuaWrapper
@@ -41,6 +43,8 @@ GameState::GameState() :
 	// Test Data
 	loadTestData("Data\\TestData.txt");
 	buildScene("Main");
+
+	std::cout << "Gamestate constructed...\n";
 };
 
 void GameState::exec()

@@ -18,6 +18,10 @@ class ComponentManager
 	friend class Behavior;
 	friend class GameState;
 public:
+	~ComponentManager()
+	{
+		std::cout << "Deleting ComponentManager...\n";
+	}
 	void addComponent(Entity *e, const std::string &tag, const std::vector<std::string> &initArgs);
 	void deactivateComponent(Entity *e, const std::string &tag);
 	void activateComponent(Entity *e, const std::string &tag);

@@ -16,9 +16,11 @@ public:
 	GameState();
 	~GameState()
 	{
+		std::cout << "Deleting GameState...\n";
 		m_sys.clear();
+		std::cout << "Systems deleted...\n";
 		m_entity.clear();
-		m_compManager.release();
+		std::cout << "Entities deleted...\n";
 	}
 	void exec();
 private:

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EventSystem.h"
+#include <iostream>
 
 class ComponentManager;
 
@@ -11,7 +12,9 @@ public:
 		m_compManager{ cm }
 	{}
 	virtual ~ISystem()
-	{}
+	{
+		std::cout << "ISystem at " << this << " deleted...\n";
+	}
 	virtual void update() = 0;
 protected:
 	ComponentManager *m_compManager;
