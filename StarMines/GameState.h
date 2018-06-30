@@ -52,6 +52,8 @@ private:
 	void onRSCall(const Events::RSCallEvent *);
 	void onQueryEntityByTag(Events::QueryEntityByTagEvent *);
 	void onSceneChangeEvent(const Events::SceneChangeEvent *);
+	void onCreateNewSceneFromScript(const Events::CreateSceneFromScriptEvent *);
+	void onAddSceneData(const Events::AddSceneDataEvent *);
 
 	void buildScene(const std::string &name);
 	void loadTestData(const std::string &fName);

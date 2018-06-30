@@ -103,6 +103,8 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("appendText", &BehaviorComponent::appendText).
 		addFunction("newScene", &BehaviorComponent::newScene).
 		addFunction("gPersist", &BehaviorComponent::globalPersist).
+		addFunction("createNewScene", &BehaviorComponent::createNewScene).
+		addFunction("addSceneData", &BehaviorComponent::addSceneData).
 		endClass();
 }
 

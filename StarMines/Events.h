@@ -117,5 +117,24 @@ namespace Events
 		float centerX;
 		float centerY;
 	};
+
+	struct CreateSceneFromScriptEvent : EventBase
+	{
+		std::string name;
+		ProxMapInitEvent prox;
+		ViewEvent view;
+	};
+
+	struct AddSceneDataEvent : EventBase
+	{ 
+		std::string name;
+		std::string persist;
+		bool cache;
+		int count;
+		std::string blueprint;
+		float x;
+		float y;
+		std::string init;
+	};
 	
 }

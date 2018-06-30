@@ -244,6 +244,79 @@ bool BehaviorComponent::globalPersist()
 	return parent()->persist() == Entity::PersistType::Global;
 }
 
+void BehaviorComponent::createNewScene(const std::string &name, const std::string &prox, const std::string &view)
+{
+	Events::CreateSceneFromScriptEvent e;
+	e.name = name;
+
+	std::vector<int> proxVal;
+	std::vector<float> viewVal;
+
+	// Parse Lua strings into prox and view data
+
+	std::string n;
+
+	for (char c : prox)
+	{
+		if (c == ',')
+		{
+			proxVal.push_back(stoi(n));
+			n = "";
+		}
+		else
+		{
+			n += c;
+		}
+	}
+	proxVal.push_back(stoi(n));
+	n = "";
+
+	for (char c : view)
+	{
+		if (c == ',')
+		{
+			viewVal.push_back(stof(n));
+			n = "";
+		}
+		else
+		{
+			n += c;
+		}
+	}
+	viewVal.push_back(stof(n));
+
+	e.prox.sceneX = proxVal[0];
+	e.prox.sceneY = proxVal[1];
+	e.prox.cellX = proxVal[2];
+	e.prox.cellY = proxVal[3];;
+	e.view.viewW = viewVal[0];
+	e.view.viewH = viewVal[1];
+	e.view.portX = viewVal[2];
+	e.view.portY = viewVal[3];
+	e.view.portW = viewVal[4];
+	e.view.portH = viewVal[5];
+	e.view.centerX = viewVal[6];
+	e.view.centerY = viewVal[7];
+
+	broadcast(&e);
+}
+
+void BehaviorComponent::addSceneData(const std::string &name, const std::string &persist, bool cache, int count,
+	const std::string &blueprint, float x, float y, const std::string &sInitData)
+{
+	Events::AddSceneDataEvent e;
+	e.name = name;
+	e.persist = persist;
+	e.cache = cache;
+	e.count = count;
+	e.blueprint = blueprint;
+	e.x = x;
+	e.y = y;
+	e.init = sInitData;
+
+	broadcast(&e);
+}
+
 // ==================================== END LUA ========================================================
 
 void BehaviorComponent::callDataSync(Ruff::Call &c)

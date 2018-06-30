@@ -35,6 +35,8 @@ GameState::GameState() :
 	registerFunc(this, &GameState::onRSCall);
 	registerFunc(this, &GameState::onQueryEntityByTag);
 	registerFunc(this, &GameState::onSceneChangeEvent);
+	registerFunc(this, &GameState::onCreateNewSceneFromScript);
+	registerFunc(this, &GameState::onAddSceneData);
 
 	// Test Data
 	loadTestData("Data\\TestData.txt");
@@ -159,6 +161,67 @@ void GameState::onSceneChangeEvent(const Events::SceneChangeEvent *evnt)
 	m_nextName = evnt->name;
 }
 
+void GameState::onCreateNewSceneFromScript(const Events::CreateSceneFromScriptEvent *evnt)
+{
+	SceneData sd;
+	sd.name = evnt->name;
+	sd.prox = evnt->prox;
+	sd.view = evnt->view;
+	m_sceneData.push_back(sd);
+}
+
+void GameState::onAddSceneData(const Events::AddSceneDataEvent *evnt)
+{
+	auto p = std::find_if(begin(m_sceneData), end(m_sceneData), [&](SceneData &sd)
+	{
+		return sd.name == evnt->name;
+	});
+
+	if (p == end(m_sceneData))
+	{
+		std::cout << "WARNING: Failed to add scene data from script. Scene name was not found.\n";
+		return;
+	}
+
+	SceneSpawnData ssd;
+	
+	ssd.persist = Entity::PersistType::None;
+	if (evnt->persist == "global") ssd.persist = Entity::PersistType::Global;
+	else if (evnt->persist == "scene") ssd.persist = Entity::PersistType::Scene;
+	
+	ssd.cache = evnt->cache;
+	
+	ssd.spawnData.blueprint = evnt->blueprint;
+	ssd.spawnData.position.x = evnt->x;
+	ssd.spawnData.position.y = evnt->y;
+	
+	if (evnt->init.size() > 0)
+	{
+		std::string n;
+		for (char ch : evnt->init)
+		{
+			if (ch == ',')
+			{
+				ssd.spawnData.initData.push_back(std::stoi(n));
+				n = "";
+			}
+			else
+			{
+				n += ch;
+			}
+		}
+		ssd.spawnData.initData.push_back(std::stoi(n));
+	}
+
+	for (int i = 0; i < evnt->count; ++i)
+	{
+		p->data.push_back(ssd);
+	}
+}
+
+
+
+
 void GameState::buildScene(const std::string &name)
 {
 	// Factory clears and builds new Entities
@@ -166,6 +229,8 @@ void GameState::buildScene(const std::string &name)
 	m_factory.buildScene(name);
 	m_name = name;
 }
+
+
 
 void GameState::loadTestData(const std::string &fName)
 {
@@ -213,11 +278,11 @@ void GameState::loadTestData(const std::string &fName)
 				}
 				for (int i = 0; i < total; ++i)
 				{
-					sd.data.emplace_back(ssd);
+					sd.data.push_back(ssd);
 				}
 			}
 		}
-		m_sceneData.emplace_back(sd);
+		m_sceneData.push_back(sd);
 	}
 	std::cout << "Scene data loaded...\n";
 }

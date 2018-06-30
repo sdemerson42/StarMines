@@ -190,30 +190,34 @@ void Factory::buildScene(const std::string &name)
 	{
 		return sd.name == name;
 	});
-	if (data != end(m_gameState->m_sceneData))
+	if (data == end(m_gameState->m_sceneData))
 	{
-		// Scene data found; begin construction...
-
-		// Update ProxMap settings
-
-		broadcast(&data->prox);
-
-		// Update view and viewport
-
-		broadcast(&data->view);
-
-		// Build entites from scene data
-
-		auto &v = data->data;
-		for (auto &ssd : v)
-		{
-			createFromBlueprint(ssd.spawnData.blueprint, ssd.spawnData.position.x, ssd.spawnData.position.y, 
-				(ssd.spawnData.initData.size() == 0 ? nullptr : &ssd.spawnData.initData), ssd.cache, ssd.persist);
-		}
-
-		// Clear scene data
-		v.clear();
+		std::cout << "WARNING: Scene '" << name << "' not built. Name could not be found.\n";
+		return;
 	}
+	
+	// Scene data found; begin construction...
+
+	// Update ProxMap settings
+	
+	broadcast(&data->prox);
+
+	// Update view and viewport
+
+	broadcast(&data->view);
+
+	// Build entites from scene data
+
+	auto &v = data->data;
+	for (auto &ssd : v)
+	{
+		createFromBlueprint(ssd.spawnData.blueprint, ssd.spawnData.position.x, ssd.spawnData.position.y, 
+			(ssd.spawnData.initData.size() == 0 ? nullptr : &ssd.spawnData.initData), ssd.cache, ssd.persist);
+	}
+
+	// Clear scene data
+	v.clear();
+	
 	std::cout << "Scene \"" << name << "\" built...\n";
 }
 
