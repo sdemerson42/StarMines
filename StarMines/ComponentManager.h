@@ -30,7 +30,7 @@ public:
 	void deactivateAll(Entity *e);
 	void removeAll(Entity *e);
 private:	
-	static constexpr int MAX_COMPONENTS = 5000;
+	static constexpr int MAX_COMPONENTS = 50000;
 	
 	std::vector<RenderComponent> m_render{ MAX_COMPONENTS };
 	int m_renderSz{ 0 };

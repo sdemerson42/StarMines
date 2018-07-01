@@ -250,7 +250,7 @@ private:
 		float f;
 		int i{ 0 };
 	};
-	static const int m_registerCount{ 20 };
+	static const int m_registerCount{ 128 };
 	RegisterVal m_register[m_registerCount];
 	std::map<std::string, int> m_regMap;
 	int m_regMapIndex;
