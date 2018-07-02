@@ -23,6 +23,10 @@ void ComponentManager::addComponent(Entity *e, const std::string &tag, const std
 	{
 		genAddComponent<TextComponent>(e, initArgs, m_text, m_textSz);
 	}
+	if (tag == "particle")
+	{
+		genAddComponent<ParticleComponent>(e, initArgs, m_particle, m_particleSz);
+	}
 }
 
 void ComponentManager::deactivateComponent(Entity *e, const std::string &tag)
@@ -47,6 +51,10 @@ void ComponentManager::deactivateComponent(Entity *e, const std::string &tag)
 	{
 		genDeactivateComponent<TextComponent>(e, m_text, m_textSz);
 	}
+	if (tag == "particle")
+	{
+		genDeactivateComponent<ParticleComponent>(e, m_particle, m_particleSz);
+	}
 }
 
 void ComponentManager::activateComponent(Entity *e, const std::string &tag)
@@ -67,12 +75,16 @@ void ComponentManager::activateComponent(Entity *e, const std::string &tag)
 
 	{
 		genActivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
-		/*auto c = e->getComponent<BehaviorComponent>();
-		c->resetVM();*/
 	}
 	if (tag == "text")
 	{
 		genActivateComponent<TextComponent>(e, m_text, m_textSz);
+	}
+	if (tag == "particle")
+	{
+		genActivateComponent<ParticleComponent>(e, m_particle, m_particleSz);
+		auto c = e->getComponent<ParticleComponent>();
+		c->reset();
 	}
 }
 
@@ -97,6 +109,10 @@ void ComponentManager::removeComponent(Entity *e, const std::string &tag)
 	if (tag == "text")
 	{
 		genRemoveComponent<TextComponent>(e, m_text, m_textSz);
+	}
+	if (tag == "particle")
+	{
+		genRemoveComponent<ParticleComponent>(e, m_particle, m_particleSz);
 	}
 }
 

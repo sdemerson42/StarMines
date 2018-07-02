@@ -7,6 +7,7 @@
 #include <map>
 
 class RenderComponent;
+class ParticleComponent;
 
 class Renderer : public ISystem
 {
@@ -22,6 +23,7 @@ public:
 private:
 	void fillDrawLayer();
 	void addQuad(RenderComponent &rc);
+	void addParticleQuad(ParticleComponent &pc);
 	void render();
 	struct DrawLayer
 	{

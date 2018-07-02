@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
+#include "ParticleComponent.h"
 #include "TextComponent.h"
 #include "Entity.h"
 #include "ComponentManager.h"
@@ -20,6 +21,9 @@ void Renderer::fillDrawLayer()
 	m_drawLayer.resize(int(RenderComponent::SceneLayer::_SIZE) * int(RenderComponent::WindowLayer::_SIZE));
 	for (int i = 0; i < m_compManager->m_renderSz; ++i)
 		addQuad(m_compManager->m_render[i]);
+
+	for (int i = 0; i < m_compManager->m_particleSz; ++i)
+		addParticleQuad(m_compManager->m_particle[i]);
 }
 
 void Renderer::addQuad(RenderComponent &rc)
@@ -45,6 +49,36 @@ void Renderer::addQuad(RenderComponent &rc)
 	va->second.append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
 	va->second.append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
 	va->second.append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
+}
+
+void Renderer::addParticleQuad(ParticleComponent &pc)
+{
+	
+	int index = int(pc.winLayer()) * int(RenderComponent::SceneLayer::_SIZE) + int(pc.sceneLayer());
+	auto &map = m_drawLayer[index].vaMap;
+	auto va = map.find(pc.texName());
+	if (va == end(map))
+	{
+		map[pc.texName()] = sf::VertexArray{};
+		va = map.find(pc.texName());
+		va->second.setPrimitiveType(sf::Quads);
+	}
+
+	for (ParticleComponent::ParticleData &pd : pc.m_particleData)
+	{
+
+		float tx = pc.position().x;
+		float ty = pc.position().y;
+		float w = pc.size().x;
+		float h = pc.size().y;
+		float x = pd.position.x;
+		float y = pd.position.y;
+
+		va->second.append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
+		va->second.append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
+		va->second.append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
+		va->second.append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
+	}
 }
 
 void Renderer::render()

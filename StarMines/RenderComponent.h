@@ -12,7 +12,7 @@ public:
 	RenderComponent()
 	{
 	}
-	void initialize(const std::vector<std::string> &input) override
+	virtual void initialize(const std::vector<std::string> &input) override
 	{
 		int wl;
 		int sl;
@@ -28,7 +28,7 @@ public:
 		m_winLayer = (WindowLayer)(wl);
 		m_sceneLayer = (SceneLayer)(sl);
 	}
-	void writeOut(std::vector<std::string> &output) override
+	virtual void writeOut(std::vector<std::string> &output) override
 	{
 		initSerial(&m_textureName, Serializable::Type::STRING,
 			&m_position.x, Serializable::Type::FLOAT,
@@ -37,7 +37,7 @@ public:
 			&m_size.y, Serializable::Type::FLOAT);
 		writeSerial(output);
 	}
-	const std::string &getTag() const override
+	virtual const std::string &getTag() const override
 	{
 		return m_tag;
 	}

@@ -159,6 +159,8 @@
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LuaWrapper.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleComponent.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="Factory.cpp" />
@@ -194,6 +196,8 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="LuaWrapper.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleComponent.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="ProxMap.h" />

@@ -16,6 +16,7 @@ class ComponentManager
 	friend class Animator;
 	friend class Physics;
 	friend class Behavior;
+	friend class Particle;
 	friend class GameState;
 public:
 	~ComponentManager()
@@ -42,6 +43,8 @@ private:
 	int m_behaviorSz{ 0 };
 	std::vector<TextComponent> m_text{ MAX_COMPONENTS };
 	int m_textSz{ 0 };
+	std::vector<ParticleComponent> m_particle{ MAX_COMPONENTS };
+	int m_particleSz{ 0 };
 
 	template<typename T>
 	void genAddComponent(Entity *e, const std::vector<std::string> &initArgs, std::vector<T> &v, int &sz);

@@ -23,13 +23,14 @@ GameState::GameState() :
 
 	// Create Systems
 
-	m_sys.emplace_back(std::make_unique<Input>(m_compManager.get()));
-	m_sys.emplace_back(std::make_unique<Spawner>(m_compManager.get(), &m_factory));
-	m_sys.emplace_back(std::make_unique<Physics>(m_compManager.get()));
-	m_sys.emplace_back(std::make_unique<Behavior>(m_compManager.get()));
-	m_sys.emplace_back(std::make_unique<Animator>(m_compManager.get()));
-	m_sys.emplace_back(std::make_unique<Sound>(m_compManager.get(), "data\\SoundFiles.txt"));
-	m_sys.emplace_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
+	m_sys.push_back(std::make_unique<Input>(m_compManager.get()));
+	m_sys.push_back(std::make_unique<Spawner>(m_compManager.get(), &m_factory));
+	m_sys.push_back(std::make_unique<Physics>(m_compManager.get()));
+	m_sys.push_back(std::make_unique<Behavior>(m_compManager.get()));
+	m_sys.push_back(std::make_unique<Animator>(m_compManager.get()));
+	m_sys.push_back(std::make_unique<Particle>(m_compManager.get()));
+	m_sys.push_back(std::make_unique<Sound>(m_compManager.get(), "data\\SoundFiles.txt"));
+	m_sys.push_back(std::make_unique<Renderer>(m_compManager.get(), m_window));
 	std::cout << "Systems created...\n";
 
 	// Events

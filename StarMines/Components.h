@@ -5,3 +5,4 @@
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"
 #include "TextComponent.h"
+#include "ParticleComponent.h"

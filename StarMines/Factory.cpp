@@ -255,6 +255,10 @@ void Factory::clearScene()
 			deactivate(spe.get());
 			m_gameState->m_compManager->removeAll(spe.get());
 		}
+
+		auto pc = spe->getComponent<ParticleComponent>();
+		if (pc)
+			pc->reset();
 	}
 
 	auto b = begin(m_gameState->m_entity);
