@@ -154,6 +154,10 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 		if (c)
 			c->reactivate();
 
+		auto c2 = p->get()->getComponent<RenderComponent>();
+		if (c2)
+			c2->reactivate();
+
 		if (initData)
 			addInitCall(p->get(), initData);
 		

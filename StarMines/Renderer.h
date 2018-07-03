@@ -25,10 +25,16 @@ private:
 	void addQuad(RenderComponent &rc);
 	void addParticleQuad(ParticleComponent &pc);
 	void render();
+	struct VALayer
+	{
+		sf::VertexArray va;
+		sf::Transform transform;
+		bool isTransformed = false;
+	};
 	struct DrawLayer
 	{
 		int index;
-		std::map<std::string, sf::VertexArray> vaMap;
+		std::map<std::string, std::vector<VALayer>> vaMap;
 	};
 	std::vector<DrawLayer> m_drawLayer;
 	sf::RenderWindow &m_window;

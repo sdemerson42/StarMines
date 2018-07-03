@@ -4,6 +4,7 @@
 #include <string>
 #include "Vector2.h"
 #include "Entity.h"
+#include "SFML\Graphics.hpp"
 
 class RenderComponent : public IComponent
 {
@@ -27,6 +28,7 @@ public:
 		readSerial(input);
 		m_winLayer = (WindowLayer)(wl);
 		m_sceneLayer = (SceneLayer)(sl);
+		m_transformed = false;
 	}
 	virtual void writeOut(std::vector<std::string> &output) override
 	{
@@ -40,6 +42,11 @@ public:
 	virtual const std::string &getTag() const override
 	{
 		return m_tag;
+	}
+	void reactivate()
+	{
+		m_transformed = false;
+		m_rotation = 0.0f;
 	}
 
 	enum class WindowLayer
@@ -85,6 +92,20 @@ public:
 		m_position.x = x;
 		m_position.y = y;
 	}
+	void rotate(float angle)
+	{
+		m_transformed = true;
+		m_rotation = angle;
+	}
+	float rotation() const
+	{
+		return m_rotation;
+	}
+
+	bool isTransformed() const
+	{
+		return m_transformed;
+	}
 private:
 	static std::string m_tag;
 	WindowLayer m_winLayer;
@@ -92,4 +113,9 @@ private:
 	std::string m_textureName;
 	Vector2 m_position;
 	Vector2 m_size;
+	
+	// Transform state
+
+	bool m_transformed;
+	float m_rotation;
 };

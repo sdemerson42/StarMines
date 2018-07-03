@@ -7,7 +7,7 @@ Main
 ]
 
 [ global cache
-1 RedGuy 0 0 0
+1 RedGuy 400 300 0
 ]
 
 [ scene spawn

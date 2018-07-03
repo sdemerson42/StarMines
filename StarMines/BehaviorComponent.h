@@ -99,6 +99,7 @@ public:
 	void createNewScene(const std::string &name, const std::string &prox, const std::string &view);
 	void addSceneData(const std::string &name, const std::string &persist, bool cache, int count,
 		const std::string &blueprint, float x, float y, const std::string &sInitData);
+	void rotate(float angle);
 
 
 	// End Lua

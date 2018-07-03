@@ -19,6 +19,7 @@ void Renderer::fillDrawLayer()
 {
 	m_drawLayer.clear();
 	m_drawLayer.resize(int(RenderComponent::SceneLayer::_SIZE) * int(RenderComponent::WindowLayer::_SIZE));
+
 	for (int i = 0; i < m_compManager->m_renderSz; ++i)
 		addQuad(m_compManager->m_render[i]);
 
@@ -30,14 +31,19 @@ void Renderer::addQuad(RenderComponent &rc)
 {
 	int index = int(rc.winLayer()) * int(RenderComponent::SceneLayer::_SIZE) + int(rc.sceneLayer());
 	auto &map = m_drawLayer[index].vaMap;
-	auto va = map.find(rc.texName());
-	if (va == end(map))
+	auto val = map.find(rc.texName());
+	if (val == end(map))
 	{
-		map[rc.texName()] = sf::VertexArray{};
-		va = map.find(rc.texName());
-		va->second.setPrimitiveType(sf::Quads);
+		map[rc.texName()] = std::vector<VALayer>{};
+		val = map.find(rc.texName());
+		val->second.push_back(VALayer{});
+		val->second.back().va.setPrimitiveType(sf::Quads);
 	}
 
+	// Default VertexArray 0 is untransformed
+
+	sf::VertexArray *va = &val->second[0].va;
+	
 	float tx = rc.position().x;
 	float ty = rc.position().y;
 	float w = rc.size().x;
@@ -45,10 +51,22 @@ void Renderer::addQuad(RenderComponent &rc)
 	float x = rc.parent()->position().x;
 	float y = rc.parent()->position().y;
 
-	va->second.append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
-	va->second.append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
-	va->second.append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
-	va->second.append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
+	// Transformed?
+
+	if (rc.isTransformed())
+	{
+		val->second.push_back(VALayer{});
+		VALayer &layer = val->second.back();
+		layer.isTransformed = true;
+		layer.transform.rotate(rc.rotation(), sf::Vector2f{ x + w / 2, y + h / 2 });
+		layer.va.setPrimitiveType(sf::Quads);
+		va = &layer.va;
+	}
+
+	va->append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
+	va->append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
+	va->append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
+	va->append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
 }
 
 void Renderer::addParticleQuad(ParticleComponent &pc)
@@ -56,17 +74,22 @@ void Renderer::addParticleQuad(ParticleComponent &pc)
 	
 	int index = int(pc.winLayer()) * int(RenderComponent::SceneLayer::_SIZE) + int(pc.sceneLayer());
 	auto &map = m_drawLayer[index].vaMap;
-	auto va = map.find(pc.texName());
-	if (va == end(map))
+	auto val = map.find(pc.texName());
+	if (val == end(map))
 	{
-		map[pc.texName()] = sf::VertexArray{};
-		va = map.find(pc.texName());
-		va->second.setPrimitiveType(sf::Quads);
+		map[pc.texName()] = std::vector<VALayer>{};
+		val = map.find(pc.texName());
+		val->second.push_back(VALayer{});
+		val->second.back().va.setPrimitiveType(sf::Quads);
 	}
+
+	// Particle transformation is presently unsupported. Place
+	// particles in default array.
+
+	sf::VertexArray &va = val->second[0].va;
 
 	for (ParticleComponent::ParticleData &pd : pc.m_particleData)
 	{
-
 		float tx = pc.position().x;
 		float ty = pc.position().y;
 		float w = pc.size().x;
@@ -74,10 +97,10 @@ void Renderer::addParticleQuad(ParticleComponent &pc)
 		float x = pd.position.x;
 		float y = pd.position.y;
 
-		va->second.append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
-		va->second.append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
-		va->second.append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
-		va->second.append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
+		va.append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
+		va.append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
+		va.append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
+		va.append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
 	}
 }
 
@@ -107,7 +130,17 @@ void Renderer::render()
 				tp = m_textureMap.find(vaMap.first);
 			}
 
-			m_window.draw(vaMap.second, sf::RenderStates{ &tp->second });
+			for (auto &val : vaMap.second)
+			{
+				if (val.va.getVertexCount() > 0)
+				{
+					sf::RenderStates states{ &tp->second };
+					if (val.isTransformed)
+						states.transform = val.transform;
+
+					m_window.draw(val.va, states);
+				}
+			}
 		}
 	}
 

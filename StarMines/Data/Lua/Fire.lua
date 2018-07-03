@@ -8,6 +8,7 @@ function Fire_init(bc)
 	dir[2] = dir[2] + r
 	bc:setDir(dir[1], dir[2])
 	bc:setSpeed(8)
+	bc:rotate(math.random(-20, 20))
 end
 
 function Fire(bc)

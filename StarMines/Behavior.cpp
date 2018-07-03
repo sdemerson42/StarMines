@@ -105,6 +105,7 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("gPersist", &BehaviorComponent::globalPersist).
 		addFunction("createNewScene", &BehaviorComponent::createNewScene).
 		addFunction("addSceneData", &BehaviorComponent::addSceneData).
+		addFunction("rotate", &BehaviorComponent::rotate).
 		endClass();
 }
 

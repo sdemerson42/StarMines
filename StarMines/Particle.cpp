@@ -17,6 +17,8 @@ void Particle::update()
 			for (int j = 0; j < count; ++j)
 			{
 				Vector2 position = c.parent()->position();
+				position.x += c.m_offset.x;
+				position.y += c.m_offset.y;
 				int dx = rand() % 201 - 100;
 				int dy = rand() % 201 - 100;
 				float mag = sqrt(dx * dx + dy * dy);

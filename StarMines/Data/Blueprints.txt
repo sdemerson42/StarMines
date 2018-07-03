@@ -32,7 +32,7 @@ Logic : Default
 
 Fire : Default
 {
-[ particle sprites\squares.png 2 2 2 2 0 2 30 10 0.5 2.0 1.0 ]
+[ particle sprites\squares.png 2 2 2 2 0 2 19 25 30 10 0.5 2.0 1.0 ]
 [ render sprites\flame.png 0 0 38 50 0 2 ]
 [ physics 2 2 16 16 0 0 0 false ]
 [ behavior Fire ]

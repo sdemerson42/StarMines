@@ -2,6 +2,7 @@
 #include "PhysicsComponent.h"
 #include "AnimationComponent.h"
 #include "TextComponent.h"
+#include "RenderComponent.h"
 #include "Entity.h"
 #include "Events.h"
 
@@ -315,6 +316,13 @@ void BehaviorComponent::addSceneData(const std::string &name, const std::string 
 	e.init = sInitData;
 
 	broadcast(&e);
+}
+
+void BehaviorComponent::rotate(float angle)
+{
+	auto c = parent()->getComponent<RenderComponent>();
+	if (c)
+		c->rotate(angle);
 }
 
 // ==================================== END LUA ========================================================
