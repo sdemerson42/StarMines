@@ -52,6 +52,11 @@ void GameState::exec()
 {
 	std::cout << "-- Executing game loop... --\n";
 	float delta{ 0.0f };
+
+	// Test state
+
+	bool frameCount = false;
+
 	while (m_window.isOpen())
 	{
 		sf::Event evnt;
@@ -64,7 +69,6 @@ void GameState::exec()
 			}
 		}
 
-		
 		// Main loop
 
 		if (m_clock.getElapsedTime().asMilliseconds() + delta > m_frameRate)
@@ -82,7 +86,16 @@ void GameState::exec()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				m_window.close();
 
-			//std::cout << m_clock.getElapsedTime().asMilliseconds() << std::endl;
+			// Turn on / off FrameCount
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
+				frameCount = true;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2))
+				frameCount = false;
+
+
+			if (frameCount)
+				std::cout << "Frame: " << m_clock.getElapsedTime().asMilliseconds() << std::endl;
 		}
 
 		// Scene changes

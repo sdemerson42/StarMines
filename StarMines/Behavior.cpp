@@ -106,6 +106,7 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("createNewScene", &BehaviorComponent::createNewScene).
 		addFunction("addSceneData", &BehaviorComponent::addSceneData).
 		addFunction("rotate", &BehaviorComponent::rotate).
+		addFunction("scale", &BehaviorComponent::scale).
 		endClass();
 }
 

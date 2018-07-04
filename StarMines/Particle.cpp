@@ -1,5 +1,6 @@
 #include "Particle.h"
 #include "ComponentManager.h"
+#include <algorithm>
 
 void Particle::update()
 {
@@ -11,7 +12,7 @@ void Particle::update()
 		c.m_pCount += c.m_densityPerFrame;
 		if (c.m_pCount > 1.0f)
 		{
-			// Add particles
+			// Activate particles
 			int count = (int)c.m_pCount;
 			c.m_pCount -= (float)count;
 			for (int j = 0; j < count; ++j)
@@ -30,22 +31,37 @@ void Particle::update()
 				dyf *= speed;
 				int life = c.m_life + rand() % (c.m_lifeVariance * 2) - c.m_lifeVariance;
 
-				c.m_particleData.emplace_back(position.x, position.y, dxf, dyf, life);
+				// Do not spawn new particles over the maximum allowed...
+
+				if (c.m_particleSz < c.m_maxParticles)
+				{
+					c.m_particleData[c.m_particleSz++] = ParticleComponent::ParticleData{ position.x, position.y, dxf, dyf, life };
+				}
 			}
 			// move particles
 			for (auto &pd : c.m_particleData)
 			{
+				if (&pd - begin(c.m_particleData)._Ptr == c.m_particleSz)
+					break;
+
 				pd.position.x += pd.direction.x;
 				pd.position.y += pd.direction.y;
 				pd.lifeCounter++;
 			}
-			// delete particles
-			for (int j = 0; j < c.m_particleData.size(); ++j)
+			// deactivate particles
+			for (int j = 0; j < c.m_particleSz; ++j)
 			{
-				if (c.m_particleData[j].life == c.m_particleData[j].lifeCounter)
+				// Deactivate and swap
+				if (c.m_particleData[j].lifeCounter == c.m_particleData[j].life)
 				{
-					c.m_particleData.erase(begin(c.m_particleData) + j);
-					--j;
+					c.m_particleData[j].active = false;
+					if (j == c.m_particleSz - 1)
+					{
+						--c.m_particleSz;
+						break;
+					}
+					std::swap(c.m_particleData[j], c.m_particleData[c.m_particleSz - 1]);
+					--c.m_particleSz;
 				}
 			}
 		}

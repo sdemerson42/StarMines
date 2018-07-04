@@ -58,7 +58,9 @@ void Renderer::addQuad(RenderComponent &rc)
 		val->second.push_back(VALayer{});
 		VALayer &layer = val->second.back();
 		layer.isTransformed = true;
-		layer.transform.rotate(rc.rotation(), sf::Vector2f{ x + w / 2, y + h / 2 });
+		sf::Vector2f center{ x + w / 2, y + h / 2 };
+		layer.transform.rotate(rc.rotation(), center);
+		layer.transform.scale(rc.scale(), center);
 		layer.va.setPrimitiveType(sf::Quads);
 		va = &layer.va;
 	}
@@ -87,9 +89,12 @@ void Renderer::addParticleQuad(ParticleComponent &pc)
 	// particles in default array.
 
 	sf::VertexArray &va = val->second[0].va;
-
+	
 	for (ParticleComponent::ParticleData &pd : pc.m_particleData)
 	{
+		if (!pd.active)
+			break;
+
 		float tx = pc.position().x;
 		float ty = pc.position().y;
 		float w = pc.size().x;

@@ -28,6 +28,8 @@ public:
 		readSerial(input);
 		m_winLayer = (WindowLayer)(wl);
 		m_sceneLayer = (SceneLayer)(sl);
+		m_scale = sf::Vector2f{ 1.0f, 1.0f };
+		m_rotation = 0.0f;
 		m_transformed = false;
 	}
 	virtual void writeOut(std::vector<std::string> &output) override
@@ -47,6 +49,7 @@ public:
 	{
 		m_transformed = false;
 		m_rotation = 0.0f;
+		m_scale = sf::Vector2f{ 1.0f, 1.0f };
 	}
 
 	enum class WindowLayer
@@ -94,12 +97,28 @@ public:
 	}
 	void rotate(float angle)
 	{
-		m_transformed = true;
 		m_rotation = angle;
+		if (m_scale.x == 1.0f && m_scale.y == 1.0f && m_rotation == 0.0f)
+			m_transformed = false;
+		else
+			m_transformed = true;
 	}
 	float rotation() const
 	{
 		return m_rotation;
+	}
+	void setScale(float x, float y)
+	{
+		m_scale.x = x;
+		m_scale.y = y;
+		if (x == 1.0f && y == 1.0f && m_rotation == 0.0f)
+			m_transformed = false;
+		else
+			m_transformed = true;
+	}
+	const sf::Vector2f &scale() const
+	{
+		return m_scale;
 	}
 
 	bool isTransformed() const
@@ -118,4 +137,5 @@ private:
 
 	bool m_transformed;
 	float m_rotation;
+	sf::Vector2f m_scale;
 };

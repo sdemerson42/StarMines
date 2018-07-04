@@ -325,6 +325,13 @@ void BehaviorComponent::rotate(float angle)
 		c->rotate(angle);
 }
 
+void BehaviorComponent::scale(float x, float y)
+{
+	auto c = parent()->getComponent<RenderComponent>();
+	if (c)
+		c->setScale(x, y);
+}
+
 // ==================================== END LUA ========================================================
 
 void BehaviorComponent::callDataSync(Ruff::Call &c)
