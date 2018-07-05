@@ -183,6 +183,7 @@
     <ClInclude Include="AutoList.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="BehaviorComponent.h" />
+    <ClInclude Include="ColorState.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Concur.h" />

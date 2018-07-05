@@ -359,6 +359,20 @@ void BehaviorComponent::setColor(int r, int g, int b, int a)
 		c->setColor(r, g, b, a);
 }
 
+const RenderComponent::Color &BehaviorComponent::textColor()
+{
+	auto c = parent()->getComponent<TextComponent>();
+	if (c)
+		return c->color();
+}
+
+void BehaviorComponent::setTextColor(int r, int g, int b, int a)
+{
+	auto c = parent()->getComponent<TextComponent>();
+	if (c)
+		c->setColor(r, g, b, a);
+}
+
 // ==================================== END LUA ========================================================
 
 void BehaviorComponent::callDataSync(Ruff::Call &c)

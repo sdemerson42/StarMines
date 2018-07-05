@@ -120,6 +120,8 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("scale", &BehaviorComponent::scale).
 		addFunction("color", &BehaviorComponent::color).
 		addFunction("setColor", &BehaviorComponent::setColor).
+		addFunction("textColor", &BehaviorComponent::textColor).
+		addFunction("setTextColor", &BehaviorComponent::setTextColor).
 		endClass();
 }
 

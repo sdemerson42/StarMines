@@ -106,6 +106,9 @@ public:
 	void scale(float x, float y);
 	const RenderComponent::Color &color();
 	void setColor(int r, int g, int b, int a);
+	const RenderComponent::Color &textColor();
+	void setTextColor(int r, int g, int b, int a);
+	
 
 	// End Lua
 

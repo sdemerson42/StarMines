@@ -1,12 +1,14 @@
 #pragma once
 
 #include "IComponent.h"
+#include "ColorState.h"
 #include <string>
 #include "Vector2.h"
 #include "Entity.h"
 #include "SFML\Graphics.hpp"
 
-class RenderComponent : public IComponent
+
+class RenderComponent : public IComponent, public ColorState
 {
 	friend class Animator;
 	friend class Renderer;
@@ -63,13 +65,6 @@ public:
 	enum class SceneLayer
 	{
 		STATIC_BACK, BACK, FORE, ACTOR, OVERLAY, _SIZE
-	};
-	struct Color
-	{
-		int r;
-		int g;
-		int b;
-		int a;
 	};
 
 	WindowLayer winLayer() const
@@ -131,17 +126,6 @@ public:
 	{
 		return m_scale;
 	}
-	void setColor(int r, int g, int b, int a)
-	{
-		m_color.r = r;
-		m_color.g = g;
-		m_color.b = b;
-		m_color.a = a;
-	}
-	const Color &color() const
-	{
-		return m_color;
-	}
 
 	bool isTransformed() const
 	{
@@ -160,8 +144,4 @@ private:
 	bool m_transformed;
 	float m_rotation;
 	sf::Vector2f m_scale;
-
-	// Color state
-
-	Color m_color;
 };
