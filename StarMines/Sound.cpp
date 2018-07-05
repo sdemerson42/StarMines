@@ -18,11 +18,26 @@ Sound::Sound(ComponentManager *cm, const std::string &fName) :
 	m_lowIndex = m_hiSz;
 	
 	registerFunc(this, &Sound::onSound);
+	registerFunc(this, &Sound::onMusic);
 }
 
 void Sound::onSound(const Events::SoundEvent *evnt)
 {
 	m_event.emplace_back(*evnt);
+}
+
+void Sound::onMusic(const Events::MusicEvent *evnt)
+{
+	if (evnt->stop)
+	{
+		m_music.stop();
+		return;
+	}
+
+	m_music.openFromFile(evnt->tag);
+	m_music.setLoop(evnt->loop);
+	m_music.setVolume(evnt->volume);
+	m_music.play();
 }
 
 void Sound::update()

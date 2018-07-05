@@ -24,6 +24,9 @@ private:
 	const unsigned int m_lowSz{ 2 };
 	std::vector<Events::SoundEvent> m_event;
 
+	sf::Music m_music;
+
 	void onSound(const Events::SoundEvent *evnt);
+	void onMusic(const Events::MusicEvent *evnt);
 	void update() override;
 };

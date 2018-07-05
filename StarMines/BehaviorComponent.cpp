@@ -179,6 +179,19 @@ void BehaviorComponent::stopSound(const std::string &tag)
 	broadcast(&se);
 }
 
+void BehaviorComponent::playMusic(const std::string &tag, float volume, bool loop)
+{
+	Events::MusicEvent me{ tag, loop, false, volume };
+	broadcast(&me);
+}
+
+void BehaviorComponent::stopMusic()
+{
+	Events::MusicEvent me;
+	me.stop = true;
+	broadcast(&me);
+}
+
 void BehaviorComponent::playAnim(const std::string &tag)
 {
 	auto a = parent()->getComponent<AnimationComponent>();
@@ -330,6 +343,20 @@ void BehaviorComponent::scale(float x, float y)
 	auto c = parent()->getComponent<RenderComponent>();
 	if (c)
 		c->setScale(x, y);
+}
+
+const RenderComponent::Color &BehaviorComponent::color()
+{
+	auto c = parent()->getComponent<RenderComponent>();
+	if (c)
+		return c->color();
+}
+
+void BehaviorComponent::setColor(int r, int g, int b, int a)
+{
+	auto c = parent()->getComponent<RenderComponent>();
+	if (c)
+		c->setColor(r, g, b, a);
 }
 
 // ==================================== END LUA ========================================================

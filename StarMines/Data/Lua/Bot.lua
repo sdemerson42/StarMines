@@ -35,6 +35,9 @@ function Bot_calls(bc)
 		if call.label == "init" then
 			local ary = stoary(call.sdata)
 			bc:setSpeed(ary[1])
+			if ary[1] == 6 then
+				bc:setColor(255, 50, 0, 255)
+			end
 		end
 	
 		call = bc:getCall()

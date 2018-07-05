@@ -8,6 +8,7 @@
 #include <string>
 #include <algorithm>
 #include "RuffCommon.h"
+#include "RenderComponent.h"
 
 class Entity;
 
@@ -85,6 +86,8 @@ public:
 	void despawn(const std::string &sdata);
 	void playSound(const std::string &tag, float volume, bool hi, bool loop);
 	void stopSound(const std::string &tag);
+	void playMusic(const std::string &tag, float volume, bool loop);
+	void stopMusic();
 	void playAnim(const std::string &tag);
 	void setTargetByCaller();
 	void setTargetByTag(const std::string &tag, const std::string &method);
@@ -101,7 +104,8 @@ public:
 		const std::string &blueprint, float x, float y, const std::string &sInitData);
 	void rotate(float angle);
 	void scale(float x, float y);
-
+	const RenderComponent::Color &color();
+	void setColor(int r, int g, int b, int a);
 
 	// End Lua
 

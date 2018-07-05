@@ -88,6 +88,19 @@ namespace Events
 		float volume;
 	};
 
+	struct MusicEvent : EventBase
+	{
+		MusicEvent()
+		{}
+		MusicEvent(const std::string &_tag, bool _loop, bool _stop = false, float _volume = 50.0f) :
+			tag{ _tag }, loop{ _loop }, stop{ _stop }, volume{ _volume }
+		{}
+		std::string tag;
+		bool loop;
+		bool stop;
+		float volume;
+	};
+
 	struct SceneChangeEvent : EventBase
 	{
 		SceneChangeEvent()

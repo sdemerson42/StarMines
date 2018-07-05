@@ -9,6 +9,7 @@
 class RenderComponent : public IComponent
 {
 	friend class Animator;
+	friend class Renderer;
 public:
 	RenderComponent()
 	{
@@ -28,9 +29,8 @@ public:
 		readSerial(input);
 		m_winLayer = (WindowLayer)(wl);
 		m_sceneLayer = (SceneLayer)(sl);
-		m_scale = sf::Vector2f{ 1.0f, 1.0f };
-		m_rotation = 0.0f;
-		m_transformed = false;
+		
+		reactivate();
 	}
 	virtual void writeOut(std::vector<std::string> &output) override
 	{
@@ -50,6 +50,10 @@ public:
 		m_transformed = false;
 		m_rotation = 0.0f;
 		m_scale = sf::Vector2f{ 1.0f, 1.0f };
+		m_color.r = 255;
+		m_color.g = 255;
+		m_color.b = 255;
+		m_color.a = 255;
 	}
 
 	enum class WindowLayer
@@ -59,6 +63,13 @@ public:
 	enum class SceneLayer
 	{
 		STATIC_BACK, BACK, FORE, ACTOR, OVERLAY, _SIZE
+	};
+	struct Color
+	{
+		int r;
+		int g;
+		int b;
+		int a;
 	};
 
 	WindowLayer winLayer() const
@@ -120,6 +131,17 @@ public:
 	{
 		return m_scale;
 	}
+	void setColor(int r, int g, int b, int a)
+	{
+		m_color.r = r;
+		m_color.g = g;
+		m_color.b = b;
+		m_color.a = a;
+	}
+	const Color &color() const
+	{
+		return m_color;
+	}
 
 	bool isTransformed() const
 	{
@@ -138,4 +160,8 @@ private:
 	bool m_transformed;
 	float m_rotation;
 	sf::Vector2f m_scale;
+
+	// Color state
+
+	Color m_color;
 };

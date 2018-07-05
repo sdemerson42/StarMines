@@ -41,7 +41,7 @@ function Logic_calls(bc)
 		call = bc:getCall()
 	end
 
-	if bc:getRegInt("score") >= 500 then
+	if bc:getRegInt("score") >= 1000 then
 		bc:incRegInt("inactive")
 		bc:newScene("Alt")
 	end

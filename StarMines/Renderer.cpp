@@ -65,10 +65,12 @@ void Renderer::addQuad(RenderComponent &rc)
 		va = &layer.va;
 	}
 
-	va->append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
-	va->append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
-	va->append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
-	va->append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
+	sf::Color color{ (sf::Uint8)rc.m_color.r, (sf::Uint8)rc.m_color.g,
+		(sf::Uint8)rc.m_color.b, (sf::Uint8)rc.m_color.a };
+	va->append(sf::Vertex(sf::Vector2f{ x, y }, color, sf::Vector2f{ tx, ty }));
+	va->append(sf::Vertex(sf::Vector2f{ x + w, y }, color, sf::Vector2f{ tx + w, ty }));
+	va->append(sf::Vertex(sf::Vector2f{ x + w, y + h }, color, sf::Vector2f{ tx + w, ty + h }));
+	va->append(sf::Vertex(sf::Vector2f{ x, y + h }, color, sf::Vector2f{ tx, ty + h }));
 }
 
 void Renderer::addParticleQuad(ParticleComponent &pc)
@@ -102,10 +104,12 @@ void Renderer::addParticleQuad(ParticleComponent &pc)
 		float x = pd.position.x;
 		float y = pd.position.y;
 
-		va.append(sf::Vertex(sf::Vector2f{ x, y }, sf::Vector2f{ tx, ty }));
-		va.append(sf::Vertex(sf::Vector2f{ x + w, y }, sf::Vector2f{ tx + w, ty }));
-		va.append(sf::Vertex(sf::Vector2f{ x + w, y + h }, sf::Vector2f{ tx + w, ty + h }));
-		va.append(sf::Vertex(sf::Vector2f{ x, y + h }, sf::Vector2f{ tx, ty + h }));
+		sf::Color color{ (sf::Uint8)pc.m_color.r, (sf::Uint8)pc.m_color.g, 
+			(sf::Uint8)pc.m_color.b, (sf::Uint8)pc.m_color.a };
+		va.append(sf::Vertex(sf::Vector2f{ x, y }, color, sf::Vector2f{ tx, ty }));
+		va.append(sf::Vertex(sf::Vector2f{ x + w, y }, color, sf::Vector2f{ tx + w, ty }));
+		va.append(sf::Vertex(sf::Vector2f{ x + w, y + h }, color, sf::Vector2f{ tx + w, ty + h }));
+		va.append(sf::Vertex(sf::Vector2f{ x, y + h }, color, sf::Vector2f{ tx, ty + h }));
 	}
 }
 

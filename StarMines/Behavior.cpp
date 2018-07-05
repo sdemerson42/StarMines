@@ -1,6 +1,7 @@
 #include "Behavior.h"
 #include "BehaviorComponent.h"
 #include "ComponentManager.h"
+#include "RenderComponent.h"
 #include "LuaWrapper.h"
 #include "Renderer.h"
 
@@ -62,6 +63,14 @@ Behavior::Behavior(ComponentManager *cm) :
 		endClass();
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).
+		beginClass<RenderComponent::Color>("Color").
+		addData("r", &RenderComponent::Color::r).
+		addData("g", &RenderComponent::Color::g).
+		addData("b", &RenderComponent::Color::b).
+		addData("a", &RenderComponent::Color::a).
+		endClass();
+
+	luabridge::getGlobalNamespace(LuaWrapper::L).
 		beginClass<BehaviorComponent::CInput>("CInput").
 		addData("x", &BehaviorComponent::CInput::x).
 		addData("y", &BehaviorComponent::CInput::y).
@@ -92,6 +101,8 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("despawn", &BehaviorComponent::despawn).
 		addFunction("playSound", &BehaviorComponent::playSound).
 		addFunction("stopSound", &BehaviorComponent::stopSound).
+		addFunction("playMusic", &BehaviorComponent::playMusic).
+		addFunction("stopMusic", &BehaviorComponent::stopMusic).
 		addFunction("playAnim", &BehaviorComponent::playAnim).
 		addFunction("setTargetByTag", &BehaviorComponent::setTargetByTag).
 		addFunction("setTargetByCaller", &BehaviorComponent::setTargetByCaller).
@@ -107,6 +118,8 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("addSceneData", &BehaviorComponent::addSceneData).
 		addFunction("rotate", &BehaviorComponent::rotate).
 		addFunction("scale", &BehaviorComponent::scale).
+		addFunction("color", &BehaviorComponent::color).
+		addFunction("setColor", &BehaviorComponent::setColor).
 		endClass();
 }
 
