@@ -63,15 +63,23 @@ namespace Events
 
 	struct InputEvent : EventBase
 	{
-		InputEvent()
-		{}
-		InputEvent(float _xAxis, float _yAxis, float _uAxis, float _vAxis) :
-			xAxis{ _xAxis }, yAxis{ _yAxis }, uAxis{ _uAxis }, vAxis{ _vAxis }
-		{}
-		float xAxis;
-		float yAxis;
-		float uAxis;
-		float vAxis;
+		float xAxis{0.0f};
+		float yAxis{ 0.0f };
+		float uAxis{ 0.0f };
+		float vAxis{ 0.0f };
+		float padXAxis{ 0.0f };
+		float padYAxis{ 0.0f };
+		float zAxis{ 0.0f };
+		bool a{ false };
+		bool b{ false };
+		bool x{ false };
+		bool y{ false };
+		bool shoulderL{ false };
+		bool shoulderR{ false };
+		bool select{ false };
+		bool start{ false };
+		bool stickL{ false };
+		bool stickR{ false };
 	};
 
 	struct SoundEvent : EventBase

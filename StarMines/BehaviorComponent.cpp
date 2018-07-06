@@ -7,7 +7,7 @@
 #include "Events.h"
 
 std::string BehaviorComponent::m_tag{ "behavior" };
-BehaviorComponent::CInput BehaviorComponent::m_input{};
+Events::InputEvent BehaviorComponent::m_input{};
 const float BehaviorComponent::m_axisDeadzone{ 20.0f };
 BehaviorComponent *BehaviorComponent::m_currentComponent{ nullptr };
 //std::map<std::string, Ruff::ByteCode> BehaviorComponent::m_codeMap;
@@ -228,7 +228,7 @@ bool BehaviorComponent::active()
 	return IComponent::active();
 }
 
-const BehaviorComponent::CInput &BehaviorComponent::input() const
+const Events::InputEvent &BehaviorComponent::input() const
 {
 	return m_input;
 }

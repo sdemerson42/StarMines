@@ -26,15 +26,12 @@ public:
 
 	static void setInput(Events::InputEvent *evnt)
 	{
-		m_input.x = evnt->xAxis;
-		m_input.y = evnt->yAxis;
-		m_input.u = evnt->uAxis;
-		m_input.v = evnt->vAxis;
+		m_input = *evnt;
 
-		if (abs(m_input.x) < m_axisDeadzone) m_input.x = 0.0f;
-		if (abs(m_input.y) < m_axisDeadzone) m_input.y = 0.0f;
-		if (abs(m_input.u) < m_axisDeadzone) m_input.u = 0.0f;
-		if (abs(m_input.v) < m_axisDeadzone) m_input.v = 0.0f;
+		if (abs(m_input.xAxis) < m_axisDeadzone) m_input.xAxis = 0.0f;
+		if (abs(m_input.yAxis) < m_axisDeadzone) m_input.yAxis = 0.0f;
+		if (abs(m_input.uAxis) < m_axisDeadzone) m_input.uAxis = 0.0f;
+		if (abs(m_input.vAxis) < m_axisDeadzone) m_input.vAxis = 0.0f;
 	}
 
 	void initialize(const std::vector<std::string> &input) override
@@ -62,13 +59,7 @@ public:
 	{
 		return m_tag;
 	}
-	struct CInput
-	{
-		float x;
-		float y;
-		float u;
-		float v;
-	};
+	
 	// Lua Interface Functions
 
 	const std::string &module();
@@ -94,7 +85,7 @@ public:
 	const Vector2 &targetPosition();
 	void deactivate();
 	bool active();
-	const CInput &input() const;
+	const Events::InputEvent &input() const;
 	void setText(const std::string &txt);
 	void appendText(const std::string &txt);
 	void newScene(const std::string &scene);
@@ -240,7 +231,7 @@ public:
 private:
 
 	static std::string m_tag;
-	static CInput m_input;
+	static Events::InputEvent m_input;
 	static const float m_axisDeadzone;
 	static BehaviorComponent *m_currentComponent;
 

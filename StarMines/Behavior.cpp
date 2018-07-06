@@ -71,11 +71,24 @@ Behavior::Behavior(ComponentManager *cm) :
 		endClass();
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).
-		beginClass<BehaviorComponent::CInput>("CInput").
-		addData("x", &BehaviorComponent::CInput::x).
-		addData("y", &BehaviorComponent::CInput::y).
-		addData("u", &BehaviorComponent::CInput::u).
-		addData("v", &BehaviorComponent::CInput::v).
+		beginClass<Events::InputEvent>("Input").
+		addData("xAxis", &Events::InputEvent::xAxis).
+		addData("yAxis", &Events::InputEvent::yAxis).
+		addData("uAxis", &Events::InputEvent::uAxis).
+		addData("vAxis", &Events::InputEvent::vAxis).
+		addData("zAxis", &Events::InputEvent::zAxis).
+		addData("padXAxis", &Events::InputEvent::padXAxis).
+		addData("padYAxis", &Events::InputEvent::padYAxis).
+		addData("a", &Events::InputEvent::a).
+		addData("b", &Events::InputEvent::b).
+		addData("x", &Events::InputEvent::x).
+		addData("y", &Events::InputEvent::y).
+		addData("select", &Events::InputEvent::select).
+		addData("start", &Events::InputEvent::start).
+		addData("shoulderL", &Events::InputEvent::shoulderL).
+		addData("shoulderR", &Events::InputEvent::shoulderR).
+		addData("stickL", &Events::InputEvent::stickL).
+		addData("stickR", &Events::InputEvent::stickR).
 		endClass();
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).

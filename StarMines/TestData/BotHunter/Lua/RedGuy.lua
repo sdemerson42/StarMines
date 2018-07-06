@@ -35,10 +35,10 @@ end
 
 function RedGuy_input(bc)
 	local inp = bc:input()
-	local x = inp.x
-	local y = inp.y
-	local u = inp.u
-	local v = inp.v
+	local x = inp.xAxis
+	local y = inp.yAxis
+	local u = inp.uAxis
+	local v = inp.vAxis
 	
 	-- If firing flamethrower, movement phase is canceled
 	
