@@ -1,0 +1,49 @@
+BC Commands
+
+getRegInt(const std::string &var)
+getRegfloat(const std::string &var)
+setRegInt(const std::string &var, int value)
+setRegfloat(const std::string &var, float value)
+incRegInt(const std::string &var)
+decRegInt(const std::string &var)
+position();
+setPosition(float x, float y);
+speed();
+setSpeed(float x);
+dir();
+setDir(float x, float y);
+getCall();
+clearCalls();
+sendToTag(const std::string &tag, const std::string &label, const std::string &sdata);
+sendToCaller(const std::string &label, const std::string &sdata);
+spawn(const std::string &bTag, float x, float y, const std::string &sdata, const std::string &persist);
+despawn(const std::string &sdata);
+playSound(const std::string &tag, float volume, bool hi, bool loop);
+stopSound(const std::string &tag);
+playMusic(const std::string &tag, float volume, bool loop);
+stopMusic();
+playAnim(const std::string &tag);
+setTargetByCaller();
+setTargetByTag(const std::string &tag, const std::string &method);
+targetBehavior()
+targetPosition();
+deactivate();
+active();
+input() const;
+setText(const std::string &txt);
+appendText(const std::string &txt);
+newScene(const std::string &scene);
+globalPersist();
+createNewScene(const std::string &name, const std::string &prox, const std::string &view);
+addSceneData(const std::string &name, const std::string &persist, bool cache, int count,
+		const std::string &blueprint, float x, float y, const std::string &sInitData);
+rotate(float angle);
+scale(float x, float y);
+RenderComponent::Color &color();
+setColor(int r, int g, int b, int a);
+textColor();
+setTextColor(int r, int g, int b, int a);
+
+Free Functions
+
+setViewCenter(float x, float y)

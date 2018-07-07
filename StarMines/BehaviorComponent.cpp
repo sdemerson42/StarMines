@@ -217,6 +217,16 @@ const Vector2 &BehaviorComponent::targetPosition()
 	r.y = 0;
 	return r;
 }
+BehaviorComponent *BehaviorComponent::targetBehavior()
+{
+	if (m_target)
+	{
+		auto bc = m_target->getComponent<BehaviorComponent>();
+		if (bc)
+			return bc;
+	}
+	return nullptr;
+}
 
 void BehaviorComponent::deactivate()
 {

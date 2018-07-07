@@ -83,6 +83,7 @@ public:
 	void setTargetByCaller();
 	void setTargetByTag(const std::string &tag, const std::string &method);
 	const Vector2 &targetPosition();
+	BehaviorComponent *targetBehavior();
 	void deactivate();
 	bool active();
 	const Events::InputEvent &input() const;

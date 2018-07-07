@@ -120,6 +120,7 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("setTargetByTag", &BehaviorComponent::setTargetByTag).
 		addFunction("setTargetByCaller", &BehaviorComponent::setTargetByCaller).
 		addFunction("targetPosition", &BehaviorComponent::targetPosition).
+		addFunction("targetBehavior", &BehaviorComponent::targetBehavior).
 		addFunction("active", &BehaviorComponent::active).
 		addFunction("deactivate", &BehaviorComponent::deactivate).
 		addFunction("input", &BehaviorComponent::input).
