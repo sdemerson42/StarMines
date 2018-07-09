@@ -46,6 +46,7 @@ public:
 			m_register[i].i = 0;
 		m_regMap.clear();
 		m_regMapIndex = 0;
+		setActive(true);
 	}
 
 	void update()
