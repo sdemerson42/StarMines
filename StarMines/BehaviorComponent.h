@@ -39,7 +39,7 @@ public:
 		m_luaModule = input[0];
 		reactivate();
 	}
-	void reactivate()
+	void reactivate() override
 	{
 		m_call.clear();
 		for (int i = 0; i < m_registerCount; ++i)
@@ -112,7 +112,6 @@ public:
 		// Probably no longer necessary
 		//m_vm.setParent(this);
 	}
-	//void resetVM();
 
 	void addCall(Ruff::Call &c)
 	{

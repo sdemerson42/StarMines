@@ -90,11 +90,11 @@ void ComponentManager::genDeactivateComponent(Entity *e, std::vector<T> &v, int 
 				auto vipc = find(begin(vip->m_compRef), end(vip->m_compRef), &v[sz - 1]);
 				*vipc = &v[i];
 
-				if (ti == std::type_index{ typeid(BehaviorComponent) })
+				/*if (ti == std::type_index{ typeid(BehaviorComponent) })
 				{
 					static_cast<BehaviorComponent *>(*vipc)->onMove();
 					static_cast<BehaviorComponent *>(*ecp)->onMove();
-				}
+				}*/
 
 				--sz;
 				break;
@@ -121,18 +121,29 @@ void ComponentManager::genActivateComponent(Entity *e, std::vector<T> &v, int &s
 		{
 			if (&v[i] == *ecp)
 			{
+				// Do not swap if we are already at the end of the vector...
+				if (i == sz)
+				{
+					*ecp = &v[sz];
+					(*ecp)->reactivate();
+					++sz;
+					break;
+				}
+
 				std::swap(v[i], v[sz]);
 				*ecp = &v[sz];
+				(*ecp)->reactivate();
 				auto vip = v[i].parent();
 				if (vip)
 				{
 					auto vipc = find(begin(vip->m_compRef), end(vip->m_compRef), &v[sz]);
 					*vipc = &v[i];
-					if (ti == std::type_index{ typeid(BehaviorComponent) })
+					/*if (ti == std::type_index{ typeid(BehaviorComponent) })
 					{
 						static_cast<BehaviorComponent *>(*vipc)->onMove();
 						static_cast<BehaviorComponent *>(*ecp)->onMove();
-					}
+					}*/
+
 				}
 				++sz;
 				break;

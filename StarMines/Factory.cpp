@@ -150,14 +150,6 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 		m_gameState->m_compManager->activateAll(p->get());
 		(*p)->setPosition(x, y);
 
-		auto c = p->get()->getComponent<BehaviorComponent>();
-		if (c)
-			c->reactivate();
-
-		auto c2 = p->get()->getComponent<RenderComponent>();
-		if (c2)
-			c2->reactivate();
-
 		if (initData)
 			addInitCall(p->get(), initData);
 		
@@ -259,10 +251,6 @@ void Factory::clearScene()
 			deactivate(spe.get());
 			m_gameState->m_compManager->removeAll(spe.get());
 		}
-
-		auto pc = spe->getComponent<ParticleComponent>();
-		if (pc)
-			pc->reset();
 	}
 
 	auto b = begin(m_gameState->m_entity);

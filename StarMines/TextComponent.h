@@ -30,6 +30,7 @@ public:
 	{
 		return m_tag;
 	}
+
 	void setString(const std::string &str)
 	{
 		m_text.setString(str);

@@ -47,7 +47,7 @@ public:
 	{
 		return m_tag;
 	}
-	void reactivate()
+	virtual void reactivate() override
 	{
 		m_transformed = false;
 		m_rotation = 0.0f;

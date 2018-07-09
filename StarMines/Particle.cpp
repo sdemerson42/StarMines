@@ -10,7 +10,7 @@ void Particle::update()
 
 		auto &c = m_compManager->m_particle[i];
 		c.m_pCount += c.m_densityPerFrame;
-		if (c.m_pCount > 1.0f)
+		if (c.m_pCount >= 1.0f)
 		{
 			// Activate particles
 			int count = (int)c.m_pCount;

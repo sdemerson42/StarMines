@@ -9,12 +9,17 @@
 class AnimationComponent : public IComponent
 {
 	friend class Animator;
+	friend class ComponentManager;
 public:
 	AnimationComponent() :
 		m_playing{ false }
 	{}
 	void initialize(const std::vector<std::string> &input) override
 	{
+		m_anim.clear();
+		m_playing = false;
+		m_curAnimTag = "";
+
 		int tot = std::stoi(input[0]);
 		int i{ 1 };
 		int c{ 0 };
@@ -42,6 +47,7 @@ public:
 	void writeOut(std::vector<std::string> &output) override
 	{
 	}
+
 	const std::string &getTag() const override
 	{
 		return m_tag;

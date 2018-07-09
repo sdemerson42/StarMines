@@ -21,6 +21,10 @@ public:
 	virtual void writeOut(std::vector<std::string> &output)
 	{}
 	virtual const std::string &getTag() const = 0;
+	virtual void reactivate()
+	{
+
+	}
 
 	bool active() const
 	{

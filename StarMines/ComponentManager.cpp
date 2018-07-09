@@ -72,7 +72,6 @@ void ComponentManager::activateComponent(Entity *e, const std::string &tag)
 		genActivateComponent<PhysicsComponent>(e, m_physics, m_physicsSz);
 	}
 	if (tag == "behavior")
-
 	{
 		genActivateComponent<BehaviorComponent>(e, m_behavior, m_behaviorSz);
 	}
@@ -83,8 +82,6 @@ void ComponentManager::activateComponent(Entity *e, const std::string &tag)
 	if (tag == "particle")
 	{
 		genActivateComponent<ParticleComponent>(e, m_particle, m_particleSz);
-		auto c = e->getComponent<ParticleComponent>();
-		c->reset();
 	}
 }
 
