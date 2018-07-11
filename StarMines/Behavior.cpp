@@ -136,6 +136,7 @@ Behavior::Behavior(ComponentManager *cm) :
 		addFunction("setColor", &BehaviorComponent::setColor).
 		addFunction("textColor", &BehaviorComponent::textColor).
 		addFunction("setTextColor", &BehaviorComponent::setTextColor).
+		addFunction("callerHasTag", &BehaviorComponent::callerHasTag).
 		endClass();
 }
 

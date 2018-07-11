@@ -101,7 +101,7 @@ public:
 	void setColor(int r, int g, int b, int a);
 	const RenderComponent::Color &textColor();
 	void setTextColor(int r, int g, int b, int a);
-	
+	bool callerHasTag(const std::string &tag);
 
 	// End Lua
 

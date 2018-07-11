@@ -26,7 +26,7 @@ playAnim(const std::string &tag);
 setTargetByCaller();
 setTargetByTag(const std::string &tag, const std::string &method);
 targetBehavior()
-targetPosition();
+targetPosition();	-- Returns -1, -1 if no target
 deactivate();
 active();
 input() const;
@@ -43,6 +43,7 @@ RenderComponent::Color &color();
 setColor(int r, int g, int b, int a);
 textColor();
 setTextColor(int r, int g, int b, int a);
+callerHasTag(const std::string &tag)
 
 Free Functions
 

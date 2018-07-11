@@ -213,8 +213,8 @@ const Vector2 &BehaviorComponent::targetPosition()
 	if (m_target)
 		return m_target->position();
 	Vector2 r;
-	r.x = 0;
-	r.y = 0;
+	r.x = -1.0f;
+	r.y = -1.0f;
 	return r;
 }
 BehaviorComponent *BehaviorComponent::targetBehavior()
@@ -381,6 +381,13 @@ void BehaviorComponent::setTextColor(int r, int g, int b, int a)
 	auto c = parent()->getComponent<TextComponent>();
 	if (c)
 		c->setColor(r, g, b, a);
+}
+
+bool BehaviorComponent::callerHasTag(const std::string &tag)
+{
+	if (m_curCall.caller)
+		return m_curCall.caller->findTag(tag);
+	return false;
 }
 
 // ==================================== END LUA ========================================================
