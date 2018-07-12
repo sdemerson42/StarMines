@@ -73,12 +73,16 @@ void BehaviorComponent::setDir(float x, float y)
 
 const Ruff::Call &BehaviorComponent::getCall()
 {
+
 	Ruff::Call &r = m_curCall;
 
-	if (m_call.size() == 0)
+	if (m_call.size() == 0 || !active())
 	{
 		r.label = "nil";
 		r.caller = nullptr;
+		if (!active())
+			m_call.clear();
+
 		return r;
 	}
 	r = m_call[0];

@@ -52,6 +52,7 @@ void GameState::exec()
 {
 	std::cout << "-- Executing game loop... --\n";
 	float delta{ 0.0f };
+	m_window.setMouseCursorVisible(false);
 
 	// Test state
 
