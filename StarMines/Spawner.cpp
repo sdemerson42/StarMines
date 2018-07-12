@@ -23,9 +23,9 @@ void Spawner::update()
 		else if (p.persist == "none") persist = Entity::PersistType::None;
 
 		if (p.initData.size() > 0)
-			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, &p.initData, persist);
+			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, &p.initData, persist, p.bc);
 		else
-			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, nullptr, persist);
+			m_factory->activateFromBlueprint(p.blueprint, p.position.x, p.position.y, nullptr, persist, p.bc);
 	}
 	m_spawnData.clear();
 

@@ -60,6 +60,7 @@ Behavior::Behavior(ComponentManager *cm) :
 		addData("tag", &Ruff::Call::tag).
 		addData("label", &Ruff::Call::label).
 		addData("sdata", &Ruff::Call::sdata).
+		addData("bc", &Ruff::Call::bc).
 		endClass();
 
 	luabridge::getGlobalNamespace(LuaWrapper::L).

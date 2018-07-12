@@ -102,6 +102,7 @@ void BehaviorComponent::sendToTag
 	c.tag = c.caller->name();
 	c.label = label;
 	c.sdata = sdata;
+	c.bc = this;
 	callDataSync(c);
 	broadcastCall(c, tag);
 }
@@ -119,6 +120,7 @@ void BehaviorComponent::sendToCaller(const std::string &label, const std::string
 			c.tag = c.caller->name();
 			c.label = label;
 			c.sdata = sdata;
+			c.bc = this;
 			callDataSync(c);
 			b->addPendingCall(c);
 		}
@@ -131,6 +133,7 @@ void BehaviorComponent::spawn(const std::string &bTag, float x, float y, const s
 	Events::SpawnDataEvent sde{ bTag, x, y };
 	sde.persist = persist;
 	sde.sInitData = sdata;
+	sde.bc = this;
 	spawnDataSync(sde);
 	broadcast(&sde);
 }

@@ -10,6 +10,7 @@ struct EventBase
 	{}
 };
 
+class BehaviorComponent;
 
 namespace Events
 {
@@ -36,6 +37,7 @@ namespace Events
 		std::vector<int> initData;
 		std::string sInitData;
 		std::string persist;
+		BehaviorComponent*bc = nullptr;
 	};
 
 	struct DespawnEvent : EventBase

@@ -115,7 +115,7 @@ public:
 
 	void addCall(Ruff::Call &c)
 	{
-		m_call.emplace_back(c);
+		m_call.push_back(c);
 	}
 	void addPendingCall(Ruff::Call &c)
 	{

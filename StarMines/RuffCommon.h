@@ -5,6 +5,7 @@
 #include <string>
 
 class Entity;
+class BehaviorComponent;
 
 namespace Ruff
 {
@@ -86,7 +87,7 @@ namespace Ruff
 		Call()
 		{}
 		Call(const Call &r) :
-			caller{ r.caller }, label{ r.label }, data{ r.data }, tag{ r.tag }, sdata{ r.sdata }
+			caller{ r.caller }, label{ r.label }, data{ r.data }, tag{ r.tag }, sdata{ r.sdata }, bc{ r.bc }
 		{}
 		Call &operator=(const Call &r)
 		{
@@ -95,6 +96,7 @@ namespace Ruff
 			data = r.data;
 			tag = r.tag;
 			sdata = r.sdata;
+			bc = r.bc;
 			return *this;
 		}
 		Entity *caller;
@@ -102,6 +104,7 @@ namespace Ruff
 		std::vector<int> data;
 		std::string tag;
 		std::string sdata;
+		BehaviorComponent *bc = nullptr;
 	};
 
 }

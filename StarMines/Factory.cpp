@@ -105,7 +105,7 @@ std::istream &operator >> (std::istream &is, Factory::Blueprint &b)
 	return is;
 }
 
-void Factory::createFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, bool cache, Entity::PersistType persist)
+void Factory::createFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, bool cache, Entity::PersistType persist, BehaviorComponent *bc)
 {
 	auto p = std::find_if(begin(m_blueprint), end(m_blueprint), [&](const Blueprint &b)
 	{
@@ -127,7 +127,7 @@ void Factory::createFromBlueprint(const std::string &blueprint, float x, float y
 		m_gameState->m_compManager->addComponent(e, cd.type, cd.data);
 	}
 	if (initData)
-		addInitCall(e, initData);
+		addInitCall(e, initData, bc);
 
 	e->setPersist(persist);
 
@@ -137,7 +137,7 @@ void Factory::createFromBlueprint(const std::string &blueprint, float x, float y
 		e->setActive(true);
 }
 
-void Factory::activateFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, Entity::PersistType persist)
+void Factory::activateFromBlueprint(const std::string &blueprint, float x, float y, std::vector<int> *initData, Entity::PersistType persist, BehaviorComponent *bc)
 {
 	auto &v = m_gameState->m_entity;
 	auto p = std::find_if(begin(v), end(v), [&](std::shared_ptr<Entity> &sp)
@@ -151,7 +151,7 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 		(*p)->setPosition(x, y);
 
 		if (initData)
-			addInitCall(p->get(), initData);
+			addInitCall(p->get(), initData, bc);
 		
 		if (persist != Entity::PersistType::Default)
 			(*p)->setPersist(persist);
@@ -159,7 +159,7 @@ void Factory::activateFromBlueprint(const std::string &blueprint, float x, float
 	else
 	{
 		if (persist == Entity::PersistType::Default) persist = Entity::PersistType::None;
-		createFromBlueprint(blueprint, x, y, initData, false, persist);
+		createFromBlueprint(blueprint, x, y, initData, false, persist, bc);
 	}
 }
 
@@ -168,7 +168,7 @@ void Factory::deactivate(Entity *e)
 	m_gameState->m_compManager->deactivateAll(e);
 }
 
-void Factory::addInitCall(Entity *e, std::vector<int> *initData)
+void Factory::addInitCall(Entity *e, std::vector<int> *initData, BehaviorComponent *bc)
 {
 	auto c = e->getComponent<BehaviorComponent>();
 	if (c)
@@ -176,6 +176,7 @@ void Factory::addInitCall(Entity *e, std::vector<int> *initData)
 		Ruff::Call call;
 		call.data = *initData;
 		call.label = "init";
+		call.bc = bc;
 		c->addCall(call);
 	}
 }
