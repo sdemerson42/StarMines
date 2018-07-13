@@ -15,7 +15,6 @@ function Bot_calls(bc)
 		if call.label == "collision" and call.tag == "Fire" then
 			bc:playSound("Die", 40, false, false)
 			local speed = bc:speed()
-			bc:sendToTag("Logic", "incScore", speed)
 			
 			-- Plasma
 			
@@ -29,6 +28,7 @@ function Bot_calls(bc)
 			bc:spawn("Plasma", pos.x, pos.y, "-1,1", "default")
 			bc:spawn("Plasma", pos.x, pos.y, "1,-1", "default")
 			
+			bc:sendToTag("MineLogic", "kill", "")
 			bc:despawn("")
 		end
 

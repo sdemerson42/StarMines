@@ -1,6 +1,7 @@
 Die audio\SFX_Die.wav
-Alarm audio\SFX_Rewind.wav
+Alarm audio\SFX_Alarm.wav
 GameOver audio\SFX_Launcher.wav
 Flame audio\SFX_Flame.wav
 Coin audio\SFX_Coin.wav
 Jump audio\SFX_Jump.wav
+CellDie audio\SFX_Infect.wav

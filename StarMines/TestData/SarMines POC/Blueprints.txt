@@ -1,0 +1,259 @@
+StrategyLogic : Default
+{
+[ behavior StrategyLogic ]
+[ text fonts\bitwise.ttf 50 242 183 7 255 Turn: 0 ]
+}
+
+MainLogic : Default
+{
+[ behavior MainLogic ]
+}
+
+Bak : Default
+{
+[ render sprites\bak.png 0 0 1920 1080 0 0 ]
+}
+
+Sweep : Default
+{
+[ render sprites\sweep.png 0 0 1080 1080 1 2 ]
+[ behavior Sweep ]
+}
+
+Title : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 StarMines ]
+}
+
+OreCounter : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Ore: ]
+[ behavior OreCounter ]
+}
+
+RedCounter : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Bots: ]
+[ behavior RedCounter ]
+}
+
+CartCounter : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Carts: ]
+[ behavior CartCounter ]
+}
+
+SentryCounter : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Sentry: ]
+[ behavior SentryCounter ]
+}
+
+ExploresCounter : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Explorations this Turn: ]
+[ behavior ExploresCounter ]
+}
+
+ShipCounter : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Ship:5/5 ]
+[ behavior ShipCounter ]
+}
+
+
+ShipIcon : Default
+{
+[ render sprites\ScannerIcons.png 0 0 16 16 0 1 ]
+[ physics 0 0 16 16 0 0 0 false ]
+[ behavior ShipIcon ]
+}
+
+MineIcon : Default
+{
+[ render sprites\ScannerIcons.png 16 0 16 16 0 1 ]
+[ physics 0 0 16 16 0 0 0 false ]
+}
+
+FoundryIcon : Default
+{
+[ render sprites\ScannerIcons.png 32 0 16 16 0 1 ]
+[ physics 0 0 16 16 0 0 0 false ]
+[ behavior FoundryIcon ]
+}
+
+Cart : Default
+{
+[ render sprites\ScannerIcons.png 64 0 16 16 0 1 ]
+[ physics 0 0 16 16 0 0 0 false ]
+[ anim
+2
+empty 1 64 0 1 0
+full 1 80 0 1 0
+empty ]
+[ behavior Cart ]
+}
+
+Master : Default
+{
+[ behavior Master ]
+}
+
+SceneManager : Default
+{
+[ behavior SceneManager ]
+}
+
+MapGen : Default
+{
+[ behavior MapGen ]
+}
+
+RedGuy : Default
+{
+[ render sprites\player.png 0 0 32 32 0 3 ]
+[ anim
+4
+right 4 0 0 32 0 64 0 96 0 10 1
+left 4 128 0 160 0 192 0 224 0 10 1
+idleR 1 0 0 1 0
+idleL 1 224 0 1 0
+right ]
+[ physics 2 2 26 26 8 10 1 true ]
+[ behavior RedGuy ]
+}
+
+Fire : Default
+{
+[ particle sprites\flame.png 15 20 2 2 0 2 19 25 30 15 0.5 2.0 1.0 ]
+[ render sprites\flame.png 0 0 38 50 0 3 ]
+[ physics 2 2 16 16 0 0 0 false ]
+[ behavior Fire ]
+}
+
+Wall : Default
+{
+[ render sprites\squares.png 0 0 32 32 0 1 ]
+[ physics 0 0 32 32 0 0 0 true ]
+}
+
+Floor : Default
+{
+[ render sprites\squares.png 32 0 32 32 0 1 ]
+}
+
+BioWall : Default
+{
+[ render sprites\squares.png 96 0 32 32 0 1 ]
+[ physics 0 0 32 32 0 0 0 true ]
+[ anim
+1
+active 2 96 0 128 0 50 1
+active ]
+}
+
+Cursor : Default
+{
+[ render sprites\ScannerIcons.png 48 0 16 16 0 2 ]
+[ physics 0 0 16 16 0 0 0 false ]
+[ behavior Cursor ]
+}
+
+Bot : Default
+{
+[ render sprites\robot.gif 0 0 30 30 0 3 ]
+[ physics 2 2 26 26 0 0 3 true ]
+[ anim
+2
+active 2 30 0 0 0 15 1
+idle 1 0 0 1 0
+idle ]
+[ behavior Bot ]
+}
+
+Plasma : Default
+{
+[ render sprites\s.gif 0 0 20 20 0 3 ]
+[ anim 1 main 2 20 0 0 0 3 1 main ]
+[ physics 2 2 16 16 0 0 0 false ]
+[ behavior Plasma ]
+}
+
+BotSpawnPoint : Default
+{
+[ render sprites\squares.png 64 0 32 32 0 2 ]
+[ behavior BotSpawnPoint ]
+[ physics 0 0 32 32 0 0 0 false ]
+}
+
+MineLogic : Default
+{
+[ behavior MineLogic ]
+}
+
+SentryIcon : Default
+{
+[ render sprites\ScannerIcons.png 96 0 16 16 0 1 ]
+[ physics 0 0 16 16 0 0 0 false ]
+[ anim
+1
+active 2 96 0 112 0 30 1
+active ]
+[ behavior SentryIcon ]
+}
+
+DefenseLogic : Default
+{
+[ behavior DefenseLogic ]
+[ text fonts\bitwise.ttf 50 242 183 7 255 1800 ]
+}
+
+Larva : Wave
+{
+[ render sprites\ScannerIcons.png 128 0 16 16 0 3 ]
+[ physics 0 0 16 16 0 0 0 false ]
+[ anim
+1
+active 2 128 0 144 0 10 1
+active ]
+[ behavior Larva ]
+}
+
+SentryShot : Default
+{
+[ render sprites\ScannerIcons.png 104 4 4 4 0 3 ]
+[ physics 0 0 4 4 0 0 0 false ]
+[ behavior SentryShot ]
+}
+
+SentryZone : Default
+{
+[ physics 0 0 200 200 0 0 0 false ]
+[ behavior SentryZone ]
+}
+
+WinMessage : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Ship_Repairs_Complete ]
+}
+
+LoseMessage : Default
+{
+[ text fonts\bitwise.ttf 50 242 183 7 255 Ship_Destroyed_ ]
+}
+
+RedCell : Default
+{
+[ render sprites\cells.png 0 0 30 30 0 3 ]
+[ physics 10 10 10 10 0 0 0 true ]
+[ behavior RedCell ]
+}
+
+BlueCell : Default
+{
+[ render sprites\cells.png 60 0 30 30 0 3 ]
+[ physics 10 10 10 10 0 0 0 true ]
+[ behavior BlueCell ]
+}
+
+

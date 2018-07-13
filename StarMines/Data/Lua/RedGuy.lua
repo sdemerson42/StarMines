@@ -11,6 +11,9 @@ function RedGuy_move(bc, x, y)
 	
 	if x < 0 or facing == 0 then bc:playAnim("left") end
 	if x > 0 or facing == 1 then bc:playAnim("right") end
+
+	local pos = bc:position()
+	setViewCenter(pos.x, pos.y)
 end
 
 function RedGuy_fire(bc, u, v)
@@ -56,14 +59,12 @@ end
 function RedGuy_calls(bc)
 	local call = bc:getCall()
 	while call.label ~= "nil" do
-		if call.label == "collision" and call.tag == "Bot" then
+		if call.label == "collision" and (call.tag == "Bot" or call.tag == "RedCell") then
 			bc:stopSound("Flame")
 			bc:playSound("GameOver", 40, true, false)
-			local pos = bc:position()
-			bc:spawn("Grave", pos.x, pos.y, "", "default")
 			bc:despawn("")
 			bc:incRegInt("inactive")
-			bc:sendToTag("Logic", "gameOver", "")
+			bc:sendToTag("MineLogic", "redDead", "")
 			break
 		end
 
