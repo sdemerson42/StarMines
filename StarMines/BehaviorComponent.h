@@ -42,8 +42,12 @@ public:
 	void reactivate() override
 	{
 		m_call.clear();
+		m_pendingCall.clear();
 		for (int i = 0; i < m_registerCount; ++i)
+		{
 			m_register[i].i = 0;
+			m_register[i].f = 0.0f;
+		}
 		m_regMap.clear();
 		m_regMapIndex = 0;
 		setActive(true);
