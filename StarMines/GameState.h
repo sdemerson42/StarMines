@@ -58,5 +58,5 @@ private:
 	void onAddSceneData(const Events::AddSceneDataEvent *);
 
 	void buildScene(const std::string &name);
-	void loadTestData(const std::string &fName);
+	void loadSceneData(const std::string &fName);
 };

@@ -42,7 +42,7 @@ GameState::GameState() :
 	registerFunc(this, &GameState::onAddSceneData);
 
 	// Test Data
-	loadTestData("Data\\TestData.txt");
+	loadSceneData("Data\\SceneData.txt");
 	buildScene("Main");
 
 	std::cout << "Gamestate constructed...\n";
@@ -251,7 +251,7 @@ void GameState::buildScene(const std::string &name)
 
 
 
-void GameState::loadTestData(const std::string &fName)
+void GameState::loadSceneData(const std::string &fName)
 {
 	std::ifstream ifs{ fName };
 	std::string s;
