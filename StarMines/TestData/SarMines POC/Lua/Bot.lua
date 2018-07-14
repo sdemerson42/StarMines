@@ -28,7 +28,7 @@ function Bot_calls(bc)
 			bc:spawn("Plasma", pos.x, pos.y, "-1,1", "default")
 			bc:spawn("Plasma", pos.x, pos.y, "1,-1", "default")
 			
-			bc:sendToTag("MineLogic", "kill", "")
+			bc:sendToTag("MineLogic", "deadPoint", "")
 			bc:despawn("")
 		end
 

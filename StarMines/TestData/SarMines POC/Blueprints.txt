@@ -27,7 +27,7 @@ Title : Default
 
 OreCounter : Default
 {
-[ text fonts\bitwise.ttf 50 242 183 7 255 Ore: ]
+[ text fonts\bitwise.ttf 50 242 90 7 255 Ore: ]
 [ behavior OreCounter ]
 }
 
@@ -131,7 +131,7 @@ Fire : Default
 [ behavior Fire ]
 }
 
-Wall : Default
+Wall : Barrier
 {
 [ render sprites\squares.png 0 0 32 32 0 1 ]
 [ physics 0 0 32 32 0 0 0 true ]
@@ -142,13 +142,13 @@ Floor : Default
 [ render sprites\squares.png 32 0 32 32 0 1 ]
 }
 
-BioWall : Default
+BioWall : Barrier
 {
 [ render sprites\squares.png 96 0 32 32 0 1 ]
 [ physics 0 0 32 32 0 0 0 true ]
 [ anim
 1
-active 2 96 0 128 0 50 1
+active 6 96 0 96 0 96 0 128 0 160 0 128 0 8 1
 active ]
 }
 
@@ -245,14 +245,14 @@ LoseMessage : Default
 RedCell : Default
 {
 [ render sprites\cells.png 0 0 30 30 0 3 ]
-[ physics 10 10 10 10 0 0 0 true ]
+[ physics 5 5 20 20 0 0 0 true ]
 [ behavior RedCell ]
 }
 
 BlueCell : Default
 {
 [ render sprites\cells.png 60 0 30 30 0 3 ]
-[ physics 10 10 10 10 0 0 0 true ]
+[ physics 5 5 20 20 0 0 0 true ]
 [ behavior BlueCell ]
 }
 

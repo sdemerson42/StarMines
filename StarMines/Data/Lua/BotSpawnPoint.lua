@@ -2,7 +2,11 @@ function BotSpawnPoint_spawn(bc)
 	local pos = bc:position()
 	if bc:getRegInt("cells") == 1 then
 		local r = math.random(1,6)
-		if r == 1 then
+		local upper = 1
+		if g_turn > 3 then upper = 2 end
+		if g_turn > 6 then upper = 3 end
+
+		if r <= upper then
 			bc:spawn("RedCell", pos.x, pos.y, "", "none")
 		else
 			bc:spawn("BlueCell", pos.x, pos.y, "", "none")
@@ -14,6 +18,7 @@ function BotSpawnPoint_spawn(bc)
 		bc:spawn("Bot", pos.x, pos.y, math.random(1,upper), "none")
 	end
 	bc:setRegInt("cooldown", 60)
+	bc:sendToTag("MineLogic", "report", "")
 end
 
 function BotSpawnPoint_calls(bc)

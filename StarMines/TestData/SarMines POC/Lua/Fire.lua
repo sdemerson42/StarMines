@@ -13,6 +13,15 @@ end
 
 function Fire(bc)
 	if bc:getRegInt("init") == 0 then Fire_init(bc) end
+
+	local call = bc:getCall()
+	while call.label ~= "nil" do
+		if call.label == "collision" and bc:callerHasTag("Barrier") then
+			bc:deactivate()
+			bc:despawn("")
+		end 
+		call = bc:getCall()
+	end
 	
 	local counter = bc:getRegInt("counter")
 	if counter == 30 then bc:despawn("")

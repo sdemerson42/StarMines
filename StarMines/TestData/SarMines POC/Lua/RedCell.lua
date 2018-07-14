@@ -26,7 +26,7 @@ function RedCell_calls(bc)
 				bc:playSound("CellDie", 40, false, false)
 				bc:deactivate()
 				bc:despawn("")
-			
+				bc:sendToTag("MineLogic", "deadPoint", "")
 			elseif call.tag ~= "BotSpawnPoint" then 
 				RedCell_change(bc)
 			end

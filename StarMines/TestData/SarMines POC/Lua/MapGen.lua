@@ -138,7 +138,7 @@ function MapGen_calls(bc)
 	local call = bc:getCall()
 	while call.label ~= "nil" do
 		if call.label == "generate" then
-			bc:setRegInt("cells", math.random(1,3))
+			bc:setRegInt("cells", math.random(1,2))
 			local mapIndex = stoary(call.sdata)
 			bc:createNewScene("Mine"..mapIndex[1], "1920,1920,96,96","800,600,.25,.25,.416,.555,400,300")
 			bc:addSceneData("Mine"..mapIndex[1], "scene", false, 1, "MineLogic", 0, 0, "")
